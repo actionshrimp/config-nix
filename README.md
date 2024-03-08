@@ -1,0 +1,40 @@
+# config-nix
+
+- nix-darwin / nixos configuration
+- home-manager configuration
+- static dotfiles
+
+## Setup
+
+```
+$ nix-shell -p vim
+$ sudo vim /etc/nixos/configuration.nix
+<set defaultUser, add dave user>
+$ sudo nixos-rebuild switch
+
+<as dave>:
+$ ssh-keygen -t ed25519 -C "your_email@example.com"
+<add to github>
+
+$ git clone git@github.com:actionshrimp/config-nix.git ~/config-nix
+$ git clone git@github.com:actionshrimp/config-nix-private.git ~/config-nix-private
+```
+
+### NixOS
+
+Get flakes enabled in the default /etc/nixos/configuration.nix (already done on NixOS-WSL).
+
+Install the first generation
+
+    sudo nixos-rebuild switch --flake .#hyperv-nixos
+
+### MacOS
+
+Install the first generation (also needs flakes enabled):
+
+    nix build .#darwinConfigurations.daves-macbook.system
+    sudo ./result/sw/bin/darwin-rebuild switch --flake .#daves-macbook
+
+#### homebrew
+
+You need to manually install homebrew using the homebrew installer for nix-darwin to be able to manage homebrew packages.
