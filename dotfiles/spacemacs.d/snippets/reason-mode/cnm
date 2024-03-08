@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : className Css merge
+#key : cnm
+#contributor : Dave Aitken
+# --
+className=Css.(merge([$1, style([$2])]))
