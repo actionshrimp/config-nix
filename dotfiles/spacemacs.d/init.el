@@ -436,6 +436,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
                   :weight normal
                   :width normal
                   :size 15))
+
+  ;; wraps words with truncate-line enabled
+  (setq-default word-wrap t)
   )
 
 (defun dotspacemacs/user-config ()
