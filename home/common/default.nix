@@ -36,7 +36,6 @@
     pkgs.postgresql
     pkgs.python39
     pkgs.ripgrep
-    pkgs.rnix-lsp
     pkgs.silver-searcher
     pkgs.sqlite.dev
     pkgs.tree
