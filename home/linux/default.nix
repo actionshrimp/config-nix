@@ -29,5 +29,9 @@
     };
   };
 
-  home.packages = [ pkgs.dig pkgs.emacs ];
+  home.packages = [
+    pkgs.dig
+    pkgs.emacs
+    pkgs.pinentry
+  ];
 }
