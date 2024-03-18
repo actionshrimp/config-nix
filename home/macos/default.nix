@@ -9,7 +9,13 @@
     };
   };
 
-  home.packages = [ pkgs.tree pkgs.emacsMacport pkgs.coreutils ];
+  home.packages = [
+    pkgs.tree
+    pkgs.emacsMacport
+    pkgs.coreutils
+    pkgs.pinentry_mac
+  ];
+
 
   home.sessionPath = [ "/opt/homebrew/bin" ];
 

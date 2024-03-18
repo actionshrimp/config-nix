@@ -32,7 +32,6 @@
     pkgs.nodejs
     pkgs.nurl
     (lib.hiPrio pkgs.parallel)
-    pkgs.pinentry
     pkgs.postgresql
     pkgs.python39
     pkgs.ripgrep
