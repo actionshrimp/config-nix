@@ -38,3 +38,22 @@ Install the first generation (also needs flakes enabled):
 #### homebrew
 
 You need to manually install homebrew using the homebrew installer for nix-darwin to be able to manage homebrew packages.
+
+
+## Troubleshooting
+
+Error on macos when applying via a separate 'admin' account:
+
+```
+error:
+       … while fetching the input 'git+file:///Users/dave/config-nix'
+
+       error: opening Git repository '"/Users/dave/config-nix"': repository path '/Users/dave/config-nix/' is not owned by current user
+```
+
+Need to mark this repo as safe for the admin user. Add this to `/Users/admin/.config/git/config`:
+
+```
+[safe]
+   directory = /Users/dave/config-nix
+```
