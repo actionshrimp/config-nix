@@ -14,6 +14,7 @@
     pkgs.emacs
     pkgs.coreutils
     pkgs.pinentry_mac
+    pkgs.iterm2
   ];
 
 
