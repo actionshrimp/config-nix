@@ -19,11 +19,6 @@
 
   home.sessionPath = [ "/opt/homebrew/bin" ];
 
-  home.file.".config/karabiner" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/config-nix/dotfiles/config/karabiner";
-  };
-
   programs.zsh = {
     initExtra = ''
       vnodes() {
