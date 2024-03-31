@@ -5,7 +5,7 @@ config-nix-private: {
     stateVersion = "22.05";
     sshKeys = [ "id_ed25519" ] ++ config-nix-private.sshKeys.personal;
     sshConfig = config-nix-private.sshConfig.personal;
-    homeModules = [ ../../home/darwin ];
+    homeModules = [ ../../home/darwin ../../home/syncthing.nix ];
   };
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;
