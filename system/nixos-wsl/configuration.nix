@@ -1,4 +1,7 @@
-{ hostName }: { lib, pkgs, nixpkgs, config, nixos-wsl, modulesPath, ... }:
+{ hostName
+, nixos-wsl
+, ...
+}: { lib, pkgs, config, modulesPath, ... }:
 
 with lib;
 let defaultUser = "dave"; in

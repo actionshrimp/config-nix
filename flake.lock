@@ -6,17 +6,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1710075961,
-        "narHash": "sha256-2pWbZoLt51cMeKtlglFWJYev3rvS+S7mrplGmv8Ojhc=",
-        "ref": "6802b7404c166528b686901e9347f64d2ca72555",
-        "rev": "6802b7404c166528b686901e9347f64d2ca72555",
-        "revCount": 2,
+        "lastModified": 1711890671,
+        "narHash": "sha256-gEBKgcsOPWwJbMcGYHMO/cDkcEE+4ZXWCrF/FVaeU9o=",
+        "ref": "refs/heads/main",
+        "rev": "e1419811141babef5e6add1b42e6bad1bb4abfd8",
+        "revCount": 3,
         "type": "git",
-        "url": "ssh://git@github.com/actionshrimp/config-nix-private"
+        "url": "file:///Users/dave/config-nix-private"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/actionshrimp/config-nix-private"
+        "url": "file:///Users/dave/config-nix-private"
       }
     },
     "darwin": {

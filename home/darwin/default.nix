@@ -1,13 +1,4 @@
-{ configModule, outputName }: { config, pkgs, lib, ... }: {
-
-  programs.zsh = {
-    shellAliases = {
-      ns = "vim ${(toString configModule)}";
-      nss = ''
-        pushd ${config.home.homeDirectory}/config-nix && ((nix build .#darwinConfigurations.${outputName}.system && su admin -c "./result/sw/bin/darwin-rebuild switch --flake .#${outputName}") || true) && popd
-      '';
-    };
-  };
+{ pkgs, ... }: {
 
   home.packages = [
     pkgs.tree
