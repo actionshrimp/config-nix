@@ -39,10 +39,6 @@ Install the first generation (also needs flakes enabled):
 
 You need to manually install homebrew using the homebrew installer for nix-darwin to be able to manage homebrew packages.
 
-#### iTerm2
-
-Annoyingly iTerm2 doesn't seem to follow symlinks, so the preferences directory needs to be manually set to ./dotfiles/iterm2 in iTerm2's General > Preferences > Load preferences from a custom folder or URL.
-
 ## Troubleshooting
 
 Error on macos when applying via a separate 'admin' account:
