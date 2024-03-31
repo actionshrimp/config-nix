@@ -45,6 +45,9 @@
     dock.autohide-delay = 1000.0;
   };
 
+  system.keyboard.enableKeyMapping = true;
+  system.keyboard.remapCapsLockToControl = true;
+
   homebrew = {
     enable = true;
     taps = [ "homebrew/cask-fonts" ];
