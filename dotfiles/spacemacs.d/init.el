@@ -432,7 +432,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq spacemacs-theme-org-agenda-height nil)
 
   (setq-default dotspacemacs-default-font
-                `("Source Code Pro"
+                `("JetBrainsMono Nerd Font"
                   :weight normal
                   :width normal
                   :size 15))
