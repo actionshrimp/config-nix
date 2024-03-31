@@ -33,7 +33,7 @@ Install the first generation
 Install the first generation (also needs flakes enabled):
 
     nix build .#darwinConfigurations.daves-macbook.system
-    sudo ./result/sw/bin/darwin-rebuild switch --flake .#daves-macbook
+    ./result/sw/bin/darwin-rebuild switch --flake .#daves-macbook
 
 #### homebrew
 
