@@ -48,7 +48,7 @@
       sshKnownHosts = config-nix-private.sshKnownHosts;
       buildMachines = config-nix-private.buildMachines;
 
-      homeManagerConfFor = { system, homeDirectory, stateVersion, sshKeys }: targetConfig:
+      homeManagerConfFor = { system, homeDirectory, stateVersion, sshKeys }: targetConfig: extraModules:
         let
           commonHome = (import ./home/common {
             sshKeys = sshKeys ++ privateSshKeys;
@@ -67,9 +67,9 @@
           home.username = "dave";
           home.homeDirectory = homeDirectory;
           home.stateVersion = stateVersion;
-          imports = [ commonHome targetConfig ];
+          imports = [ commonHome targetConfig ] ++ extraModules;
         };
-      darwinSystem = hostName:
+      darwinSystem = hostName: extraHomeModules:
         let
           system = "aarch64-darwin";
           darwinConfigModule = ./hosts/macbook/darwin-configuration.nix;
@@ -92,7 +92,8 @@
                   (import ./home/macos {
                     configModule = darwinConfigModule;
                     outputName = hostName;
-                  });
+                  })
+                  extraHomeModules;
             }
           ];
           specialArgs = { inherit nixpkgs; };
@@ -103,6 +104,7 @@
         let
           system = "x86_64-linux";
           nixosConfigModule = ./hosts/hyperv-nixos/configuration.nix;
+          extraHomeModules = [ ];
         in
         {
           hyperv-nixos = nixpkgs.lib.nixosSystem {
@@ -124,7 +126,8 @@
                     (import ./home/linux {
                       configModule = nixosConfigModule;
                       outputName = "hyperv-nixos";
-                    });
+                    })
+                    extraHomeModules;
               }
             ];
 
@@ -134,6 +137,7 @@
             let
               system = "x86_64-linux";
               nixosConfigModule = ./hosts/wsl-nixos/configuration.nix;
+              extraHomeModules = [ ];
             in
             nixpkgs.lib.nixosSystem {
               inherit system;
@@ -154,7 +158,8 @@
                       (import ./home/linux {
                         configModule = nixosConfigModule;
                         outputName = "wsl-nixos";
-                      });
+                      })
+                      extraHomeModules;
                 }
 
               ];
@@ -167,7 +172,7 @@
         };
 
       darwinConfigurations = {
-        daves-macbook = darwinSystem "daves-macbook";
+        daves-macbook = darwinSystem "daves-macbook" [ ];
       };
 
     } // (flake-utils.lib.eachDefaultSystem (system:
