@@ -11,5 +11,5 @@ config-nix-private: {
     buildMachines = config-nix-private.buildMachines;
     sshKnownHosts = config-nix-private.sshKnownHosts;
   };
-  homebrewCasks = [ "rekordbox" ];
+  homebrewCasks = [ ];
 }
