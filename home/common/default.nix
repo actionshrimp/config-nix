@@ -4,6 +4,8 @@
   home.activation = {
     activationExample = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       $DRY_RUN_CMD echo placeholder
+      $DRY_RUN_CMD [ ! -d ~/.emacs.d ] && git clone git@github.com:syl20bnr/spacemacs.git ~/.emacs.d
+      $DRY_RUN_CMD cd ~/.emacs.d && git fetch && git reset --hard 4a227fc94651136a8de54bcafa7d22abe1fa0295
     '';
   };
 
@@ -49,19 +51,6 @@
   home.sessionVariables = { EDITOR = "vim"; };
 
   home.sessionPath = [ "/usr/local/bin" ];
-
-  home.file.".emacs.d" = {
-    recursive = true;
-    source = pkgs.fetchFromGitHub {
-      owner = "syl20bnr";
-      repo = "spacemacs";
-      # sha256 = pkgs.lib.fakeHash;
-      rev = "4a227fc94651136a8de54bcafa7d22abe1fa0295";
-      sha256 = "sha256-+pvgf+oWJQZbcvoTbQQKnQy/1X4mxtSxFdUjpfqv1f0=";
-      # date = "2022-09-13T18:44:48-04:00";
-
-    };
-  };
 
   home.file.".spacemacs.d" = {
     source = config.lib.file.mkOutOfStoreSymlink
