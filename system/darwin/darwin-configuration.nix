@@ -54,6 +54,6 @@
     enable = true;
     taps = [ "homebrew/cask-fonts" ];
     brews = [ ];
-    casks = [ "firefox" "signal" "spotify" "font-jetbrains-mono-nerd-font" ] ++ homebrewCasks;
+    casks = [ "firefox" "maccy" "signal" "spotify" "font-jetbrains-mono-nerd-font" ] ++ homebrewCasks;
   };
 }
