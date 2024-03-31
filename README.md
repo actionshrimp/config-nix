@@ -39,6 +39,10 @@ Install the first generation (also needs flakes enabled):
 
 You need to manually install homebrew using the homebrew installer for nix-darwin to be able to manage homebrew packages.
 
+#### firefox
+
+Check the instructions in `dotfiles/firefox/userChrome.css`.
+
 ## Troubleshooting
 
 Error on macos when applying via a separate 'admin' account:
