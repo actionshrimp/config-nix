@@ -32,6 +32,7 @@
     pkgs.lsof
     pkgs.mc
     pkgs.moreutils
+    pkgs.nil
     pkgs.nix-prefetch-git
     pkgs.nixfmt
     pkgs.nixpkgs-fmt
