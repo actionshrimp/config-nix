@@ -108,7 +108,7 @@ This function should only modify configuration layer settings."
 
      ;; (reasonml :variables reason-auto-refmt t)
      imandra
-     (ipl :variables ipl-path-to-language-server "/Users/dave/dev/ai/ipl/ipl-vscode/xtext-server/bin/ipl-server")
+     ;; (ipl :variables ipl-path-to-language-server "/Users/dave/dev/ai/ipl/ipl-vscode/xtext-server/bin/ipl-server")
      xclipboard
      )
    ;; List of additional packages that will be installed without being
