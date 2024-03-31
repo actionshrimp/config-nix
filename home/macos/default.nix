@@ -11,7 +11,7 @@
 
   home.packages = [
     pkgs.tree
-    pkgs.emacsMacport
+    pkgs.emacs
     pkgs.coreutils
     pkgs.pinentry_mac
   ];
