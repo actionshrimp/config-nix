@@ -52,6 +52,6 @@
     enable = true;
     taps = [ ];
     brews = [ ];
-    casks = [ ];
+    casks = [ "firefox" "signal" "spotify" ];
   };
 }
