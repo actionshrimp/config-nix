@@ -50,8 +50,8 @@
 
   homebrew = {
     enable = true;
-    taps = [ "homebrew/cask-fonts" ];
+    taps = [ ];
     brews = [ ];
-    casks = [ "font-source-code-pro" "font-jetbrains-mono-nerd-font" ];
+    casks = [ ];
   };
 }
