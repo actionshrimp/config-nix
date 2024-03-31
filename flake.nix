@@ -4,7 +4,6 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs-emacsMacport.url = "github:actionshrimp/nixpkgs/emacs-mac-patches";
     nur.url = "github:nix-community/nur";
     nurl.url = "github:nix-community/nurl";
 
@@ -17,8 +16,6 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -33,13 +30,11 @@
   };
 
   outputs =
-    { emacs-overlay
-    , darwin
+    { darwin
     , home-manager
     , nur
     , nurl
     , nixpkgs
-    , nixpkgs-emacsMacport
     , nixos-wsl
     , nix-direnv
     , flake-utils
@@ -62,10 +57,8 @@
         in
         { config, lib, pkgs, ... }: {
           nixpkgs.overlays = [
-            emacs-overlay.overlay
             nur.overlay
             (self: super: {
-              emacsMacport = nixpkgs-emacsMacport.legacyPackages.aarch64-darwin.emacsMacport;
               nurl = nurl.packages.${system}.default;
               nix-direnv = nix-direnv.packages.${system}.default;
             })
