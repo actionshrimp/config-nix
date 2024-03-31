@@ -25,6 +25,7 @@
     pkgs.gh
     pkgs.ispell
     pkgs.jq
+    pkgs.k9s
     pkgs.killall
     pkgs.kubectl
     pkgs.kubernetes-helm
