@@ -547,7 +547,8 @@ before packages are loaded."
   (setq org-roam-directory
         (let ((n (system-name) ))
           (cond ((equal n "shrimpstack-nixos") "~/Dropbox/org-roam")
-                ((string-prefix-p "daves-macbook" n) "~/Library/CloudStorage/Dropbox/org-roam"))))
+                ((string-prefix-p "daves-macbook" n) "~/Library/CloudStorage/Dropbox/org-roam")
+                ((string-prefix-p "marco" n) "~/Dropbox/org-roam"))))
 
   (with-eval-after-load 'org
     (add-to-list 'org-babel-load-languages '(calc . t)))
@@ -555,7 +556,8 @@ before packages are loaded."
   (add-hook 'json-mode-hook (lambda () (setq-local flycheck-checkers '(json-jq))))
   ;; (add-hook 'json-mode-hook (lambda () (setq-local flycheck-checkers '(json-jsonlint))))
 
-  (when (string-prefix-p "daves-macbook" (system-name))
+  (when (or (string-prefix-p "daves-macbook" (system-name))
+            (string-prefix-p "marco" (system-name)))
     ;; get ssh-agent vars from shell env
     (print "refreshing keychain environment")
     (keychain-refresh-environment)
