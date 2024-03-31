@@ -50,8 +50,8 @@
 
   homebrew = {
     enable = true;
-    taps = [ ];
+    taps = [ "homebrew/cask-fonts" ];
     brews = [ ];
-    casks = [ "firefox" "signal" "spotify" ];
+    casks = [ "firefox" "signal" "spotify" "font-jetbrains-mono-nerd-font" ];
   };
 }
