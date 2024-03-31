@@ -173,6 +173,7 @@
 
       darwinConfigurations = {
         daves-macbook = darwinSystem "daves-macbook" [ ];
+        marco = darwinSystem "marco" [ ./home/macos/marco.nix ];
       };
 
     } // (flake-utils.lib.eachDefaultSystem (system:
