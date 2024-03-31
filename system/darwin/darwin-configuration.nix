@@ -1,4 +1,6 @@
-{ hostName }: { pkgs, nix, nixpkgs, config, lib, ... }: {
+{ hostName
+, homebrewCasks
+}: { pkgs, nix, nixpkgs, config, lib, ... }: {
 
   users = { users.dave = { home = "/Users/dave"; }; };
 
@@ -52,6 +54,6 @@
     enable = true;
     taps = [ "homebrew/cask-fonts" ];
     brews = [ ];
-    casks = [ "firefox" "signal" "spotify" "font-jetbrains-mono-nerd-font" ];
+    casks = [ "firefox" "signal" "spotify" "font-jetbrains-mono-nerd-font" ] ++ homebrewCasks;
   };
 }

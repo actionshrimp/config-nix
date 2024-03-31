@@ -1,12 +1,15 @@
-{ sshConfig, sshKeys }: { config, pkgs, lib, ... }:
+{ homeOverlays
+, homeDirectory
+, stateVersion
+, sshConfig
+, sshKeys
+}: { config, pkgs, lib, ... }:
 
 {
   home.activation = {
-    activationExample = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD echo Setting up spacemacs...
+    spacemacs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       $DRY_RUN_CMD [ ! -d ~/.emacs.d ] && git clone git@github.com:syl20bnr/spacemacs.git ~/.emacs.d
       $DRY_RUN_CMD cd ~/.emacs.d && git fetch && git reset --hard 4a227fc94651136a8de54bcafa7d22abe1fa0295
-      $DRY_RUN_CMD echo Setting up spacemacs... done.
     '';
   };
 
@@ -299,4 +302,7 @@
       }
     '';
   };
+
+  nixpkgs.overlays = homeOverlays;
+  nixpkgs.config.allowUnfree = true;
 }

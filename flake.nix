@@ -26,7 +26,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    config-nix-private.url = "git+ssh://git@github.com/actionshrimp/config-nix-private";
+    config-nix-private.url = "git+file:///Users/dave/config-nix-private";
   };
 
   outputs =
@@ -38,144 +38,100 @@
     , nixos-wsl
     , nix-direnv
     , flake-utils
-    , config-nix-private ? { sshConfig = { }; sshKeys = { }; sshKnownHosts = { }; buildMachines = [ ]; }
+    , config-nix-private ? {
+        sshConfig = {
+          personal = { };
+          work = { };
+        };
+        sshKeys = {
+          personal = { };
+          work = { };
+        };
+        sshKnownHosts = { };
+        buildMachines = [ ];
+      }
     , ...
     }:
     let
-      privateSshConfig = config-nix-private.sshConfig;
-      privateSshKeys = config-nix-private.sshKeys;
+      mkHomeOverlays = system: [
+        nur.overlay
+        (self: super: {
+          nurl = nurl.packages.${system}.default;
+          nix-direnv = nix-direnv.packages.${system}.default;
+        })
+      ];
 
-      sshKnownHosts = config-nix-private.sshKnownHosts;
-      buildMachines = config-nix-private.buildMachines;
-
-      homeManagerConfFor = { system, homeDirectory, stateVersion, sshKeys }: targetConfig: extraModules:
+      homeManagerConfig = { homeDirectory, stateVersion, sshKeys, sshConfig, homeModules }: homeOverlays:
         let
-          commonHome = (import ./home/common {
-            sshKeys = sshKeys ++ privateSshKeys;
-            sshConfig = privateSshConfig;
+          common = (import ./home {
+            inherit homeOverlays;
+            inherit homeDirectory;
+            inherit stateVersion;
+            inherit sshKeys;
+            inherit sshConfig;
           });
         in
-        { config, lib, pkgs, ... }: {
-          nixpkgs.overlays = [
-            nur.overlay
-            (self: super: {
-              nurl = nurl.packages.${system}.default;
-              nix-direnv = nix-direnv.packages.${system}.default;
-            })
-          ];
-          nixpkgs.config.allowUnfree = true;
+        { lib, pkgs, ... }: {
           home.username = "dave";
           home.homeDirectory = homeDirectory;
           home.stateVersion = stateVersion;
-          imports = [ commonHome targetConfig ] ++ extraModules;
+          imports = [ common ] ++ homeModules;
         };
-      darwinSystem = hostName: extraHomeModules:
+
+      systemCommon = { buildMachines, sshKnownHosts }:
+        (import ./system/common.nix {
+          inherit buildMachines;
+          inherit sshKnownHosts;
+        });
+
+      darwinSystem = { hostName, homeConfig, systemConfig, homebrewCasks }:
         let
           system = "aarch64-darwin";
-          darwinConfigModule = ./hosts/macbook/darwin-configuration.nix;
         in
         darwin.lib.darwinSystem {
           inherit system;
           modules = [
-            (import ./hosts/common.nix { inherit buildMachines; inherit sshKnownHosts; })
-            (import darwinConfigModule { inherit hostName; })
+            (systemCommon systemConfig)
+            (import ./system/darwin/darwin-configuration.nix
+              { inherit hostName; inherit homebrewCasks; })
             home-manager.darwinModules.home-manager
-            {
-              home-manager.users.dave =
-                homeManagerConfFor
-                  {
-                    inherit system;
-                    homeDirectory = "/Users/dave";
-                    stateVersion = "22.05";
-                    sshKeys = [ "id_ed25519" ];
-                  }
-                  (import ./home/macos {
-                    configModule = darwinConfigModule;
-                    outputName = hostName;
-                  })
-                  extraHomeModules;
-            }
+            { home-manager.users.dave = homeManagerConfig homeConfig (mkHomeOverlays system); }
           ];
           specialArgs = { inherit nixpkgs; };
         };
+
+      nixosSystem = { hostName, homeConfig, systemConfig, configModule, ... }@hostConfig:
+        let system = "x86_64-linux"; in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            (systemCommon systemConfig)
+          ] ++ (if hostConfig ? hardwareConfiguration then [
+            hostConfig.hardwareConfiguration
+          ] else [
+          ]) ++ [
+            (import configModule {
+              inherit hostName;
+              inherit nixos-wsl;
+            })
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useUserPackages = true;
+              home-manager.users.dave = homeManagerConfig homeConfig (mkHomeOverlays system);
+            }
+          ];
+        };
+      mkHost = f: (import f config-nix-private);
     in
     {
-      nixosConfigurations =
-        let
-          system = "x86_64-linux";
-          nixosConfigModule = ./hosts/hyperv-nixos/configuration.nix;
-          extraHomeModules = [ ];
-        in
-        {
-          hyperv-nixos = nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              (import ./hosts/common.nix { inherit buildMachines; inherit sshKnownHosts; })
-              (import nixosConfigModule { hostName = "hyperv-nixos"; })
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useUserPackages = true;
-                home-manager.users.dave =
-                  homeManagerConfFor
-                    {
-                      inherit system;
-                      homeDirectory = "/home/dave";
-                      stateVersion = "22.05";
-                      sshKeys = [ "id_ed25519" ];
-                    }
-                    (import ./home/linux {
-                      configModule = nixosConfigModule;
-                      outputName = "hyperv-nixos";
-                    })
-                    extraHomeModules;
-              }
-            ];
-
-            specialArgs = { inherit nixpkgs; };
-          };
-          wsl-nixos =
-            let
-              system = "x86_64-linux";
-              nixosConfigModule = ./hosts/wsl-nixos/configuration.nix;
-              extraHomeModules = [ ];
-            in
-            nixpkgs.lib.nixosSystem {
-              inherit system;
-              modules = [
-                (import ./hosts/common.nix { inherit buildMachines; inherit sshKnownHosts; })
-                (import nixosConfigModule { hostName = "wsl-nixos"; })
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager.useUserPackages = true;
-                  home-manager.users.dave =
-                    homeManagerConfFor
-                      {
-                        inherit system;
-                        homeDirectory = "/home/dave";
-                        stateVersion = "22.05";
-                        sshKeys = [ "id_ed25519" ];
-                      }
-                      (import ./home/linux {
-                        configModule = nixosConfigModule;
-                        outputName = "wsl-nixos";
-                      })
-                      extraHomeModules;
-                }
-
-              ];
-
-              specialArgs = {
-                inherit nixpkgs;
-                inherit nixos-wsl;
-              };
-            };
-        };
-
-      darwinConfigurations = {
-        daves-macbook = darwinSystem "daves-macbook" [ ];
-        marco = darwinSystem "marco" [ ./home/macos/marco.nix ];
+      nixosConfigurations = {
+        baracus-hyperv = nixosSystem (mkHost ./hosts/baracus-hyperv);
+        baracus-wsl = nixosSystem (mkHost ./hosts/baracus-wsl);
       };
-
+      darwinConfigurations = {
+        daves-macbook = darwinSystem (mkHost ./hosts/daves-macbook);
+        marco = darwinSystem (mkHost ./hosts/marco);
+      };
     } // (flake-utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system};
     in {
