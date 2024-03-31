@@ -19,12 +19,6 @@
 
   home.sessionPath = [ "/opt/homebrew/bin" ];
 
-  home.file."Library/Preferences/com.googlecode.iterm2.plist" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/config-nix/dotfiles/iterm2/com.googlecode.iterm2.plist";
-  };
-
-
   programs.zsh = {
     initExtra = ''
       vnodes() {
