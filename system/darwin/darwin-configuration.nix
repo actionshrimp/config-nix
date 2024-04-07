@@ -33,6 +33,9 @@
     '';
   };
 
+  nix.linux-builder.enable = true;
+  nix.settings.trusted-users = [ "@admin" ];
+
   launchd.user.agents.postgresql.serviceConfig = {
     # Un-comment these values instead to avoid a home-manager dependency.
     StandardErrorPath = "/Users/dave/.share/postgres/postgres.error.log";
