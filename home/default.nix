@@ -235,7 +235,7 @@
       kc = "kubectl config use-context";
       kcc = "kubectl config current-context";
       gbi = "git config --local blame.ignoreRevsFile .git-blame-ignore-revs";
-      nrl = "direnv reload && nix-direnv-reload";
+      nrl = "direnv reload && nix-direnv-reload |& nom --json";
     };
     history = {
       size = 10000;
