@@ -33,7 +33,9 @@
     '';
   };
 
-  nix.linux-builder.enable = true;
+  # currently aarch64-linux rather than x64_64-linux sadly
+  nix.linux-builder.enable = false;
+
   nix.settings.trusted-users = [ "@admin" ];
 
   launchd.user.agents.postgresql.serviceConfig = {
