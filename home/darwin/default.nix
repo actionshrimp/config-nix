@@ -13,6 +13,8 @@
 
   programs.zsh = {
     initExtra = ''
+      ulimit -n 99999
+
       vnodes() {
         echo $(sudo sysctl kern.num_vnodes) / $(sudo sysctl kern.maxvnodes)
       }
