@@ -34,7 +34,19 @@
   };
 
   # nb: for aarch64-linux only at present sadly (and not x64_64-linux)
-  nix.linux-builder.enable = true;
+  nix.linux-builder = {
+    enable = true;
+    maxJobs = 4;
+    config = {
+      virtualisation = {
+        darwin-builder = {
+          diskSize = 40 * 1024;
+          memorySize = 8 * 1024;
+        };
+        cores = 6;
+      };
+    };
+  };
 
   nix.settings.trusted-users = [ "@admin" ];
 
