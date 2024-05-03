@@ -33,8 +33,8 @@
     '';
   };
 
-  # currently aarch64-linux rather than x64_64-linux sadly
-  nix.linux-builder.enable = false;
+  # nb: for aarch64-linux only at present sadly (and not x64_64-linux)
+  nix.linux-builder.enable = true;
 
   nix.settings.trusted-users = [ "@admin" ];
 
