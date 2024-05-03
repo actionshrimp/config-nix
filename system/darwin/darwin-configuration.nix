@@ -35,7 +35,7 @@
 
   # nb: for aarch64-linux only at present sadly (and not x64_64-linux)
   nix.linux-builder = {
-    enable = true;
+    enable = false;
     maxJobs = 4;
     config = {
       virtualisation = {
