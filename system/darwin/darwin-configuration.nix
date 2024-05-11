@@ -69,8 +69,15 @@
 
   homebrew = {
     enable = true;
-    taps = [ "homebrew/cask-fonts" ];
+    taps = [
+      "homebrew/cask-fonts"
+      "railwaycat/emacsmacport"
+    ];
     brews = [ ];
-    casks = [ "maccy" "font-jetbrains-mono-nerd-font" ] ++ homebrewCasks;
+    casks = [
+      "maccy"
+      "font-jetbrains-mono-nerd-font"
+      "emacs-mac-spacemacs-icon"
+    ] ++ homebrewCasks;
   };
 }

@@ -2,7 +2,6 @@
 
   home.packages = [
     pkgs.tree
-    pkgs.emacs
     pkgs.coreutils
     pkgs.pinentry_mac
     pkgs.iterm2
@@ -13,8 +12,6 @@
 
   programs.zsh = {
     initExtra = ''
-      ulimit -n 99999
-
       vnodes() {
         echo $(sudo sysctl kern.num_vnodes) / $(sudo sysctl kern.maxvnodes)
       }
