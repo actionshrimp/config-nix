@@ -562,7 +562,8 @@ before packages are loaded."
     (print "refreshing keychain environment")
     (keychain-refresh-environment)
     ;; free up right alt for the # key
-    (setq ns-right-alternate-modifier (quote none)))
+    (setq ns-right-alternate-modifier (quote none))
+    (setq mac-right-option-modifier (quote none)))
 
   ;; force helm / treemacs to load on startup
   (require 'helm)
