@@ -574,7 +574,15 @@ before packages are loaded."
   (defun org-roam--insert-timestamp ()
     (org-entry-put nil "CREATED" (format-time-string "[%Y-%m-%d %a %H:%M]")))
 
-  (add-hook 'org-roam-capture-new-node-hook #'org-roam--insert-timestamp))
+  (add-hook 'org-roam-capture-new-node-hook #'org-roam--insert-timestamp)
+
+  (when (eq system-type "darwin")
+    (setq org-pomodoro-audio-player "/usr/bin/afplay")
+    ;; reduce the org-pomodoro finished sound
+    (setq org-pomodoro-finished-sound-args "-v 0.10"))
+
+  )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
