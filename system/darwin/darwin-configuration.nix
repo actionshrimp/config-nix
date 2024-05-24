@@ -71,13 +71,13 @@
     enable = true;
     taps = [
       "homebrew/cask-fonts"
-      "railwaycat/emacsmacport"
     ];
-    brews = [ ];
+    brews = [
+      "d12frosted/emacs-plus/emacs-plus@29"
+    ];
     casks = [
       "maccy"
       "font-jetbrains-mono-nerd-font"
-      "emacs-mac-spacemacs-icon"
     ] ++ homebrewCasks;
   };
 }
