@@ -38,6 +38,7 @@
 
   homebrew = {
     enable = true;
+    onActivation.cleanup = "zap";
     taps = [
       "homebrew/cask-fonts"
       # "d12frosted/emacs-plus
