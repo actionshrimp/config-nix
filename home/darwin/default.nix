@@ -5,6 +5,7 @@
     pkgs.coreutils
     pkgs.pinentry_mac
     pkgs.iterm2
+    pkgs.emacs-macport
   ];
 
 
