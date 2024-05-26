@@ -53,9 +53,7 @@ local lazy_setup = ({
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- required
 			"sindrets/diffview.nvim", -- optional - Diff integration
-
-			-- Only one of these is needed, not both.
-			"nvim-telescope/telescope.nvim", -- optional
+			"nvim-telescope/telescope.nvim",
 		},
 		config = true
 	},
@@ -67,7 +65,16 @@ local lazy_setup = ({
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-		}
+		},
+		config = function()
+			require('neo-tree').setup({
+				window = {
+					mappings = {
+						["<tab>"] = "open",
+					}
+				}
+			})
+		end
 	},
 	{
 		's1n7ax/nvim-window-picker',
@@ -98,19 +105,8 @@ local lazy_setup = ({
 require("lazy").setup(lazy_setup)
 
 vim.cmd('colorscheme kanagawa')
--- vim.api.nvim_set_keymap('n', '<LEADER>fed', ":e $MYVIMRC<CR>", { noremap = true, silent = true });
--- vim.api.nvim_create_user_command('EditVimrc', ':e $MYVIMRC', {})
-vim.keymap.set('n', '<LEADER>fed', ":e $MYVIMRC<CR>", { desc = "Edit init.lua" });
-vim.keymap.set('n', '<LEADER>feh', ":e ~/config-nix/home/default.nix<CR>", {});
-vim.keymap.set('n', '<LEADER>fec', ":e ~/config-nix/flake.nix<CR>", {});
-vim.keymap.set('n', '<LEADER>gs', ":Neogit<CR>", {});
-vim.keymap.set('n', '<LEADER>pt', ":Neotree<CR>", {});
-vim.keymap.set('n', '<LEADER>sc', ":noh<CR>", {});
 
-vim.api.nvim_create_user_command('W', ':w', {})
-vim.api.nvim_create_user_command('Wq', ':wq', {})
-vim.api.nvim_create_user_command('Wqa', ':wqa', {})
-
+require('keys').init()
 require('diagnostics').init()
 require('formatter').init()
 require('search').init()
