@@ -61,20 +61,28 @@
         })
       ];
 
-      homeManagerConfig = { homeConfig, system, ... }@hostConfig:
+      homeManagerModule = { homeConfig, system, ... }@hostConfig:
         let
           homeOverlays = mkHomeOverlays system;
 
           common = (import ./home {
             inherit (homeConfig) homeDirectory stateVersion sshKeys sshConfig;
-	    inherit homeOverlays;
+            inherit homeOverlays;
           });
         in
-        { lib, pkgs, ... }: {
+        { ... }@moduleArgs: {
           home.username = "dave";
           home.homeDirectory = homeConfig.homeDirectory;
           home.stateVersion = homeConfig.stateVersion;
           imports = [ common ] ++ homeConfig.homeModules;
+        };
+
+      homeManagerConfig = { system, ... }@hostConfig: mod:
+        let mod = homeManagerModule hostConfig; in
+
+        home-manager.lib.homeManagerConfiguration {
+          modules = [ mod ];
+          pkgs = nixpkgs.legacyPackages.${system};
         };
 
       systemCommon = { buildMachines, sshKnownHosts }:
@@ -128,22 +136,24 @@
         baracus-hyperv = (mkHost ./hosts/baracus-hyperv);
         baracus-wsl = (mkHost ./hosts/baracus-wsl);
       };
-      homeConfigurations = {
-        daves-macbook = homeManagerConfig hostConfigs.daves-macbook;
-        marco = homeManagerConfig hostConfigs.marco;
-        baracus-hyperv = homeManagerConfig hostConfigs.baracus-hyperv;
-        baracus-wsl = homeManagerConfig hostConfigs.baracus-wsl;
+      homeManagerModules = {
+        daves-macbook = homeManagerModule hostConfigs.daves-macbook;
+        marco = homeManagerModule hostConfigs.marco;
+        baracus-hyperv = homeManagerModule hostConfigs.baracus-hyperv;
+        baracus-wsl = homeManagerModule hostConfigs.baracus-wsl;
       };
     in
     {
-      inherit homeConfigurations;
+      homeConfigurations = nixpkgs.lib.attrsets.mapAttrs
+        (k: v: (homeManagerConfig hostConfigs."${k}" v))
+        homeManagerModules;
       nixosConfigurations = {
-        baracus-hyperv = nixosSystem (mkHost ./hosts/baracus-hyperv) homeConfigurations.baracus-hyperv;
-        baracus-wsl = nixosSystem (mkHost ./hosts/baracus-wsl) homeConfigurations.baracus-wsl;
+        baracus-hyperv = nixosSystem (mkHost ./hosts/baracus-hyperv) homeManagerModules.baracus-hyperv;
+        baracus-wsl = nixosSystem (mkHost ./hosts/baracus-wsl) homeManagerModules.baracus-wsl;
       };
       darwinConfigurations = {
-        daves-macbook = darwinSystem (mkHost ./hosts/daves-macbook) homeConfigurations.daves-macbook;
-        marco = darwinSystem (mkHost ./hosts/marco) homeConfigurations.marco;
+        daves-macbook = darwinSystem (mkHost ./hosts/daves-macbook) homeManagerModules.daves-macbook;
+        marco = darwinSystem (mkHost ./hosts/marco) homeManagerModules.marco;
       };
     } // (flake-utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system};
