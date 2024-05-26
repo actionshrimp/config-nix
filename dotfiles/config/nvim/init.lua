@@ -89,6 +89,7 @@ local lazy_setup = ({
   require('search').plugins(),
   require('formatter').plugins(),
   require('diagnostics').plugins(),
+  require('lang/org').plugins()
 })
 require("lazy").setup(lazy_setup)
 
@@ -103,3 +104,4 @@ require('lang/lua').init()
 require('lang/json').init()
 require('lang/nix').init()
 require('lang/ocaml').init()
+require('lang/org').init()
