@@ -1,4 +1,5 @@
 config-nix-private: {
+  system = "aarch64-darwin";
   hostName = "daves-macbook";
   homeConfig = {
     homeDirectory = "/Users/dave";
