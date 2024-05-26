@@ -36,7 +36,7 @@
     pkgs.nil
     pkgs.nix-prefetch-git
     pkgs.nix-output-monitor
-    pkgs.nixfmt
+    pkgs.nixfmt-classic
     pkgs.nixpkgs-fmt
     pkgs.nodejs
     pkgs.nurl
