@@ -16,7 +16,6 @@
   home.packages = [
     pkgs.google-cloud-sql-proxy
     pkgs.dos2unix
-    pkgs.gcc
     pkgs.gnumake
     (pkgs.google-cloud-sdk.withExtraComponents
       [ pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin ])
@@ -114,55 +113,11 @@
     viAlias = true;
     vimAlias = true;
     withPython3 = true;
-    plugins = with pkgs.vimPlugins; [
-      vim-tmux-navigator
-      vim-surround
-      nerdtree
-      NeoSolarized
-      vim-nix
-      vim-airline
-      vim-airline-themes
-      vimagit
-    ];
-    extraConfig = ''
-      set encoding=utf8
+  };
 
-      let g:airline_powerline_fonts = 1
-
-      set list
-
-      filetype plugin indent on
-      set autoindent
-
-      set backspace=indent,eol,start
-      set hidden
-      set number
-
-      set ignorecase
-      set smartcase
-
-      set incsearch
-      set hlsearch
-
-      set termguicolors
-      colorscheme NeoSolarized
-      let g:neosolarized_contrast = "high"
-
-      let mapleader = "\<Space>"
-      vmap s S
-
-      nmap <leader>sc :noh<CR>
-      nmap <leader>pt :NERDTreeToggle<CR>
-
-      nmap <leader>wl :TmuxNavigateRight<CR>
-      nmap <leader>wh :TmuxNavigateLeft<CR>
-      nmap <leader>wj :TmuxNavigateDown<CR>
-      nmap <leader>wk :TmuxNavigateUp<CR>
-
-      nmap <leader>gs :Magit<CR>
-
-      command W :w
-    '';
+  home.file.".config/nvim" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/config-nix/dotfiles/config/nvim";
   };
 
   programs.opam = {
