@@ -21,6 +21,7 @@
       [ pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin ])
     pkgs.cargo
     pkgs.htop
+    pkgs.fd
     pkgs.gh
     pkgs.ispell
     pkgs.jq
