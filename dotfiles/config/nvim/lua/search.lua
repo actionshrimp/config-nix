@@ -1,18 +1,14 @@
 local function plugins()
 	return { {
-		"ibhagwan/fzf-lua",
-		-- optional for icon support
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			-- calling `setup` is optional for customization
-			require("fzf-lua").setup({})
-		end
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.6',
+		dependencies = { 'nvim-lua/plenary.nvim' }
 	} }
 end
 
 
 local function init()
-	vim.keymap.set('n', '<LEADER>pf', ":FzfLua files<CR>", {});
+	vim.keymap.set('n', '<LEADER>pf', ":Telescope find_files<CR>", {});
 end
 
 return { plugins = plugins, init = init }
