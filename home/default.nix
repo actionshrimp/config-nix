@@ -28,6 +28,7 @@
     pkgs.killall
     pkgs.kubectl
     pkgs.kubernetes-helm
+    pkgs.lua-language-server
     pkgs.libvterm-neovim
     pkgs.lsof
     pkgs.mc
@@ -38,6 +39,7 @@
     pkgs.nixfmt-classic
     pkgs.nixpkgs-fmt
     pkgs.nodejs
+    pkgs.nodePackages.vscode-json-languageserver
     pkgs.nurl
     (lib.hiPrio pkgs.parallel)
     pkgs.postgresql
