@@ -34,6 +34,7 @@
     pkgs.mc
     pkgs.moreutils
     pkgs.nil
+    pkgs.nixd
     pkgs.nix-prefetch-git
     pkgs.nix-output-monitor
     pkgs.nixfmt-classic

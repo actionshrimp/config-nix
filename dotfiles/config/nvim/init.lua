@@ -117,3 +117,4 @@ require('search').init()
 
 require('lang/lua')
 require('lang/json')
+require('lang/nix')
