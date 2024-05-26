@@ -9,6 +9,10 @@ end
 
 local function init()
 	vim.keymap.set('n', '<LEADER>pf', ":Telescope find_files<CR>", {});
+	vim.keymap.set('n', '<LEADER>/', ":Telescope live_grep<CR>", {});
+	vim.keymap.set('n', '<LEADER>*', function()
+	require('telescope.builtin').live_grep {default_text=vim.fn.expand("<cword>")}
+	end);
 end
 
 return { plugins = plugins, init = init }
