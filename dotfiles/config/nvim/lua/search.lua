@@ -11,6 +11,7 @@ local function plugins()
 			local project_actions = require("telescope._extensions.project.actions")
 			require 'telescope'.setup({
 				extensions = {
+					sync_with_nvim_tree = true,
 					on_project_selected = function(prompt_bufnr)
 						-- Do anything you want in here. For example:
 						project_actions.change_working_directory(prompt_bufnr, false)

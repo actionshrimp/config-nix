@@ -59,24 +59,31 @@ local lazy_setup = ({
 	},
 	{ "nvim-treesitter/nvim-treesitter" },
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-		},
-		config = function()
-			require('neo-tree').setup({
-				window = {
-					mappings = {
-						["<tab>"] = "open",
-					}
-				}
-			})
-		end
+		"nvim-tree/nvim-tree.lua",
+		config = function ()
+			require("nvim-tree").setup()
+			vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle<CR>", {});
+		end,
 	},
+	-- {
+	-- 	"nvim-neo-tree/neo-tree.nvim",
+	-- 	branch = "v3.x",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+	-- 	},
+	-- 	config = function()
+	-- 		require('neo-tree').setup({
+	-- 			window = {
+	-- 				mappings = {
+	-- 					["<tab>"] = "open",
+	-- 				}
+	-- 			}
+	-- 		})
+	-- 	end
+	-- },
 	{
 		's1n7ax/nvim-window-picker',
 		name = 'window-picker',
