@@ -26,7 +26,7 @@ local function plugins()
           vim.keymap.set('n', 'ov', api.node.open.horizontal, opts('Open: Vertically'))
         end
       })
-      vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle<CR>", {});
+      vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle .<CR>", {});
     end,
   },
     -- {
