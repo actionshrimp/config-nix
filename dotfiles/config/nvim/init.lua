@@ -85,32 +85,7 @@ local lazy_setup = ({
       })
     end
   },
-  {
-    "direnv/direnv.vim",
-    -- init = function()
-    -- 	vim.g.direnv_silent_load = true
-    --
-    -- 	local cached_direnv_diff = nil
-    --
-    -- 	local group = vim.api.nvim_create_augroup("DirenvLoaded", { clear = true })
-    -- 	vim.api.nvim_create_autocmd({ "User" }, {
-    -- 		group = group,
-    -- 		pattern = "DirenvLoaded",
-    -- 		callback = function()
-    -- 			if vim.env.DIRENV_DIFF ~= cached_direnv_diff then
-    -- 				cached_direnv_diff = vim.env.DIRENV_DIFF
-    --
-    -- 				vim.notify("Loaded environment from direnv")
-    --
-    -- 				if vim.fn.expand("%") ~= nil then
-    -- 					vim.notify("Restarting LSP servers")
-    -- 					vim.cmd('e')
-    -- 				end
-    -- 			end
-    -- 		end
-    -- 	})
-    -- end
-  },
+  { "direnv/direnv.vim", },
   require('search').plugins(),
   require('formatter').plugins(),
   require('diagnostics').plugins(),
