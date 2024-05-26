@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     vim.lsp.start({
       name = 'vscode-json-languageserver',
-      cmd = {'vscode-json-languageserver'},
+      cmd = {'vscode-json-languageserver', "--stdio"},
       -- Set the "root directory" to the parent directory of the file in the
       -- current buffer (`ev.buf`) that contains either a "setup.py" or a
       -- "pyproject.toml" file. Files that share a root directory will reuse

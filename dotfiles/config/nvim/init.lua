@@ -56,7 +56,6 @@ local lazy_setup = ({
 
 			-- Only one of these is needed, not both.
 			"nvim-telescope/telescope.nvim", -- optional
-			"ibhagwan/fzf-lua", -- optional
 		},
 		config = true
 	},
@@ -81,9 +80,21 @@ local lazy_setup = ({
 			})
 		end,
 	},
+	{ 'tpope/vim-unimpaired' },
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end
+	},
 	require('search').plugins(),
 	require('formatter').plugins(),
-}) 
+	require('diagnostics').plugins(),
+})
 require("lazy").setup(lazy_setup)
 
 vim.cmd('colorscheme kanagawa')
@@ -94,11 +105,15 @@ vim.keymap.set('n', '<LEADER>feh', ":e ~/config-nix/home/default.nix<CR>", {});
 vim.keymap.set('n', '<LEADER>fec', ":e ~/config-nix/flake.nix<CR>", {});
 vim.keymap.set('n', '<LEADER>gs', ":Neogit<CR>", {});
 vim.keymap.set('n', '<LEADER>pt', ":Neotree<CR>", {});
+vim.keymap.set('n', '<LEADER>sc', ":noh<CR>", {});
 
 vim.api.nvim_create_user_command('W', ':w', {})
 vim.api.nvim_create_user_command('Wq', ':wq', {})
 vim.api.nvim_create_user_command('Wqa', ':wqa', {})
 
+require('diagnostics').init()
 require('formatter').init()
 require('search').init()
+
 require('lang/lua')
+require('lang/json')
