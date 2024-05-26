@@ -98,6 +98,7 @@ local lazy_setup = ({
 			})
 		end
 	},
+	{ "direnv/direnv.vim" },
 	require('search').plugins(),
 	require('formatter').plugins(),
 	require('diagnostics').plugins(),
@@ -105,6 +106,7 @@ local lazy_setup = ({
 require("lazy").setup(lazy_setup)
 
 vim.cmd('colorscheme kanagawa')
+vim.cmd('set autochdir')
 
 require('keys').init()
 require('diagnostics').init()
