@@ -1,4 +1,5 @@
 config-nix-private: {
+  system = "aarch64-darwin";
   hostName = "marco";
   homeConfig = {
     homeDirectory = "/Users/dave";

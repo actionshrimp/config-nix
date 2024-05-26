@@ -1,4 +1,5 @@
 config-nix-private: {
+  system = "x86_64-linux";
   hostName = "baracus-wsl-nixos";
   homeConfig = {
     homeDirectory = "/home/dave";
