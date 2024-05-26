@@ -57,6 +57,7 @@ local lazy_setup = ({
 		},
 		config = true
 	},
+	{ "nvim-treesitter/nvim-treesitter" },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
