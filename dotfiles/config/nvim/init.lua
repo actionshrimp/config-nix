@@ -1,3 +1,7 @@
+-- For nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -51,7 +55,7 @@ local lazy_setup = ({
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
+      "nvim-lua/plenary.nvim",  -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
       "nvim-telescope/telescope.nvim",
     },
@@ -59,9 +63,29 @@ local lazy_setup = ({
   },
   { "nvim-treesitter/nvim-treesitter" },
   {
+    's1n7ax/nvim-window-picker',
+    name = 'window-picker',
+    event = 'VeryLazy',
+    version = '2.*',
+    config = function()
+      require 'window-picker'.setup({
+        hint = "floating-big-letter"
+      })
+    end,
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     config = function()
-      require("nvim-tree").setup()
+      require("nvim-tree").setup({
+        actions = {
+          open_file = {
+            window_picker = {
+              enable = true,
+              picker = require('window-picker').pick_window,
+            }
+          }
+        }
+      })
       vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle<CR>", {});
     end,
   },
@@ -84,17 +108,6 @@ local lazy_setup = ({
   -- 		})
   -- 	end
   -- },
-  {
-    's1n7ax/nvim-window-picker',
-    name = 'window-picker',
-    event = 'VeryLazy',
-    version = '2.*',
-    config = function()
-      require 'window-picker'.setup({
-        hint = "floating-big-letter"
-      })
-    end,
-  },
   { 'tpope/vim-unimpaired' },
   {
     "kylechui/nvim-surround",
