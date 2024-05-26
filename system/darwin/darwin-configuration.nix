@@ -24,6 +24,9 @@
   };
 
   nix.settings.trusted-users = [ "@admin" ];
+  nix.nixPath = [{
+    nixpkgs = "${nixpkgs}";
+  }];
 
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
