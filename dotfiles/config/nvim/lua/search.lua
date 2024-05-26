@@ -8,6 +8,8 @@ local function plugins()
 		},
 		config = function()
 			require 'telescope'.load_extension('project')
+			require 'telescope'.setup({
+			});
 		end
 
 	}, {
@@ -19,6 +21,8 @@ local function init()
 	vim.keymap.set('n', '<LEADER>pf', ":Telescope find_files<CR>", { desc = "Find project files" });
 	vim.keymap.set('n', '<LEADER>pp', function() require 'telescope'.extensions.project.project {} end,
 		{ desc = "Find project" })
+	vim.keymap.set('n', '<LEADER>bb', ":Telescope buffers<CR>", { desc = "Find project files" });
+	vim.keymap.set('n', '<LEADER>fr', ":Telescope oldfiles<CR>", { desc = "Find project files" });
 	vim.keymap.set('n', '<LEADER>/', ":Telescope live_grep<CR>", { desc = "Search" });
 	vim.keymap.set('n', '<LEADER>*', function()
 		require('telescope.builtin').live_grep { default_text = vim.fn.expand("<cword>") }
