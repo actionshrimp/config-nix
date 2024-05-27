@@ -93,7 +93,7 @@ local lazy_setup = ({
 })
 require("lazy").setup(lazy_setup)
 
-vim.cmd('colorscheme kanagawa')
+vim.cmd.colorscheme('kanagawa')
 
 require('keys').init()
 require('git').init()
