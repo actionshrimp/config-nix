@@ -23,6 +23,12 @@ local lazy_setup = ({
   "nvim-tree/nvim-web-devicons",
   "tpope/vim-repeat",
   {
+    "ggandor/leap.nvim",
+    config = function()
+      require('leap').create_default_mappings()
+    end
+  },
+  {
     "nvim-lualine/lualine.nvim",
     config = function()
       require('lualine').setup {}
