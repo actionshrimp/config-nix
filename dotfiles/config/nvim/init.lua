@@ -95,6 +95,8 @@ require("lazy").setup(lazy_setup)
 
 vim.cmd.colorscheme('kanagawa')
 vim.cmd.set('number')
+-- always show the column with lsp diagnostic 'E' or 'W' in
+vim.cmd.set('signcolumn=yes')
 
 require('keys').init()
 require('git').init()
