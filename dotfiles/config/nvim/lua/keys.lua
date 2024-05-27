@@ -1,4 +1,5 @@
-local function init()
+local M = {}
+M.init = function()
   vim.api.nvim_create_user_command('W', ':w', {})
   vim.api.nvim_create_user_command('Wq', ':wq', {})
   vim.api.nvim_create_user_command('Wqa', ':wqa', {})
@@ -9,7 +10,7 @@ local function init()
   vim.keymap.set('n', '<LEADER>feh', ":e ~/config-nix/home/default.nix<CR>", {});
   vim.keymap.set('n', '<LEADER>fec', ":e ~/config-nix/flake.nix<CR>", {});
   vim.keymap.set('n', '<LEADER>fek', ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>", {});
-  vim.keymap.set('n', '<LEADER>fyy', function ()
+  vim.keymap.set('n', '<LEADER>fyy', function()
     local f = vim.fn.expand('%:p')
     vim.fn.setreg("+", f)
     print(f)
@@ -37,7 +38,5 @@ local function init()
   vim.keymap.set('n', '<LEADER>mgt', vim.lsp.buf.type_definition)
   vim.keymap.set('n', '<LEADER>mgb', "<C-o>", {})
   vim.keymap.set('n', '<LEADER>maa', vim.lsp.buf.code_action)
-
 end
-
-return { init = init }
+return M

@@ -1,9 +1,9 @@
-local function plugins()
+local M = {}
+M.plugins = function ()
   return { { 'stevearc/conform.nvim', opts = {}, } }
 end
 
-local function init()
+M.init = function ()
   vim.keymap.set('n', '<LEADER>m=b', vim.lsp.buf.format);
 end
-
-return { plugins = plugins, init = init }
+return M

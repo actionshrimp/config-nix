@@ -1,3 +1,4 @@
+local M = {}
 --local function init()
 --  vim.api.nvim_create_autocmd('FileType', {
 --    pattern = 'lua',
@@ -11,7 +12,7 @@
 --  })
 --end
 
-local function init()
+M.init = function()
   -- then setup your lsp server as usual
   local lspconfig = require('lspconfig')
 
@@ -26,5 +27,4 @@ local function init()
     }
   })
 end
-
-return { init = init }
+return M

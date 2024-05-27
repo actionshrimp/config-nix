@@ -1,4 +1,5 @@
-local function plugins()
+local M = {}
+M.plugins = function()
   return { {
     'ahmedkhalf/project.nvim',
     config = function()
@@ -30,7 +31,7 @@ local function plugins()
 end
 
 
-local function init()
+M.init = function()
   vim.keymap.set('n', '<LEADER>pf', ":Telescope find_files<CR>", { desc = "Find project files" });
   vim.keymap.set('n', '<LEADER>pp', function() require 'telescope'.extensions.projects.projects {} end,
     { desc = "Find project" })
@@ -64,5 +65,4 @@ local function init()
     })
   end, { desc = "Replace current word" })
 end
-
-return { plugins = plugins, init = init }
+return M

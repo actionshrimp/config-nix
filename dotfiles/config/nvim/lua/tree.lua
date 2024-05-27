@@ -1,4 +1,5 @@
-local function plugins()
+local M = {}
+M.plugins = function()
   return { {
     "nvim-tree/nvim-tree.lua",
     event = "VeryLazy",
@@ -57,5 +58,4 @@ local function plugins()
     -- },
   }
 end
-
-return { plugins = plugins }
+return M
