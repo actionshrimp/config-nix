@@ -53,15 +53,6 @@ local lazy_setup = ({
       }
     end
   },
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",  -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
-      "nvim-telescope/telescope.nvim",
-    },
-    config = true
-  },
   { "nvim-treesitter/nvim-treesitter" },
   {
     's1n7ax/nvim-window-picker',
@@ -87,6 +78,7 @@ local lazy_setup = ({
     end
   },
   { "direnv/direnv.vim", },
+  require('git').plugins(),
   require('search').plugins(),
   require('formatter').plugins(),
   require('diagnostics').plugins(),
@@ -97,6 +89,7 @@ require("lazy").setup(lazy_setup)
 vim.cmd('colorscheme kanagawa')
 
 require('keys').init()
+require('git').init()
 require('diagnostics').init()
 require('formatter').init()
 require('search').init()
