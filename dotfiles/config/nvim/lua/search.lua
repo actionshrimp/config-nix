@@ -1,27 +1,21 @@
 local function plugins()
   return { {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require("project_nvim").setup({})
+    end
+  }, {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.6',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-project.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
     config = function()
       local t = require 'telescope'
-      t.load_extension('project')
-      local project_actions = require("telescope._extensions.project.actions")
-      t.setup({
-        extensions = {
-          sync_with_nvim_tree = true,
-          on_project_selected = function(prompt_bufnr)
-            -- Do anything you want in here. For example:
-            project_actions.change_working_directory(prompt_bufnr, false)
-            require("harpoon.ui").nav_file(1)
-          end,
-        },
-      })
+      t.setup({})
       t.load_extension("live_grep_args")
+      t.load_extension('projects')
     end
 
   }, {
@@ -30,7 +24,7 @@ local function plugins()
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      require('spectre').setup({ })
+      require('spectre').setup({})
     end
   } }
 end
@@ -38,7 +32,7 @@ end
 
 local function init()
   vim.keymap.set('n', '<LEADER>pf', ":Telescope find_files<CR>", { desc = "Find project files" });
-  vim.keymap.set('n', '<LEADER>pp', function() require 'telescope'.extensions.project.project {} end,
+  vim.keymap.set('n', '<LEADER>pp', function() require 'telescope'.extensions.projects.projects {} end,
     { desc = "Find project" })
   vim.keymap.set('n', '<LEADER>bb', ":Telescope buffers<CR>", { desc = "Find project files" });
   vim.keymap.set('n', '<LEADER>fr', ":Telescope oldfiles<CR>", { desc = "Find project files" });
