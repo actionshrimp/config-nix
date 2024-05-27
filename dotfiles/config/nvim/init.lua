@@ -22,6 +22,12 @@ vim.g.maplocalleader = " m" -- Same for `maplocalleader`
 local lazy_setup = ({
   "nvim-tree/nvim-web-devicons",
   {
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require('lualine').setup {}
+    end
+  },
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
