@@ -6,13 +6,19 @@
     pkgs.pinentry_mac
     pkgs.iterm2
     pkgs.emacs-macport
-    (pkgs.gnused.overrideAttrs (prev: {
-      postInstall = (prev.postInstall or "") + ''
-      ln -s $out/bin/sed $out/bin/gsed
-      '';
-    }))
-  ];
 
+    # Alias sed to gsed to appease macos programs that expect gsed as gsed (nvim-spectre) -_-
+    (pkgs.buildEnv {
+      name = "symlink-gsed";
+      paths = [
+        pkgs.gnused
+        (pkgs.runCommand "symlink-gsed" { } ''
+          mkdir -p $out/bin
+          ln -s ${pkgs.gnused}/bin/sed $out/bin/gsed
+        '')
+      ];
+    })
+  ];
 
   home.sessionPath = [ "/opt/homebrew/bin" ];
 
