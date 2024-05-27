@@ -1,4 +1,5 @@
-local function plugins()
+local M = {}
+M.plugins = function()
   return { {
     'nvim-orgmode/orgmode',
     event = 'VeryLazy',
@@ -33,8 +34,4 @@ local function plugins()
     end
   } }
 end
-
-local function init()
-end
-
-return { plugins = plugins, init = init }
+return M

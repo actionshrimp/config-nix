@@ -1,4 +1,5 @@
-local function init()
+local M = {}
+M.init = function()
   -- :lua print(vim.bo.filetype)
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'ocaml',
@@ -11,5 +12,4 @@ local function init()
     end,
   })
 end
-
-return { init = init }
+return M

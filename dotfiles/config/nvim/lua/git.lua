@@ -1,4 +1,5 @@
-function plugins()
+local M = {}
+M.plugins = function()
   return { {
     "NeogitOrg/neogit",
     dependencies = {
@@ -6,7 +7,7 @@ function plugins()
       "sindrets/diffview.nvim", -- optional - Diff integration
       "nvim-telescope/telescope.nvim",
     },
-    config = function ()
+    config = function()
       require('neogit').setup({
         mappings = {
           popup = {
@@ -19,12 +20,11 @@ function plugins()
   } }
 end
 
-function init()
+M.init = function()
   vim.keymap.set('n', '<LEADER>gs', ":Neogit<CR>", {});
   vim.keymap.set('n', '<LEADER>gfl', function()
     local f = vim.fn.expand('%')
     require('neogit').action('log', 'log_current', { "--", f })()
   end, { desc = "Git log current file" });
 end
-
-return { plugins = plugins, init = init }
+return M

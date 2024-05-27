@@ -1,4 +1,5 @@
-local function init()
+local M = {}
+M.init = function()
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'nix',
     callback = function(ev)
@@ -28,5 +29,4 @@ local function init()
     end,
   })
 end
-
-return { init = init }
+return M
