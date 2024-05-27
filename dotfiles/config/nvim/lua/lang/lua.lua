@@ -19,9 +19,9 @@ local function init()
   lspconfig.lua_ls.setup({
     settings = {
       Lua = {
-        completion = {
-          callSnippet = "Replace"
-        }
+        -- completion = {
+        --   callSnippet = "Replace"
+        -- }
       }
     }
   })
