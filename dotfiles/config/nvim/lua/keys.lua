@@ -21,6 +21,10 @@ local function init()
   vim.keymap.set('n', '<LEADER>cl', "gcc", { remap = true });
   vim.keymap.set('v', '<LEADER>cl', "gc", { remap = true });
 
+  -- system clipboard
+  vim.keymap.set('v', '<LEADER>xy', '"+y', { remap = true })
+  vim.keymap.set('n', '<LEADER>xp', '"+p', { remap = true })
+
   -- :help CTRL-W
   vim.keymap.set('n', '<LEADER>w<S-l>', "<C-w><S-l>", {});
   vim.keymap.set('n', '<LEADER>w<S-h>', "<C-w><S-h>", {});
