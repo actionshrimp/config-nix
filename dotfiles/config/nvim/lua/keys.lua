@@ -33,6 +33,10 @@ local function init()
     -- vim.cmd.s
     vim.cmd.s("hello")
   end)
+  vim.keymap.set('n', '<LEADER>mgg', vim.lsp.buf.definition)
+  vim.keymap.set('n', '<LEADER>mgt', vim.lsp.buf.type_definition)
+  vim.keymap.set('n', '<LEADER>mgb', "<C-o>", {})
+  vim.keymap.set('n', '<LEADER>maa', vim.lsp.buf.code_action)
 
 end
 
