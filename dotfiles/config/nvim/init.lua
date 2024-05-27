@@ -34,8 +34,8 @@ local lazy_setup = ({
     }
   },
   --{ "folke/neoconf.nvim", cmd = "Neoconf" },
-  {"neovim/nvim-lspconfig"},
-  {"folke/neodev.nvim", opts = {}, config = function() require('neodev').setup({}) end},
+  { "neovim/nvim-lspconfig" },
+  { "folke/neodev.nvim",    opts = {}, config = function() require('neodev').setup({}) end },
   "rebelot/kanagawa.nvim",
   {
     'alexghergh/nvim-tmux-navigation',
