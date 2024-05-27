@@ -4,6 +4,7 @@
   "direnv.vim": { "branch": "master", "commit": "ab2a7e08dd630060cd81d7946739ac7442a4f269" },
   "kanagawa.nvim": { "branch": "master", "commit": "08ed29989834f5f2606cb1ef9d5b24c5ea7b8fa5" },
   "lazy.nvim": { "branch": "main", "commit": "24fa2a97085ca8a7220b5b078916f81e316036fd" },
+  "leap.nvim": { "branch": "main", "commit": "5d10692be460f9e8a42d34cf98a012e3e18b23bf" },
   "lualine.nvim": { "branch": "master", "commit": "0a5a66803c7407767b799067986b4dc3036e1983" },
   "neodev.nvim": { "branch": "main", "commit": "ce9a2e8eaba5649b553529c5498acb43a6c317cd" },
   "neogit": { "branch": "master", "commit": "70ad95be902ee69b56410a5cfc690dd03104edb3" },
