@@ -24,6 +24,20 @@ local function plugins()
       t.load_extension("live_grep_args")
     end
 
+  }, {
+    'nvim-pack/nvim-spectre',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      require('spectre').setup({
+        replace_engine = {
+          ["sed"] = {
+            cmd = "sed"
+          }
+        }
+      })
+    end
   } }
 end
 
@@ -34,10 +48,30 @@ local function init()
     { desc = "Find project" })
   vim.keymap.set('n', '<LEADER>bb', ":Telescope buffers<CR>", { desc = "Find project files" });
   vim.keymap.set('n', '<LEADER>fr', ":Telescope oldfiles<CR>", { desc = "Find project files" });
-  vim.keymap.set('n', '<LEADER>/', function() require("telescope").extensions.live_grep_args.live_grep_args() end, { desc = "Search" });
+
+  vim.keymap.set('n', '<LEADER>/', function()
+    require("telescope").extensions.live_grep_args.live_grep_args()
+  end, { desc = "Search" });
   vim.keymap.set('n', '<LEADER>*', function()
     require('telescope.builtin').live_grep { default_text = vim.fn.expand("<cword>") }
   end, { desc = "Search word under cursor" });
+
+  -- /g flag for :%s on by default
+  vim.cmd.set('gdefault')
+
+  vim.keymap.set('n', 'R', function()
+    local w = vim.fn.expand('<cword>')
+    return ":%s/\\<" .. w .. "\\>/"
+  end, { desc = "Replace in current file", expr = true })
+
+  vim.keymap.set('n', '<leader>pR', function()
+    require("spectre").open_visual({
+      select_word = true,
+      begin_line_num = 5,
+      is_insert_mode = true,
+      path = "*",
+    })
+  end, { desc = "Replace current word" })
 end
 
 return { plugins = plugins, init = init }
