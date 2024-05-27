@@ -56,6 +56,9 @@ local function init()
     require('telescope.builtin').live_grep { default_text = vim.fn.expand("<cword>") }
   end, { desc = "Search word under cursor" });
 
+  -- clear search
+  vim.keymap.set('n', '<LEADER>sc', ":noh<CR>", {});
+
   -- /g flag for :%s on by default
   vim.cmd.set('gdefault')
 

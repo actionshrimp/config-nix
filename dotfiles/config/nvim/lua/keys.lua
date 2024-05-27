@@ -14,7 +14,6 @@ local function init()
     vim.fn.setreg("+", f)
     print(f)
   end, {});
-  vim.keymap.set('n', '<LEADER>sc', ":noh<CR>", {});
   vim.keymap.set('n', '<LEADER>cl', "gcc", { remap = true });
   vim.keymap.set('v', '<LEADER>cl', "gc", { remap = true });
 
