@@ -27,6 +27,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     config-nix-private.url = "git+file:///Users/dave/config-nix-private";
+    llama-cpp.url = "github:ggerganov/llama.cpp";
   };
 
   outputs =
@@ -38,6 +39,7 @@
     , nixos-wsl
     , nix-direnv
     , flake-utils
+    , llama-cpp
     , config-nix-private ? {
         sshConfig = {
           personal = { };
@@ -59,6 +61,7 @@
           nurl = nurl.packages.${system}.default;
           nix-direnv = nix-direnv.packages.${system}.default;
         })
+	llama-cpp.overlays.default
       ];
 
       homeManagerModule = { homeConfig, system, ... }@hostConfig:
