@@ -16,7 +16,8 @@ local function init()
   end, {});
   vim.keymap.set('n', '<LEADER>gs', ":Neogit<CR>", {});
   vim.keymap.set('n', '<LEADER>sc', ":noh<CR>", {});
-  vim.keymap.set({ 'n', 'v' }, '<LEADER>cl', "gcc", { remap = true });
+  vim.keymap.set('n', '<LEADER>cl', "gcc", { remap = true });
+  vim.keymap.set('v', '<LEADER>cl', "gc", { remap = true });
 
   -- :help CTRL-W
   vim.keymap.set('n', '<LEADER>w<S-l>', "<C-w><S-l>", {});
@@ -26,6 +27,13 @@ local function init()
   vim.keymap.set('n', '<LEADER>tw', function() vim.cmd('set list!') end, {});
 
   vim.keymap.set('n', '<LEADER>mrr', vim.lsp.buf.rename)
+  vim.keymap.set('n', 'R', function()
+    local w = vim.fn.expand('<cword>')
+    -- vim.cmd("%s/\\<" .. w .. "\\>/")
+    -- vim.cmd.s
+    vim.cmd.s("hello")
+  end)
+
 end
 
 return { init = init }
