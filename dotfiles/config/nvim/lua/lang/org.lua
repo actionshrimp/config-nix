@@ -18,6 +18,7 @@ local function plugins()
     end,
   }, {
     "chipsenkbeil/org-roam.nvim",
+    event = 'VeryLazy',
     tag = "0.1.0",
     dependencies = {
       {
