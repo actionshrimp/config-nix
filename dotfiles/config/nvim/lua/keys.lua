@@ -11,7 +11,7 @@ local function init()
   vim.keymap.set('n', '<LEADER>fek', ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>", {});
   vim.keymap.set('n', '<LEADER>fyy', function ()
     local f = vim.fn.expand('%:p')
-    vim.fn.setreg("+", vim.fn.expand('%:p'))
+    vim.fn.setreg("+", f)
     print(f)
   end, {});
   vim.keymap.set('n', '<LEADER>gs', ":Neogit<CR>", {});
