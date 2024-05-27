@@ -20,6 +20,7 @@ vim.g.mapleader = " "       -- Make sure to set `mapleader` before lazy so your 
 vim.g.maplocalleader = " m" -- Same for `maplocalleader`
 
 local lazy_setup = ({
+  "nvim-tree/nvim-web-devicons",
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
