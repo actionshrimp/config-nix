@@ -21,6 +21,7 @@ vim.g.maplocalleader = " m" -- Same for `maplocalleader`
 
 local lazy_setup = ({
   "nvim-tree/nvim-web-devicons",
+  "tpope/vim-repeat",
   {
     "nvim-lualine/lualine.nvim",
     config = function()
