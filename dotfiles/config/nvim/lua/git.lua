@@ -21,7 +21,6 @@ end
 
 function init()
   vim.keymap.set('n', '<LEADER>gs', ":Neogit<CR>", {});
-  -- vim.keymap.set('n', '<LEADER>gfl', ":Gllog %<CR>", { desc = "Git log current file" });
   vim.keymap.set('n', '<LEADER>gfl', function()
     local f = vim.fn.expand('%')
     require('neogit').action('log', 'log_current', { "--", f })()
