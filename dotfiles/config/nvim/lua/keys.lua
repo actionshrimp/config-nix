@@ -14,6 +14,10 @@ local function init()
     vim.fn.setreg("+", f)
     print(f)
   end, {});
+
+  vim.keymap.set('n', '<LEADER>bd', "<CMD>bd<CR>");
+
+  -- commenting
   vim.keymap.set('n', '<LEADER>cl', "gcc", { remap = true });
   vim.keymap.set('v', '<LEADER>cl', "gc", { remap = true });
 
