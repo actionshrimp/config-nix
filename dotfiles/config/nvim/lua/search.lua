@@ -30,13 +30,7 @@ local function plugins()
       'nvim-lua/plenary.nvim',
     },
     config = function()
-      require('spectre').setup({
-        replace_engine = {
-          ["sed"] = {
-            cmd = "sed"
-          }
-        }
-      })
+      require('spectre').setup({ })
     end
   } }
 end

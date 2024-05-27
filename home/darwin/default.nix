@@ -6,6 +6,11 @@
     pkgs.pinentry_mac
     pkgs.iterm2
     pkgs.emacs-macport
+    (pkgs.gnused.overrideAttrs (prev: {
+      postInstall = (prev.postInstall or "") + ''
+      ln -s $out/bin/sed $out/bin/gsed
+      '';
+    }))
   ];
 
 
