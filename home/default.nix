@@ -272,6 +272,10 @@
       my-ip() {
         curl -s ifconfig.co
       }
+
+      llm() {
+        llama -hfr TheBloke/CapybaraHermes-2.5-Mistral-7B-GGUF -hff capybarahermes-2.5-mistral-7b.Q5_K_M.gguf -p "$1"
+      }
     '';
   };
 
