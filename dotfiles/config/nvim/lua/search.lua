@@ -35,8 +35,8 @@ M.init = function()
   vim.keymap.set('n', '<LEADER>pf', ":Telescope find_files<CR>", { desc = "Find project files" });
   vim.keymap.set('n', '<LEADER>pp', function() require 'telescope'.extensions.projects.projects {} end,
     { desc = "Find project" })
-  vim.keymap.set('n', '<LEADER>bb', ":Telescope buffers<CR>", { desc = "Find project files" });
-  vim.keymap.set('n', '<LEADER>fr', ":Telescope oldfiles<CR>", { desc = "Find project files" });
+  vim.keymap.set('n', '<LEADER>bb', ":Telescope buffers<CR>", { desc = "Buffers" });
+  vim.keymap.set('n', '<LEADER>fr', ":Telescope oldfiles<CR>", { desc = "Recent files" });
 
   vim.keymap.set('n', '<LEADER>/', function()
     require("telescope").extensions.live_grep_args.live_grep_args()
