@@ -12,7 +12,7 @@ M.plugins = function()
         mappings = {
           popup = {
             ["p"] = "PushPopup",
-            ["P"] = "PullPopup"
+            ["F"] = "PullPopup"
           }
         }
       })
