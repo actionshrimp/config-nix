@@ -92,6 +92,7 @@ local lazy_setup = ({
     end
   },
   { "direnv/direnv.vim", },
+  require('completion').plugins(),
   require('git').plugins(),
   require('search').plugins(),
   require('formatter').plugins(),
