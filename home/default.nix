@@ -58,6 +58,7 @@
     pkgs.python39
     pkgs.ripgrep
     pkgs.silver-searcher
+    pkgs.tailwindcss-language-server
     pkgs.sqlite.dev
     pkgs.tree
     pkgs.watch
