@@ -27,7 +27,10 @@ M.plugins = function()
     config = function()
       require('spectre').setup({})
     end
-  } }
+  }, {
+    "johmsalas/text-case.nvim"
+  }
+}
 end
 
 
@@ -53,7 +56,7 @@ M.init = function()
 
   vim.keymap.set('n', 'R', function()
     local w = vim.fn.expand('<cword>')
-    return ":%s/\\<" .. w .. "\\>/"
+    return ":Subs/\\<" .. w .. "\\>/"
   end, { desc = "Replace in current file", expr = true })
 
   vim.keymap.set('n', '<leader>pR', function()
