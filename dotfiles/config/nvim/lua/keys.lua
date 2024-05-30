@@ -32,6 +32,7 @@ M.init = function()
   vim.keymap.set('n', '<LEADER>wm', "<C-w>o", {});
 
   vim.keymap.set('n', '<LEADER>tw', function() vim.cmd('set list!') end, {});
+  vim.keymap.set('n', '<LEADER>tl', function() vim.cmd('set wrap!') end, {});
 
   vim.keymap.set('n', '<LEADER>mrr', vim.lsp.buf.rename)
   vim.keymap.set('n', '<LEADER>mgg', vim.lsp.buf.definition)
