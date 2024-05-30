@@ -6,6 +6,13 @@ M.plugins = function()
       require("project_nvim").setup({})
     end
   }, {
+    "gbprod/yanky.nvim",
+    config = function()
+      require('yanky').setup({
+      })
+      vim.keymap.set('n', '<LEADER>ry', ":Telescope yank_history<CR>", { desc = "Yank history" });
+    end
+  }, {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.6',
     dependencies = {
@@ -17,6 +24,7 @@ M.plugins = function()
       t.setup({})
       t.load_extension("live_grep_args")
       t.load_extension('projects')
+      t.load_extension('yank_history')
     end
 
   }, {
@@ -29,8 +37,7 @@ M.plugins = function()
     end
   }, {
     "johmsalas/text-case.nvim"
-  }
-}
+  } }
 end
 
 
