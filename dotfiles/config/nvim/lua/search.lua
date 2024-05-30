@@ -61,6 +61,8 @@ M.init = function()
 
   -- /g flag for :%s on by default
   vim.cmd.set('gdefault')
+  vim.cmd.set('ignorecase')
+  vim.cmd.set('smartcase')
 
   vim.keymap.set('n', 'R', function()
     local w = vim.fn.expand('<cword>')
