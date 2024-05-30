@@ -30,8 +30,12 @@ M.plugins = function()
           api.config.mappings.default_on_attach(bufnr)
 
           -- custom mappings
+          -- see https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L2230 for defaults
           vim.keymap.set('n', 'oh', api.node.open.vertical, opts('Open: Horizontally'))
           vim.keymap.set('n', 'ov', api.node.open.horizontal, opts('Open: Vertically'))
+          vim.keymap.set('n', 'o', api.node.open.no_window_picker, opts('Open: Vertically'))
+          vim.keymap.set('n', '<ret>', api.node.open.no_window_picker, opts('Open: Vertically'))
+          vim.keymap.set('n', 'oaa', api.node.open.edit, opts('Open: Vertically'))
         end
       })
       vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle .<CR>", {});
