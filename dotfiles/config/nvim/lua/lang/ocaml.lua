@@ -20,6 +20,7 @@ M.plugins = function()
       vim.api.nvim_create_autocmd('FileType', {
         pattern = { 'reason' },
         callback = function(ev)
+          vim.cmd.set("commentstring=//\\ %s")
           vim.lsp.start({
             name = 'ocaml-lsp-server',
             cmd = { 'ocamllsp' },
