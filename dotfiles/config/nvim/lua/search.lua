@@ -9,6 +9,9 @@ M.plugins = function()
     "gbprod/yanky.nvim",
     config = function()
       require('yanky').setup({
+        highlight = {
+          timer = 200
+        }
       })
       vim.keymap.set('n', '<LEADER>ry', ":Telescope yank_history<CR>", { desc = "Yank history" });
     end
