@@ -99,7 +99,7 @@ local lazy_setup = ({
   { "direnv/direnv.vim", },
   {
     "mbbill/undotree",
-    config = function ()
+    config = function()
       vim.keymap.set('n', '<LEADER>au', ":UndotreeToggle<CR>");
     end
   },
