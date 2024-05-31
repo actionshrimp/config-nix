@@ -8,6 +8,11 @@ M.plugins = function()
         timeout_ms = 500,
         lsp_fallback = true,
       },
+      formatters_by_ft = {
+        javascript = { "prettier" },
+        json = { "prettier" },
+        lua = { "stylua" }
+      },
     },
   } }
 end
