@@ -8,10 +8,13 @@ M.plugins = function()
         timeout_ms = 500,
         lsp_fallback = true,
       },
+      -- :lua print(vim.bo.filetype)
       formatters_by_ft = {
         javascript = { "prettier" },
         json = { "prettier" },
+        typescriptreact = { "prettier" },
         lua = { "stylua" }
+
       },
     },
   } }
