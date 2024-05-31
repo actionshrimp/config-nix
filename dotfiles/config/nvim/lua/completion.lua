@@ -1,21 +1,13 @@
 local M = {}
 M.plugins = function()
   return {
-    { "hrsh7th/cmp-nvim-lsp" },
     {
-      "hrsh7th/nvim-cmp",
+      "echasnovski/mini.completion",
+      version = "*",
       config = function()
-        local cmp = require('cmp')
-        cmp.setup({
-          sources = cmp.config.sources({
-            { name = 'nvim_lsp' }
-          }),
-          mapping = cmp.mapping.preset.insert({
-            ['<C-Space>'] = cmp.mapping.complete()
-          })
-        })
+        require('mini.completion').setup()
       end
-    },
+    }
   }
 end
 return M
