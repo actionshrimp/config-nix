@@ -125,6 +125,7 @@ local lazy_spec = ({
   require('search').plugins(),
   require('formatter').plugins(),
   require('diagnostics').plugins(),
+  require('llm').plugins(),
   require('lang/org').plugins(),
   require('lang/ocaml').plugins()
 })
