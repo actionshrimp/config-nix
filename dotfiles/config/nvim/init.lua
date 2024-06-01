@@ -97,6 +97,12 @@ local lazy_setup = ({
       vim.keymap.set('n', '<LEADER>au', ":UndotreeToggle<CR>");
     end
   },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   require('theme').plugins(),
   require('completion').plugins(),
   require('git').plugins(),
