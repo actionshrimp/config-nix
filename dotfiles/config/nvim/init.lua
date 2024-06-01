@@ -51,12 +51,6 @@ local lazy_setup = ({
   { "neovim/nvim-lspconfig" },
   { "folke/neodev.nvim",    opts = {}, config = function() require('neodev').setup({}) end },
   {
-    "rebelot/kanagawa.nvim",
-    config = function()
-      vim.cmd.colorscheme('kanagawa')
-    end
-  },
-  {
     'alexghergh/nvim-tmux-navigation',
     config = function()
       require 'nvim-tmux-navigation'.setup {
@@ -108,6 +102,7 @@ local lazy_setup = ({
       vim.keymap.set('n', '<LEADER>au', ":UndotreeToggle<CR>");
     end
   },
+  require('theme').plugins(),
   require('completion').plugins(),
   require('git').plugins(),
   require('project').plugins(),
