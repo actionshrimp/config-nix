@@ -29,16 +29,7 @@
     pkgs.killall
     pkgs.kubectl
     pkgs.kubernetes-helm
-    # (lib.lowPrio (pkgs.llama-cpp.overrideAttrs (prev: {
-    #   buildInputs = prev.buildInputs ++ [
-    #     pkgs.curl
-    #   ];
-    # })))
-    (lib.lowPrio (pkgs.llamaPackages.llama-cpp.overrideAttrs (prev: {
-      LLAMA_CURL = 1;
-      buildInputs = prev.buildInputs ++ [ pkgs.openssl.dev pkgs.curl.dev ];
-      cmakeFlags = prev.cmakeFlags ++ [ (lib.cmakeBool "LLAMA_CURL" true) ];
-    })))
+    pkgs.ollama
     pkgs.lua-language-server
     pkgs.libvterm-neovim
     pkgs.lsof
