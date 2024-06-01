@@ -1,11 +1,6 @@
 local M = {}
 M.plugins = function()
   return { {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require("project_nvim").setup({})
-    end
-  }, {
     "gbprod/yanky.nvim",
     config = function()
       require('yanky').setup({
