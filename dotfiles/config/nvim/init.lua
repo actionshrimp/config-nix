@@ -105,6 +105,7 @@ local lazy_setup = ({
   },
   require('completion').plugins(),
   require('git').plugins(),
+  require('project').plugins(),
   require('search').plugins(),
   require('formatter').plugins(),
   require('diagnostics').plugins(),
