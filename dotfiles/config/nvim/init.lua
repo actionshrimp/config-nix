@@ -50,7 +50,12 @@ local lazy_setup = ({
   --{ "folke/neoconf.nvim", cmd = "Neoconf" },
   { "neovim/nvim-lspconfig" },
   { "folke/neodev.nvim",    opts = {}, config = function() require('neodev').setup({}) end },
-  "rebelot/kanagawa.nvim",
+  {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      vim.cmd.colorscheme('kanagawa')
+    end
+  },
   {
     'alexghergh/nvim-tmux-navigation',
     config = function()
@@ -114,7 +119,6 @@ local lazy_setup = ({
 })
 require("lazy").setup(lazy_setup)
 
-vim.cmd.colorscheme('kanagawa')
 vim.cmd.set('number')
 -- always show the column with lsp diagnostic 'E' or 'W' in
 vim.cmd.set('signcolumn=yes')
