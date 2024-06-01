@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "       -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.g.maplocalleader = " m" -- Same for `maplocalleader`
 
-local lazy_setup = ({
+local lazy_spec = ({
   "nvim-tree/nvim-web-devicons",
   "tpope/vim-repeat",
   {
@@ -113,7 +113,10 @@ local lazy_setup = ({
   require('lang/org').plugins(),
   require('lang/ocaml').plugins()
 })
-require("lazy").setup(lazy_setup)
+require("lazy").setup({
+  dev = { path = "~/dev/nvim" },
+  spec = lazy_spec
+})
 
 vim.cmd.set('number')
 -- always show the column with lsp diagnostic 'E' or 'W' in
