@@ -1,46 +1,58 @@
 local M = {}
 M.plugins = function()
-  return { {
-    "nvim-tree/nvim-tree.lua",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-tree").setup({
-        sync_root_with_cwd = true,
-        respect_buf_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_root = true
-        },
-        actions = {
-          open_file = {
-            window_picker = {
-              enable = true,
-              picker = require('window-picker').pick_window,
+  return {
+    {
+      's1n7ax/nvim-window-picker',
+      name = 'window-picker',
+      event = 'VeryLazy',
+      version = '2.*',
+      config = function()
+        require 'window-picker'.setup({
+          hint = "floating-big-letter"
+        })
+      end,
+    },
+    {
+      "nvim-tree/nvim-tree.lua",
+      event = "VeryLazy",
+      config = function()
+        require("nvim-tree").setup({
+          sync_root_with_cwd = true,
+          respect_buf_cwd = true,
+          update_focused_file = {
+            enable = true,
+            update_root = true
+          },
+          actions = {
+            open_file = {
+              window_picker = {
+                enable = true,
+                picker = require('window-picker').pick_window,
+              }
             }
-          }
-        },
-        on_attach = function(bufnr)
-          local api = require "nvim-tree.api"
+          },
+          on_attach = function(bufnr)
+            local api = require "nvim-tree.api"
 
-          local function opts(desc)
-            return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+            local function opts(desc)
+              return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+            end
+
+            -- default mappings
+            api.config.mappings.default_on_attach(bufnr)
+
+            -- custom mappings
+            -- see https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L2230 for defaults
+            vim.keymap.set('n', 'oh', api.node.open.vertical, opts('Open: Horizontally'))
+            vim.keymap.set('n', 'ov', api.node.open.horizontal, opts('Open: Vertically'))
+            vim.keymap.set('n', 'o', api.node.open.no_window_picker, opts('Open: Vertically'))
+            vim.keymap.set('n', '<ret>', api.node.open.no_window_picker, opts('Open: Vertically'))
+            vim.keymap.set('n', 'oaa', api.node.open.edit, opts('Open: Vertically'))
           end
-
-          -- default mappings
-          api.config.mappings.default_on_attach(bufnr)
-
-          -- custom mappings
-          -- see https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt#L2230 for defaults
-          vim.keymap.set('n', 'oh', api.node.open.vertical, opts('Open: Horizontally'))
-          vim.keymap.set('n', 'ov', api.node.open.horizontal, opts('Open: Vertically'))
-          vim.keymap.set('n', 'o', api.node.open.no_window_picker, opts('Open: Vertically'))
-          vim.keymap.set('n', '<ret>', api.node.open.no_window_picker, opts('Open: Vertically'))
-          vim.keymap.set('n', 'oaa', api.node.open.edit, opts('Open: Vertically'))
-        end
-      })
-      vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle .<CR>", {});
-    end,
-  },
+        })
+        vim.keymap.set('n', '<LEADER>pt', ":NvimTreeToggle .<CR>", {});
+      end,
+    },
     -- {
     -- 	"nvim-neo-tree/neo-tree.nvim",
     -- 	branch = "v3.x",
