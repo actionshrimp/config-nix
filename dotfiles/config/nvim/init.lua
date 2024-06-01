@@ -75,6 +75,13 @@ local lazy_setup = ({
     opts = {}
   },
   {
+    "echasnovski/mini.notify",
+    version = "*",
+    config = function()
+      require("mini.notify").setup()
+    end
+  },
+  {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
