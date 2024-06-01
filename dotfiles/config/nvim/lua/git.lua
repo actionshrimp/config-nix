@@ -2,6 +2,7 @@ local M = {}
 M.plugins = function()
   return { {
     "NeogitOrg/neogit",
+    dev = true,
     dependencies = {
       "nvim-lua/plenary.nvim",  -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
