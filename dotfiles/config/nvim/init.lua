@@ -68,7 +68,6 @@ local lazy_setup = ({
   },
   { "nvim-treesitter/nvim-treesitter" },
   require('tree').plugins(),
-  -- { 'tpope/vim-unimpaired' },
   {
     "echasnovski/mini.bracketed",
     version = "*",
