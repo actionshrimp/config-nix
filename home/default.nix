@@ -52,7 +52,9 @@
     pkgs.tailwindcss-language-server
     pkgs.sqlite.dev
     pkgs.stylua
+    pkgs.selene
     pkgs.tree
+    pkgs.typos
     pkgs.watch
     pkgs.wget
     pkgs.xclip
