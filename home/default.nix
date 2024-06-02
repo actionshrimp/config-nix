@@ -13,54 +13,56 @@
     '';
   };
 
-  home.packages = [
-    pkgs.google-cloud-sql-proxy
-    pkgs.dos2unix
-    pkgs.gnumake
-    (pkgs.google-cloud-sdk.withExtraComponents
-      [ pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin ])
-    pkgs.cargo
-    pkgs.htop
-    pkgs.fd
-    pkgs.gh
-    pkgs.ispell
-    pkgs.jq
-    pkgs.k9s
-    pkgs.killall
-    pkgs.kubectl
-    pkgs.kubernetes-helm
-    pkgs.ollama
-    pkgs.lua-language-server
-    pkgs.libvterm-neovim
-    pkgs.lsof
-    pkgs.mc
-    pkgs.moreutils
-    pkgs.nil
-    pkgs.nixd
-    pkgs.nix-prefetch-git
-    pkgs.nix-output-monitor
-    pkgs.nixfmt-classic
-    pkgs.nixpkgs-fmt
-    pkgs.nodejs
-    pkgs.nodePackages.vscode-json-languageserver
-    pkgs.nurl
-    (lib.hiPrio pkgs.parallel)
-    pkgs.postgresql
-    pkgs.python39
-    pkgs.ripgrep
-    pkgs.silver-searcher
-    pkgs.tailwindcss-language-server
-    pkgs.sqlite.dev
-    pkgs.stylua
-    pkgs.selene
-    pkgs.tree
-    pkgs.typos
-    pkgs.watch
-    pkgs.wget
-    pkgs.xclip
-    pkgs.xmlstarlet
-    pkgs.xsel
-    pkgs.yq-go
+
+  # completion should work in here thanks to "with pkgs;"
+  home.packages = with pkgs; [
+    google-cloud-sql-proxy
+    dos2unix
+    gnumake
+    (google-cloud-sdk.withExtraComponents
+      [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    cargo
+    htop
+    fd
+    gh
+    ispell
+    jq
+    k9s
+    killall
+    kubectl
+    kubernetes-helm
+    ollama
+    lua-language-server
+    libvterm-neovim
+    lsof
+    mc
+    moreutils
+    nil
+    nixd
+    nix-prefetch-git
+    nix-output-monitor
+    nixfmt-classic
+    nixpkgs-fmt
+    nodejs
+    nodePackages.vscode-json-languageserver
+    nurl
+    (lib.hiPrio parallel)
+    postgresql
+    python39
+    ripgrep
+    silver-searcher
+    tailwindcss-language-server
+    sqlite.dev
+    stylua
+    selene
+    tree
+    typos
+    watch
+    wget
+    xclip
+    xmlstarlet
+    xsel
+    yq-go
   ];
 
   home.sessionVariables = { EDITOR = "vim"; };
