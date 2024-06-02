@@ -4,8 +4,8 @@ M.plugins = function()
     {
       "rebelot/kanagawa.nvim",
       config = function()
-        vim.cmd.colorscheme('kanagawa')
-      end
+        vim.cmd.colorscheme("kanagawa")
+      end,
     },
     -- {
     --   "folke/tokyonight.nvim",
