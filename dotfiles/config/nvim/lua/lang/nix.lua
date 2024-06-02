@@ -10,7 +10,10 @@ M.init = function()
         settings = {
           nixd = {
             nixpkgs = {
-              expr = "import <nixpkgs> { }",
+              -- expr = "import <nixpkgs> {}",
+              -- # note this only completes on a with pkgs; [ .. ] block
+              -- # see https://github.com/nix-community/nixd/issues/492
+              expr = 'import (builtins.getFlake ("git+file://" + toString ./.)).inputs.nixpkgs { }',
             },
             options = {
               nixos = {
