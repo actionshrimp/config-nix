@@ -51,6 +51,7 @@
     pkgs.silver-searcher
     pkgs.tailwindcss-language-server
     pkgs.sqlite.dev
+    pkgs.stylua
     pkgs.tree
     pkgs.watch
     pkgs.wget
