@@ -64,7 +64,7 @@ local lazy_spec = ({
       "rcarriga/nvim-notify",
     }
   },
-  { "folke/neodev.nvim",    opts = {}, config = function() require('neodev').setup({}) end },
+  { "folke/lazydev.nvim",   opts = {}, config = function() require('lazydev').setup({}) end },
   {
     'alexghergh/nvim-tmux-navigation',
     config = function()
