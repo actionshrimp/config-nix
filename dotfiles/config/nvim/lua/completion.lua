@@ -5,9 +5,9 @@ M.plugins = function()
       "echasnovski/mini.completion",
       version = "*",
       config = function()
-        require('mini.completion').setup()
-      end
-    }
+        require("mini.completion").setup()
+      end,
+    },
   }
 end
 return M
