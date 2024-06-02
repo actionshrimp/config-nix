@@ -87,7 +87,7 @@ local lazy_spec = {
       })
     end,
   },
-  { "nvim-treesitter/nvim-treesitter" },
+  require("treesitter").plugins(),
   require("tree").plugins(),
   {
     "echasnovski/mini.bracketed",
