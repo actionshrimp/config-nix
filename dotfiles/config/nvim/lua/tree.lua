@@ -47,7 +47,7 @@ M.plugins = function()
             vim.keymap.set("n", "ov", api.node.open.horizontal, opts("Open: Vertically"))
             vim.keymap.set("n", "o", api.node.open.no_window_picker, opts("Open: Vertically"))
             vim.keymap.set("n", "<ret>", api.node.open.no_window_picker, opts("Open: Vertically"))
-            vim.keymap.set("n", "oaa", api.node.open.edit, opts("Open: Vertically"))
+            vim.keymap.set("n", "oa", api.node.open.edit, opts("Open: Vertically"))
           end,
         })
         vim.keymap.set("n", "<LEADER>pt", ":NvimTreeToggle .<CR>", {})
