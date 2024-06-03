@@ -40,7 +40,7 @@ M.plugins = function()
     {
       "markonm/traces.vim",
       config = function()
-        vim.g.traces_abolish_integration = 1
+        vim.cmd("let g:traces_abolish_integration = 1")
       end,
     },
   }
