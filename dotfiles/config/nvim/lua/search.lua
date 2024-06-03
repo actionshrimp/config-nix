@@ -2,17 +2,6 @@ local M = {}
 M.plugins = function()
   return {
     {
-      "gbprod/yanky.nvim",
-      config = function()
-        require("yanky").setup({
-          highlight = {
-            timer = 200,
-          },
-        })
-        vim.keymap.set("n", "<LEADER>ry", ":Telescope yank_history<CR>", { desc = "Yank history" })
-      end,
-    },
-    {
       "nvim-telescope/telescope.nvim",
       tag = "0.1.6",
       dependencies = {
@@ -41,6 +30,22 @@ M.plugins = function()
       "markonm/traces.vim",
       config = function()
         vim.cmd("let g:traces_abolish_integration = 1")
+      end,
+    },
+    {
+      "gbprod/yanky.nvim",
+      dependencies = {
+        "nvim-telescope/telescope.nvim",
+      },
+      config = function()
+        require("yanky").setup({
+          highlight = {
+            timer = 200,
+          },
+        })
+        vim.keymap.set({ "n", "v" }, "<LEADER>ry", function()
+          require("telescope").extensions.yank_history.yank_history()
+        end, { desc = "Yank history" })
       end,
     },
   }
@@ -75,7 +80,6 @@ M.init = function()
     return ":%S/" .. w .. "/"
   end, { desc = "Replace in current file", expr = true })
   vim.keymap.set("v", "R", function()
-    local w = vim.fn.expand("<cword>")
     return ":'<,'>S/"
   end, { desc = "Replace in current file", expr = true })
 
