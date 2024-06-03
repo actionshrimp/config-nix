@@ -36,8 +36,12 @@ M.plugins = function()
         require("spectre").setup({})
       end,
     },
+    { "tpope/vim-abolish" },
     {
-      "johmsalas/text-case.nvim",
+      "markonm/traces.vim",
+      config = function()
+        vim.g.traces_abolish_integration = 1
+      end,
     },
   }
 end
@@ -68,11 +72,11 @@ M.init = function()
 
   vim.keymap.set("n", "R", function()
     local w = vim.fn.expand("<cword>")
-    return ":Subs/\\<" .. w .. "\\>/"
+    return ":%S/" .. w .. "/"
   end, { desc = "Replace in current file", expr = true })
   vim.keymap.set("v", "R", function()
     local w = vim.fn.expand("<cword>")
-    return ":'<,'>Subs/\\<" .. w .. "\\>/"
+    return ":'<,'>S/"
   end, { desc = "Replace in current file", expr = true })
 
   vim.keymap.set("n", "<leader>pR", function()
