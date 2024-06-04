@@ -25,14 +25,19 @@ M.plugins = function()
         require("spectre").setup({})
       end,
     },
-    { "tpope/vim-abolish" },
     {
+      -- Gives :Subvert command (case aware substitute)
+      "tpope/vim-abolish",
+    },
+    {
+      -- Gives preview for vim-abolish
       "markonm/traces.vim",
       config = function()
         vim.cmd("let g:traces_abolish_integration = 1")
       end,
     },
     {
+      -- Gives yankring
       "gbprod/yanky.nvim",
       dependencies = {
         "nvim-telescope/telescope.nvim",
