@@ -6,7 +6,8 @@ M.plugins = function()
       config = function(opts)
         require("gen").setup({
           display_mode = "split", -- The display mode. Can be "float" or "split".
-          model = "mistral", -- The default model to use.
+          -- model = "mistral", -- The default model to use.
+          model = "codellama", -- The default model to use.
           --   show_prompt = true,     -- Shows the Prompt submitted to Ollama.
           --   show_model = true,      -- Displays which model you are using at the beginning of your chat session.
         })
