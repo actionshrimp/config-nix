@@ -58,6 +58,7 @@
     tree
     typos
     watch
+    wezterm
     wget
     xclip
     xmlstarlet
@@ -129,6 +130,11 @@
   home.file.".config/nvim" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/config-nix/dotfiles/config/nvim";
+  };
+
+  home.file.".wezterm.lua" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
   };
 
   programs.opam = {
