@@ -50,6 +50,19 @@ M.plugins = function()
         })
       end,
     },
+    {
+      "Wansmer/treesj",
+      dependencies = { "nvim-treesitter/nvim-treesitter" },
+      config = function()
+        require("treesj").setup({
+          use_default_keymaps = false,
+        })
+
+        vim.keymap.set("n", "<LEADER>tj", function()
+          require("treesj").toggle()
+        end, { desc = "Treesitter Join (toggle)" })
+      end,
+    },
   }
 end
 return M
