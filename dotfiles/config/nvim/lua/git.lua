@@ -2,6 +2,12 @@ local M = {}
 M.plugins = function()
   return {
     {
+      "lewis6991/gitsigns.nvim",
+      config = function()
+        require("gitsigns").setup()
+      end,
+    },
+    {
       "NeogitOrg/neogit",
       dev = true,
       dependencies = {
