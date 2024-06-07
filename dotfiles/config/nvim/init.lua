@@ -140,6 +140,7 @@ local lazy_spec = {
   require("llm").plugins(),
   require("lang/org").plugins(),
   require("lang/ocaml").plugins(),
+  require("my-kubernetes").plugins(),
 }
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
