@@ -152,6 +152,7 @@ require("lazy").setup({
 vim.cmd.set("number")
 -- always show the column with lsp diagnostic 'E' or 'W' in
 vim.cmd.set("signcolumn=yes")
+vim.cmd.set("expandtab")
 
 require("keys").init()
 require("git").init()
