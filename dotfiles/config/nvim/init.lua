@@ -130,6 +130,7 @@ local lazy_spec = {
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  require("my-dashboard").plugins(),
   require("theme").plugins(),
   require("completion").plugins(),
   require("git").plugins(),
