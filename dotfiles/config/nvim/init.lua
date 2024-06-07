@@ -141,6 +141,7 @@ local lazy_spec = {
   require("llm").plugins(),
   require("lang/org").plugins(),
   require("lang/ocaml").plugins(),
+  require("lang/terraform").plugins(),
   require("my-kubernetes").plugins(),
 }
 require("lazy").setup({
