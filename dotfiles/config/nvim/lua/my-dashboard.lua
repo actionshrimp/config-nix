@@ -15,6 +15,12 @@ M.plugins = function()
             shortcut = {
               { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
               {
+                desc = " Projects",
+                group = "DiagnosticHint",
+                action = "Telescope projects",
+                key = "p",
+              },
+              {
                 icon = " ",
                 icon_hl = "@variable",
                 desc = "Files",
@@ -25,7 +31,7 @@ M.plugins = function()
               {
                 desc = " Apps",
                 group = "DiagnosticHint",
-                action = "Telescope app",
+                action = "Telescope apps",
                 key = "a",
               },
               {
