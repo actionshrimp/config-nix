@@ -136,7 +136,7 @@ local lazy_spec = {
   require("project").plugins(),
   require("search").plugins(),
   require("formatter").plugins(),
-  require("diagnostics").plugins(),
+  require("my-diagnostics").plugins(),
   require("llm").plugins(),
   require("lang/org").plugins(),
   require("lang/ocaml").plugins(),
@@ -152,7 +152,7 @@ vim.cmd.set("signcolumn=yes")
 
 require("keys").init()
 require("git").init()
-require("diagnostics").init()
+require("my-diagnostics").init()
 require("formatter").init()
 require("search").init()
 
