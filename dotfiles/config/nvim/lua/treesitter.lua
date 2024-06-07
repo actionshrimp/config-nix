@@ -7,6 +7,7 @@ M.plugins = function()
       dependencies = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("nvim-treesitter.configs").setup({
+          ensure_installed = { "ocaml" },
           textobjects = {
             select = {
               enable = true,
