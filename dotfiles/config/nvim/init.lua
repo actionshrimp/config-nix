@@ -48,7 +48,6 @@ local lazy_spec = {
     },
   },
   --{ "folke/neoconf.nvim", cmd = "Neoconf" },
-  { "neovim/nvim-lspconfig" },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -70,6 +69,7 @@ local lazy_spec = {
       "rcarriga/nvim-notify",
     },
   },
+  require("my-lsp").plugins(),
   require("my-completion").plugins(),
   {
     "folke/lazydev.nvim",
