@@ -112,7 +112,7 @@ local lazy_spec = {
   },
   require("my-dashboard").plugins(),
   require("theme").plugins(),
-  require("git").plugins(),
+  require("my-git").plugins(),
   require("project").plugins(),
   require("search").plugins(),
   require("formatter").plugins(),
@@ -134,7 +134,6 @@ vim.cmd.set("signcolumn=yes")
 vim.cmd.set("expandtab")
 
 require("keys").init()
-require("git").init()
 require("my-diagnostics").init()
 require("formatter").init()
 require("search").init()
