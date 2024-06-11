@@ -47,7 +47,6 @@ local lazy_spec = {
       -- refer to the configuration section below
     },
   },
-  --{ "folke/neoconf.nvim", cmd = "Neoconf" },
   require("my-lsp").plugins(),
   require("my-completion").plugins(),
   require("my-noice").plugins(),
