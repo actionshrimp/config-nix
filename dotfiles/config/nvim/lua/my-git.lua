@@ -25,16 +25,15 @@ M.plugins = function()
             },
           },
         })
+
+        vim.keymap.set("n", "<LEADER>gs", ":Neogit<CR>", {})
+        vim.keymap.set("n", "<LEADER>gfl", function()
+          local f = vim.fn.expand("%")
+          require("neogit").action("log", "log_current", { "--", f })()
+        end, { desc = "Git log current file" })
       end,
     },
   }
 end
 
-M.init = function()
-  vim.keymap.set("n", "<LEADER>gs", ":Neogit<CR>", {})
-  vim.keymap.set("n", "<LEADER>gfl", function()
-    local f = vim.fn.expand("%")
-    require("neogit").action("log", "log_current", { "--", f })()
-  end, { desc = "Git log current file" })
-end
 return M
