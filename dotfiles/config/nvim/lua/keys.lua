@@ -4,6 +4,7 @@ M.init = function()
   vim.api.nvim_create_user_command("Wq", ":wq", {})
   vim.api.nvim_create_user_command("Wqa", ":wqa", {})
   vim.api.nvim_create_user_command("Qa", ":wqa", {})
+  vim.api.nvim_create_user_command("E", ":e", {})
 
   -- vim.api.nvim_set_keymap('n', '<LEADER>fed', ":e $MYVIMRC<CR>", { noremap = true, silent = true });
   -- vim.api.nvim_create_user_command('EditVimrc', ':e $MYVIMRC', {})
