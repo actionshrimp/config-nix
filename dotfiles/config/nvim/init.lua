@@ -70,6 +70,7 @@ local lazy_spec = {
       "rcarriga/nvim-notify",
     },
   },
+  require("my-completion").plugins(),
   {
     "folke/lazydev.nvim",
     opts = {},
@@ -132,7 +133,6 @@ local lazy_spec = {
   },
   require("my-dashboard").plugins(),
   require("theme").plugins(),
-  require("completion").plugins(),
   require("git").plugins(),
   require("project").plugins(),
   require("search").plugins(),
