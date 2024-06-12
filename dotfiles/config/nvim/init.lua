@@ -20,6 +20,11 @@ vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappin
 vim.g.maplocalleader = " m" -- Same for `maplocalleader`
 
 local lazy_spec = {
+  {
+    "actionshrimp/direnv.nvim",
+    dev = true,
+    config = true,
+  },
   "nvim-tree/nvim-web-devicons",
   "tpope/vim-repeat",
   {
@@ -97,7 +102,6 @@ local lazy_spec = {
       })
     end,
   },
-  { "direnv/direnv.vim" },
   {
     "mbbill/undotree",
     config = function()
