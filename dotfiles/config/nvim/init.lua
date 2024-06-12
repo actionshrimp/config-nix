@@ -54,7 +54,7 @@ local lazy_spec = {
   },
   require("my-lsp").plugins(),
   require("my-completion").plugins(),
-  require("my-noice").plugins(),
+  -- require("my-noice").plugins(),
   {
     "folke/lazydev.nvim",
     opts = {},
