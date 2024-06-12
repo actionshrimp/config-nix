@@ -139,7 +139,6 @@ vim.cmd.set("expandtab")
 
 require("keys").init()
 require("my-diagnostics").init()
-require("formatter").init()
 require("search").init()
 
 require("lang/lua").init()
