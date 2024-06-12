@@ -115,7 +115,7 @@ local lazy_spec = {
   require("my-git").plugins(),
   require("project").plugins(),
   require("search").plugins(),
-  require("formatter").plugins(),
+  require("my-formatter").plugins(),
   require("my-diagnostics").plugins(),
   require("llm").plugins(),
   require("lang/org").plugins(),
