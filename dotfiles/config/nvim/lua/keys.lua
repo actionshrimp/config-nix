@@ -50,5 +50,6 @@ M.init = function()
   vim.keymap.set("n", "<LEADER>mgt", vim.lsp.buf.type_definition, { desc = "LSP type definition" })
   vim.keymap.set("n", "<LEADER>mgb", "<C-o>", { desc = "Go back" })
   vim.keymap.set("n", "<LEADER>maa", vim.lsp.buf.code_action, { desc = "LSP Code action" })
+  vim.keymap.set("n", "<LEADER>mbr", ":LspRestart<CR>", { desc = "LSP Restart" })
 end
 return M
