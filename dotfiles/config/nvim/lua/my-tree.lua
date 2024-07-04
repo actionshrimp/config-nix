@@ -18,11 +18,11 @@ M.plugins = function()
       config = function()
         require("nvim-tree").setup({
           git = { enable = false },
-          sync_root_with_cwd = true,
+          sync_root_with_cwd = false,
           respect_buf_cwd = true,
           update_focused_file = {
-            enable = true,
-            update_root = true,
+            enable = false,
+            update_root = false,
           },
           actions = {
             open_file = {
@@ -50,7 +50,12 @@ M.plugins = function()
             vim.keymap.set("n", "oa", api.node.open.edit, opts("Open: Vertically"))
           end,
         })
-        vim.keymap.set("n", "<LEADER>pt", ":NvimTreeToggle .<CR>", {})
+        vim.keymap.set("n", "<LEADER>ptt", ":NvimTreeToggle .<CR>", { desc = "Open tree" })
+        vim.keymap.set("n", "<LEADER>ptr", function()
+          local f = vim.fs.root(0, ".git")
+          require("nvim-tree.api").tree.change_root(f)
+        end, { desc = "Update tree root for file" })
+        vim.keymap.set("n", "<LEADER>ptf", ":NvimTreeFindFile<CR>", { desc = "Focus tree on file" })
       end,
     },
     -- {
