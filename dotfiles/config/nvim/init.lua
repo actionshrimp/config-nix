@@ -79,7 +79,7 @@ local lazy_spec = {
     end,
   },
   require("my-treesitter").plugins(),
-  require("tree").plugins(),
+  require("my-tree").plugins(),
   {
     "echasnovski/mini.bracketed",
     version = "*",
