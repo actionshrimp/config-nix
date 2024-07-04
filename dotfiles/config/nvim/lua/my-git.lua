@@ -33,6 +33,13 @@ M.plugins = function()
         end, { desc = "Git log current file" })
       end,
     },
+    {
+      "FabijanZulj/blame.nvim",
+      config = function()
+        require("blame").setup()
+        vim.keymap.set("n", "<LEADER>gb", ":BlameToggle virtual<CR>", {})
+      end,
+    },
   }
 end
 
