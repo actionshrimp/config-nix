@@ -33,6 +33,7 @@
     kubernetes-helm
     ollama
     lua-language-server
+    luajitPackages.luarocks
     libvterm-neovim
     lsof
     mc
