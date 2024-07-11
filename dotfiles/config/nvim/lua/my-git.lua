@@ -37,7 +37,7 @@ M.plugins = function()
       "FabijanZulj/blame.nvim",
       config = function()
         require("blame").setup()
-        vim.keymap.set("n", "<LEADER>gb", ":BlameToggle virtual<CR>", {})
+        vim.keymap.set("n", "<LEADER>gb", ":BlameToggle<CR>", {})
       end,
     },
   }
