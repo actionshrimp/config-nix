@@ -9,7 +9,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=main", -- latest stable release
     lazypath,
   })
 end
@@ -122,10 +122,10 @@ local lazy_spec = {
   require("my-formatter").plugins(),
   require("my-diagnostics").plugins(),
   require("llm").plugins(),
-  require("lang/org").plugins(),
   require("lang/ocaml").plugins(),
   require("lang/terraform").plugins(),
   require("my-kubernetes").plugins(),
+  require("my-org").plugins(),
 }
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
