@@ -124,6 +124,7 @@ local lazy_spec = {
   require("llm").plugins(),
   require("lang/ocaml").plugins(),
   require("lang/terraform").plugins(),
+  require("lang/sql").plugins(),
   require("my-kubernetes").plugins(),
   require("my-org").plugins(),
 }
@@ -136,6 +137,7 @@ vim.cmd.set("number")
 -- always show the column with lsp diagnostic 'E' or 'W' in
 vim.cmd.set("signcolumn=yes")
 vim.cmd.set("expandtab")
+vim.cmd.set("shiftwidth=2")
 
 require("keys").init()
 require("my-diagnostics").init()
