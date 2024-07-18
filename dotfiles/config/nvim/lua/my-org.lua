@@ -25,7 +25,8 @@ M.plugins = function()
         vim.wo.foldlevel = 99
         vim.wo.conceallevel = 2
 
-        vim.keymap.set("n", "<LEADER>aodt", ":Neorg journal today<CR>", { desc = "Neorg journal today" })
+        vim.keymap.set("n", "<LEADER>aordt", ":Neorg journal today<CR>", { desc = "Neorg journal today" })
+        vim.keymap.set("n", "<LEADER>aordy", ":Neorg journal yesterday<CR>", { desc = "Neorg journal yesterday" })
       end,
     },
   }
