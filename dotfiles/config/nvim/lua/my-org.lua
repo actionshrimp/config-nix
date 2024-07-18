@@ -1,4 +1,12 @@
 local M = {}
+
+M.neorg_roam = function()
+  require("telescope.builtin").find_files({
+    prompt_title = "Notebook",
+    cwd = "~/Dropbox/neorg",
+  })
+end
+
 M.plugins = function()
   return {
     {
@@ -27,6 +35,7 @@ M.plugins = function()
 
         vim.keymap.set("n", "<LEADER>aordt", ":Neorg journal today<CR>", { desc = "Neorg journal today" })
         vim.keymap.set("n", "<LEADER>aordy", ":Neorg journal yesterday<CR>", { desc = "Neorg journal yesterday" })
+        vim.keymap.set("n", "<LEADER>aorf", M.neorg_roam, { desc = "Neorg find" })
       end,
     },
   }
