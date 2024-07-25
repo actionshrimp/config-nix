@@ -8,7 +8,14 @@ M.plugins = function()
         local cmp = require("cmp")
         cmp.setup({
           sources = cmp.config.sources({
-            { name = "nvim_lsp" },
+            {
+              name = "nvim_lsp",
+              option = {
+                ocamllsp = {
+                  keyword_pattern = [[~\?\k\+]],
+                },
+              },
+            },
           }),
           mapping = cmp.mapping.preset.insert({
             ["<C-Space>"] = cmp.mapping.complete(),
