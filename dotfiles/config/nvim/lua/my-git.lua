@@ -7,6 +7,7 @@ M.plugins = function()
         require("gitsigns").setup()
       end,
     },
+    { "linrongbin16/gitlinker.nvim", opts = {}, cmd = "GitLink" },
     {
       "NeogitOrg/neogit",
       dev = true,

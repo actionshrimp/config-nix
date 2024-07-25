@@ -51,5 +51,10 @@ M.init = function()
   vim.keymap.set("n", "<LEADER>mgb", "<C-o>", { desc = "Go back" })
   vim.keymap.set("n", "<LEADER>maa", vim.lsp.buf.code_action, { desc = "LSP Code action" })
   vim.keymap.set("n", "<LEADER>mbr", ":LspRestart<CR>", { desc = "LSP Restart" })
+
+  vim.keymap.set("n", "<LEADER>gll", "<cmd>GitLink! browse<cr>", { desc = "Open blob URL" })
+  vim.keymap.set("n", "<LEADER>glL", "<cmd>GitLink browse<cr>", { desc = "Copy blob URL" })
+  vim.keymap.set("n", "<LEADER>glb", "<cmd>GitLink! blame<cr>", { desc = "Open blame URL" })
+  vim.keymap.set("n", "<LEADER>glB", "<cmd>GitLink blame<cr>", { desc = "Copy blame URL" })
 end
 return M
