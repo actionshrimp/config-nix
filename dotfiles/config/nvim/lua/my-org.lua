@@ -3,7 +3,7 @@ local M = {}
 M.neorg_roam = function()
   require("telescope.builtin").find_files({
     prompt_title = "Notebook",
-    cwd = "~/Dropbox/neorg",
+    cwd = "~/Dropbox/notes",
   })
 end
 
@@ -36,6 +36,9 @@ M.plugins = function()
         vim.keymap.set("n", "<LEADER>aordt", ":Neorg journal today<CR>", { desc = "Neorg journal today" })
         vim.keymap.set("n", "<LEADER>aordy", ":Neorg journal yesterday<CR>", { desc = "Neorg journal yesterday" })
         vim.keymap.set("n", "<LEADER>aorf", M.neorg_roam, { desc = "Neorg find" })
+
+        -- useful reference https://github.com/nvim-neorg/neorg/wiki/Default-Keybinds
+        vim.keymap.set("n", "<LEADER>aorc", "<Plug>(neorg.dirman.new-note)", { desc = "Neorg capture" })
       end,
     },
   }
