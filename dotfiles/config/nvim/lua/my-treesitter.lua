@@ -10,7 +10,7 @@ M.plugins = function()
       dependencies = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("nvim-treesitter.configs").setup({
-          ensure_installed = { "ocaml", "vimdoc", "vim", "lua" },
+          ensure_installed = { "ocaml", "vimdoc", "vim", "lua", "norg" },
           highlight = { enable = true },
           textobjects = {
             select = {
