@@ -141,6 +141,8 @@ vim.cmd.set("number")
 vim.cmd.set("signcolumn=yes")
 vim.cmd.set("expandtab")
 vim.cmd.set("shiftwidth=2")
+-- hide e.g. markdown markers, but leave spaces where they are so everything doesn't shift around
+vim.cmd.set("conceallevel=1")
 
 require("keys").init()
 require("my-diagnostics").init()
