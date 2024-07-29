@@ -1,29 +1,80 @@
 local M = {}
+
+M.plugins = function()
+  return {
+    {
+      "folke/which-key.nvim",
+      event = "VeryLazy",
+      init = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+      end,
+      opts = {
+        spec = {
+          {
+            mode = { "n", "v" },
+            { "<leader>b", group = "Buffer", { "<leader>bd", ":bd<CR>", desc = "Delete" } },
+            {
+              "<leader>f",
+              group = "File",
+              {
+                {
+                  "<leader>fe",
+                  group = "Edit",
+                  {
+                    { "<leader>fed", ":e $MYVIMRC<CR>", desc = "Edit init.lua" },
+                    { "<leader>feh", ":e ~/config-nix/home/default.nix<CR>", desc = "Edit home/default.nix" },
+                    { "<leader>fec", ":e ~/config-nix/flake.nix<CR>", desc = "Edit flake.nix" },
+                    {
+                      "<leader>fek",
+                      ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>",
+                      desc = "Edit keys.lua",
+                    },
+                  },
+                },
+                {
+                  "<leader>fy",
+                  group = "Yank",
+                  {
+                    {
+                      "<leader>fyy",
+                      function()
+                        local f = vim.fn.expand("%:p")
+                        vim.fn.setreg("+", f)
+                        print(f)
+                      end,
+                      desc = "Current filename",
+                    },
+                  },
+                },
+              },
+            },
+            {
+              "<leader>g",
+              group = "Git",
+              {
+                "<leader>gl",
+                group = "Link",
+                {
+                  { "<leader>gll", "<cmd>GitLink! browse<cr>", desc = "Open blob URL" },
+                  { "<leader>glL", "<cmd>GitLink browse<cr>", desc = "Copy blob URL" },
+                  { "<leader>glb", "<cmd>GitLink! blame<cr>", desc = "Open blame URL" },
+                  { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  }
+end
 M.init = function()
   vim.api.nvim_create_user_command("W", ":w", {})
   vim.api.nvim_create_user_command("Wq", ":wq", {})
   vim.api.nvim_create_user_command("Wqa", ":wqa", {})
   vim.api.nvim_create_user_command("Qa", ":wqa", {})
   vim.api.nvim_create_user_command("E", ":e", {})
-
-  -- vim.api.nvim_set_keymap('n', '<LEADER>fed', ":e $MYVIMRC<CR>", { noremap = true, silent = true });
-  -- vim.api.nvim_create_user_command('EditVimrc', ':e $MYVIMRC', {})
-  vim.keymap.set("n", "<LEADER>fed", ":e $MYVIMRC<CR>", { desc = "Edit init.lua" })
-  vim.keymap.set("n", "<LEADER>feh", ":e ~/config-nix/home/default.nix<CR>", { desc = "Edit home/default.nix" })
-  vim.keymap.set("n", "<LEADER>fec", ":e ~/config-nix/flake.nix<CR>", { desc = "Edit flake.nix" })
-  vim.keymap.set(
-    "n",
-    "<LEADER>fek",
-    ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>",
-    { desc = "Edit keys.lua" }
-  )
-  vim.keymap.set("n", "<LEADER>fyy", function()
-    local f = vim.fn.expand("%:p")
-    vim.fn.setreg("+", f)
-    print(f)
-  end, { desc = "Copy current filename" })
-
-  vim.keymap.set("n", "<LEADER>bd", "<CMD>bd<CR>")
 
   -- commenting
   vim.keymap.set("n", "<LEADER>cl", "gcc", { remap = true, desc = "Comment line" })
@@ -51,10 +102,5 @@ M.init = function()
   vim.keymap.set("n", "<LEADER>mgb", "<C-o>", { desc = "Go back" })
   vim.keymap.set("n", "<LEADER>maa", vim.lsp.buf.code_action, { desc = "LSP Code action" })
   vim.keymap.set("n", "<LEADER>mbr", ":LspRestart<CR>", { desc = "LSP Restart" })
-
-  vim.keymap.set("n", "<LEADER>gll", "<cmd>GitLink! browse<cr>", { desc = "Open blob URL" })
-  vim.keymap.set("n", "<LEADER>glL", "<cmd>GitLink browse<cr>", { desc = "Copy blob URL" })
-  vim.keymap.set("n", "<LEADER>glb", "<cmd>GitLink! blame<cr>", { desc = "Open blame URL" })
-  vim.keymap.set("n", "<LEADER>glB", "<cmd>GitLink blame<cr>", { desc = "Copy blame URL" })
 end
 return M
