@@ -13,7 +13,22 @@ M.plugins = function()
         spec = {
           {
             mode = { "n", "v" },
+            {
+              "<leader>a",
+              group = "Apps",
+              {
+                {
+                  "<leader>ad",
+                  group = "Direnv",
+                  {
+                    { "<leader>ads", ":DirenvStatus<cr>", desc = "Status" },
+                    { "<leader>ada", ":DirenvAllow<cr>", desc = "Allow" },
+                  },
+                },
+              },
+            },
             { "<leader>b", group = "Buffer", { "<leader>bd", ":bd<CR>", desc = "Delete" } },
+            { "<leader>c", group = "Comment", { "<leader>cl", "gcc", desc = "Line", remap = true } },
             {
               "<leader>f",
               group = "File",
@@ -63,6 +78,14 @@ M.plugins = function()
                 },
               },
             },
+            {
+              "<leader>t",
+              group = "Toggle",
+              {
+                { "<leader>tw", "<cmd>set list!<cr>", { desc = "Whitespace" } },
+                { "<leader>tl", "<cmd>set wrap!<cr>", { desc = "Linewrap" } },
+              },
+            },
           },
         },
       },
@@ -77,7 +100,6 @@ M.init = function()
   vim.api.nvim_create_user_command("E", ":e", {})
 
   -- commenting
-  vim.keymap.set("n", "<LEADER>cl", "gcc", { remap = true, desc = "Comment line" })
   vim.keymap.set("v", "<LEADER>cl", "gc", { remap = true, desc = "Comment selection" })
 
   -- system clipboard
@@ -88,13 +110,6 @@ M.init = function()
   vim.keymap.set("n", "<LEADER>w<S-l>", "<C-w><S-l>", {})
   vim.keymap.set("n", "<LEADER>w<S-h>", "<C-w><S-h>", {})
   vim.keymap.set("n", "<LEADER>wm", "<C-w>o", {})
-
-  vim.keymap.set("n", "<LEADER>tw", function()
-    vim.cmd("set list!")
-  end, { desc = "Toggle whitespace" })
-  vim.keymap.set("n", "<LEADER>tl", function()
-    vim.cmd("set wrap!")
-  end, { desc = "Toggle linewrap" })
 
   vim.keymap.set("n", "<LEADER>mR", vim.lsp.buf.rename, { desc = "LSP Rename" })
   vim.keymap.set("n", "<LEADER>mgg", vim.lsp.buf.definition, { desc = "LSP definition" })
