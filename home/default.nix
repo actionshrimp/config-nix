@@ -53,6 +53,8 @@
     ripgrep
     silver-searcher
     tailwindcss-language-server
+    shellcheck
+    bash-language-server
     sqlite.dev
     stylua
     selene
