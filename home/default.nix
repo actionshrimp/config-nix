@@ -1,9 +1,16 @@
-{ homeOverlays
-, homeDirectory
-, stateVersion
-, sshConfig
-, sshKeys
-}: { config, pkgs, lib, ... }:
+{
+  homeOverlays,
+  homeDirectory,
+  stateVersion,
+  sshConfig,
+  sshKeys,
+}:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   home.activation = {
@@ -13,14 +20,12 @@
     '';
   };
 
-
   # completion should work in here thanks to "with pkgs;"
   home.packages = with pkgs; [
     google-cloud-sql-proxy
     dos2unix
     gnumake
-    (google-cloud-sdk.withExtraComponents
-      [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
     cargo
     htop
     fd
@@ -50,6 +55,7 @@
     (lib.hiPrio parallel)
     postgresql
     python39
+    realvnc-vnc-viewer
     ripgrep
     silver-searcher
     tailwindcss-language-server
@@ -69,18 +75,18 @@
     yq-go
   ];
 
-  home.sessionVariables = { EDITOR = "vim"; };
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
   home.sessionPath = [ "/usr/local/bin" ];
 
   home.file.".spacemacs.d" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/config-nix/dotfiles/spacemacs.d";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/spacemacs.d";
   };
 
   home.file.".authinfo.gpg" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/config-nix-private/dotfiles/authinfo.gpg";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix-private/dotfiles/authinfo.gpg";
   };
 
   programs.direnv = {
@@ -107,20 +113,27 @@
     extraConfig = {
       # swapped in favour of `gbi` alias below
       # blame = { ignoreRevsFile = ".git-blame-ignore-revs"; };
-      init = { defaultBranch = "main"; };
+      init = {
+        defaultBranch = "main";
+      };
     };
   };
 
   programs.gpg = {
     enable = true;
-    settings = { no-symkey-cache = false; };
+    settings = {
+      no-symkey-cache = false;
+    };
   };
 
   programs.keychain = {
     enable = true;
     enableZshIntegration = true;
     keys = [ "FE09FD0729375918" ] ++ sshKeys;
-    agents = [ "ssh" "gpg" ];
+    agents = [
+      "ssh"
+      "gpg"
+    ];
   };
 
   programs.neovim = {
@@ -131,13 +144,11 @@
   };
 
   home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/config-nix/dotfiles/config/nvim";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/nvim";
   };
 
   home.file.".wezterm.lua" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
   };
 
   programs.opam = {

@@ -1,10 +1,20 @@
-{ hostName
-, nixos-wsl
-, ...
-}: { lib, pkgs, config, modulesPath, ... }:
+{
+  hostName,
+  nixos-wsl,
+  ...
+}:
+{
+  lib,
+  pkgs,
+  config,
+  modulesPath,
+  ...
+}:
 
 with lib;
-let defaultUser = "dave"; in
+let
+  defaultUser = "dave";
+in
 {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
@@ -18,7 +28,11 @@ let defaultUser = "dave"; in
 
   wsl = {
     enable = true;
-    wslConf = { automount = { root = "/mnt"; }; };
+    wslConf = {
+      automount = {
+        root = "/mnt";
+      };
+    };
     defaultUser = defaultUser;
     startMenuLaunchers = false;
     nativeSystemd = true;
@@ -35,7 +49,10 @@ let defaultUser = "dave"; in
 
   users.users.${defaultUser} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 

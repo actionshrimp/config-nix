@@ -30,15 +30,16 @@
   };
 
   outputs =
-    { darwin
-    , home-manager
-    , nur
-    , nurl
-    , nixpkgs
-    , nixos-wsl
-    , nix-direnv
-    , flake-utils
-    , config-nix-private ? {
+    {
+      darwin,
+      home-manager,
+      nur,
+      nurl,
+      nixpkgs,
+      nixos-wsl,
+      nix-direnv,
+      flake-utils,
+      config-nix-private ? {
         sshConfig = {
           personal = { };
           work = { };
@@ -49,8 +50,8 @@
         };
         sshKnownHosts = { };
         buildMachines = [ ];
-      }
-    , ...
+      },
+      ...
     }:
     let
       mkHomeOverlays = system: [
@@ -61,38 +62,58 @@
         })
       ];
 
-      homeManagerModule = { homeConfig, system, ... }@hostConfig:
+      homeManagerModule =
+        { homeConfig, system, ... }@hostConfig:
         let
           homeOverlays = mkHomeOverlays system;
 
-          common = (import ./home {
-            inherit (homeConfig) homeDirectory stateVersion sshKeys sshConfig;
-            inherit homeOverlays;
-          });
+          common = (
+            import ./home {
+              inherit (homeConfig)
+                homeDirectory
+                stateVersion
+                sshKeys
+                sshConfig
+                ;
+              inherit homeOverlays;
+            }
+          );
         in
-        { ... }@moduleArgs: {
+        { ... }@moduleArgs:
+        {
           home.username = "dave";
           home.homeDirectory = homeConfig.homeDirectory;
           home.stateVersion = homeConfig.stateVersion;
           imports = [ common ] ++ homeConfig.homeModules;
         };
 
-      homeManagerConfig = { system, ... }@hostConfig: mod:
-        let mod = homeManagerModule hostConfig; in
+      homeManagerConfig =
+        { system, ... }@hostConfig:
+        mod:
+        let
+          mod = homeManagerModule hostConfig;
 
+        in
         home-manager.lib.homeManagerConfiguration {
           modules = [ mod ];
           pkgs = nixpkgs.legacyPackages.${system};
         };
 
-      systemCommon = { buildMachines, sshKnownHosts }:
+      systemCommon =
+        { buildMachines, sshKnownHosts }:
         (import ./system/common.nix {
           inherit buildMachines;
           inherit sshKnownHosts;
         });
 
-
-      darwinSystem = { hostName, systemConfig, homebrewCasks, ... }@hostConfig: homeManagerConfiguration:
+      darwinSystem =
+        {
+          hostName,
+          systemConfig,
+          homebrewCasks,
+          ...
+        }@hostConfig:
+        homeManagerConfiguration:
         let
           system = "aarch64-darwin";
         in
@@ -100,34 +121,45 @@
           inherit system;
           modules = [
             (systemCommon systemConfig)
-            (import ./system/darwin/darwin-configuration.nix
-              { inherit hostName; inherit homebrewCasks; })
+            (import ./system/darwin/darwin-configuration.nix {
+              inherit hostName;
+              inherit homebrewCasks;
+            })
             home-manager.darwinModules.home-manager
             { home-manager.users.dave = homeManagerConfiguration; }
           ];
-          specialArgs = { inherit nixpkgs; };
+          specialArgs = {
+            inherit nixpkgs;
+          };
         };
 
-      nixosSystem = { hostName, systemConfig, configModule, ... }@hostConfig: homeManagerConfiguration:
-        let system = "x86_64-linux"; in
+      nixosSystem =
+        {
+          hostName,
+          systemConfig,
+          configModule,
+          ...
+        }@hostConfig:
+        homeManagerConfiguration:
+        let
+          system = "x86_64-linux";
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [
-            (systemCommon systemConfig)
-          ] ++ (if hostConfig ? hardwareConfiguration then [
-            hostConfig.hardwareConfiguration
-          ] else [
-          ]) ++ [
-            (import configModule {
-              inherit hostName;
-              inherit nixos-wsl;
-            })
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useUserPackages = true;
-              home-manager.users.dave = homeManagerConfiguration;
-            }
-          ];
+          modules =
+            [ (systemCommon systemConfig) ]
+            ++ (if hostConfig ? hardwareConfiguration then [ hostConfig.hardwareConfiguration ] else [ ])
+            ++ [
+              (import configModule {
+                inherit hostName;
+                inherit nixos-wsl;
+              })
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useUserPackages = true;
+                home-manager.users.dave = homeManagerConfiguration;
+              }
+            ];
         };
       mkHost = f: (import f config-nix-private);
       hostConfigs = {
@@ -144,9 +176,9 @@
       };
     in
     {
-      homeConfigurations = nixpkgs.lib.attrsets.mapAttrs
-        (k: v: (homeManagerConfig hostConfigs."${k}" v))
-        homeManagerModules;
+      homeConfigurations = nixpkgs.lib.attrsets.mapAttrs (
+        k: v: (homeManagerConfig hostConfigs."${k}" v)
+      ) homeManagerModules;
       nixosConfigurations = {
         baracus-hyperv = nixosSystem (mkHost ./hosts/baracus-hyperv) homeManagerModules.baracus-hyperv;
         baracus-wsl = nixosSystem (mkHost ./hosts/baracus-wsl) homeManagerModules.baracus-wsl;
@@ -155,14 +187,15 @@
         daves-macbook = darwinSystem (mkHost ./hosts/daves-macbook) homeManagerModules.daves-macbook;
         marco = darwinSystem (mkHost ./hosts/marco) homeManagerModules.marco;
       };
-    } // (flake-utils.lib.eachDefaultSystem (system:
-    let pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      formatter = pkgs.nixpkgs-fmt;
-      devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixpkgs-fmt
-        ];
-      };
-    }));
+    }
+    // (flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        formatter = pkgs.nixfmt-rfc-style;
+        devShell = pkgs.mkShell { buildInputs = with pkgs; [ nixfmt-rfc-style ]; };
+      }
+    ));
 }

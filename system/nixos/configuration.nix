@@ -1,4 +1,10 @@
-{ hostName, ... }: { config, lib, pkgs, ... }:
+{ hostName, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # Use the systemd-boot EFI boot loader.
@@ -6,8 +12,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches" =
-      524288; # allow watchers (e.g. nodemon) to watch more files
+    "fs.inotify.max_user_watches" = 524288; # allow watchers (e.g. nodemon) to watch more files
   };
 
   documentation.enable = true;
@@ -55,7 +60,10 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dave = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 

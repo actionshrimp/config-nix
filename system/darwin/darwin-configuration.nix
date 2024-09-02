@@ -1,8 +1,22 @@
-{ hostName
-, homebrewCasks
-}: { pkgs, nix, nixpkgs, config, lib, ... }: {
+{
+  hostName,
+  homebrewCasks,
+}:
+{
+  pkgs,
+  nix,
+  nixpkgs,
+  config,
+  lib,
+  ...
+}:
+{
 
-  users = { users.dave = { home = "/Users/dave"; }; };
+  users = {
+    users.dave = {
+      home = "/Users/dave";
+    };
+  };
 
   networking.hostName = hostName;
 
@@ -24,9 +38,11 @@
   };
 
   nix.settings.trusted-users = [ "@admin" ];
-  nix.nixPath = [{
-    nixpkgs = "${nixpkgs}";
-  }];
+  nix.nixPath = [
+    {
+      nixpkgs = "${nixpkgs}";
+    }
+  ];
 
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
