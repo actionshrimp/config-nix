@@ -1,4 +1,13 @@
-{ buildMachines, sshKnownHosts }: { pkgs, nix, nixpkgs, config, lib, ... }: {
+{ buildMachines, sshKnownHosts }:
+{
+  pkgs,
+  nix,
+  nixpkgs,
+  config,
+  lib,
+  ...
+}:
+{
 
   environment.systemPackages = with pkgs; [
     git
