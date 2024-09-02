@@ -18,7 +18,7 @@
     '';
     distributedBuilds = true;
     inherit buildMachines;
-    package = pkgs.nixVersions.nix_2_20;
+    package = pkgs.nixVersions.nix_2_21;
     settings.substituters = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
