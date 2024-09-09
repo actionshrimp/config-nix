@@ -116,6 +116,10 @@
       init = {
         defaultBranch = "main";
       };
+      fetch = {
+        # A value of 0 wiill give some reasonable default, if unset it defaults to 1.
+        parallel = 0;
+      };
     };
   };
 
