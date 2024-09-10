@@ -19,6 +19,7 @@
   "mini.notify": { "branch": "main", "commit": "2d506633f50bd61b1041aa4a6d62e0fe0e6ae09e" },
   "neorg": { "branch": "main", "commit": "81ee90cb2d72ac43bfadb7dd276646f34c8f85be" },
   "nui.nvim": { "branch": "main", "commit": "61574ce6e60c815b0a0c4b5655b8486ba58089a1" },
+  "null-ls.nvim": { "branch": "main", "commit": "0010ea927ab7c09ef0ce9bf28c2b573fc302f5a7" },
   "nvim-cmp": { "branch": "main", "commit": "ae644feb7b67bf1ce4260c231d1d4300b19c6f30" },
   "nvim-lightbulb": { "branch": "master", "commit": "1cae7b7153ae98dcf1b11173a443ac1b6d8e3d49" },
   "nvim-lspconfig": { "branch": "master", "commit": "a7f0f9c18baa70a3970ea18f9984e03b6f6c2e8a" },

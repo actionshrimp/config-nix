@@ -2,6 +2,7 @@ local M = {}
 M.plugins = function()
   return {
     { "neovim/nvim-lspconfig" },
+    { "jose-elias-alvarez/null-ls.nvim" },
     {
       "kosayoda/nvim-lightbulb",
       config = function()
