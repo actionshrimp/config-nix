@@ -18,6 +18,7 @@ M.plugins = function()
       },
       config = function()
         require("neogit").setup({
+          auto_show_console = false,
           mappings = {
             popup = {
               ["p"] = "PushPopup",
