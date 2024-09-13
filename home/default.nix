@@ -32,6 +32,7 @@
     gh
     ispell
     jq
+    jnettop
     k9s
     killall
     kubectl
