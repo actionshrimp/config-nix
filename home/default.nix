@@ -38,6 +38,7 @@
     kubectl
     kubernetes-helm
     ollama
+    lazygit
     lua-language-server
     luajitPackages.luarocks
     libvterm-neovim
