@@ -1,16 +1,17 @@
-{
-  hostName,
-  homebrewCasks,
+{ hostName
+, homebrewCasks
+,
+}:
+{ pkgs
+, nix
+, nixpkgs
+, config
+, lib
+, ...
 }:
 {
-  pkgs,
-  nix,
-  nixpkgs,
-  config,
-  lib,
-  ...
-}:
-{
+
+  system.stateVersion = 5;
 
   users = {
     users.dave = {
