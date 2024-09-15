@@ -118,6 +118,7 @@ local lazy_spec = {
   require("lang/sql").plugins(),
   require("my-kubernetes").plugins(),
   require("my-org").plugins(),
+  require("my-lc").plugins(),
 }
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
