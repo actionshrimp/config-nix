@@ -20,6 +20,7 @@ M.plugins = function()
     },
   }
 end
-
-vim.keymap.set("n", "<LEADER>ass", ":DBUIToggle<CR>", { desc = "DBUI" })
+M.init = function()
+  vim.keymap.set("n", "<LEADER>ass", ":DBUIToggle<CR>", { desc = "DBUI" })
+end
 return M
