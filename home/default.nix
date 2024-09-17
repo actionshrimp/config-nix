@@ -22,6 +22,7 @@
 
   # completion should work in here thanks to "with pkgs;"
   home.packages = with pkgs; [
+    awscli2
     google-cloud-sql-proxy
     dos2unix
     gnumake
