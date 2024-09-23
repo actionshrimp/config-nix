@@ -12,6 +12,14 @@ M.plugins = function()
       opts = {
         spec = {
           {
+            mode = { "n" },
+            { "<leader>c", group = "Comment", { "<leader>cl", "gcc", desc = "Line", remap = true } },
+          },
+          {
+            mode = { "v" },
+            { "<leader>c", group = "Comment", { "<leader>cl", "gc", desc = "Line", remap = true } },
+          },
+          {
             mode = { "n", "v" },
             {
               "<leader>a",
@@ -28,7 +36,6 @@ M.plugins = function()
               },
             },
             { "<leader>b", group = "Buffer", { "<leader>bd", ":bd<CR>", desc = "Delete" } },
-            { "<leader>c", group = "Comment", { "<leader>cl", "gcc", desc = "Line", remap = true } },
             {
               "<leader>f",
               group = "File",
