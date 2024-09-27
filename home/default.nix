@@ -46,6 +46,7 @@
     lsof
     mc
     moreutils
+    ncdu
     nil
     nixd
     nix-prefetch-git
