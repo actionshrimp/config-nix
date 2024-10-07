@@ -24,6 +24,9 @@ local lazy_spec = {
     "actionshrimp/direnv.nvim",
     dev = true,
     config = true,
+    opts = {
+      async = true,
+    },
   },
   require("keys").plugins(),
   "nvim-tree/nvim-web-devicons",
