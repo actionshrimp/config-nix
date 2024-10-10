@@ -19,6 +19,7 @@ M.plugins = function()
       config = function()
         require("neogit").setup({
           auto_show_console = false,
+          console_timeout = 10000,
           mappings = {
             popup = {
               ["p"] = "PushPopup",
