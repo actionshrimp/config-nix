@@ -23,9 +23,11 @@ local lazy_spec = {
   {
     "actionshrimp/direnv.nvim",
     dev = true,
-    config = true,
     opts = {
       async = true,
+      on_direnv_finished = function()
+        vim.cmd("LspStart")
+      end,
     },
   },
   require("keys").plugins(),
