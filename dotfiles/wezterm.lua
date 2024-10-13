@@ -4,6 +4,7 @@ local wezterm = require("wezterm")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 config.automatically_reload_config = true
+config.audible_bell = "Disabled"
 
 -- This is where you actually apply your config choices
 
