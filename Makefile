@@ -1,7 +1,7 @@
-build-nix-darwin: 
+darwin-build: 
 	nix build '.#darwinConfigurations.$(shell hostname).system'
 
-darwin-rebuild:
+darwin-rebuild-switch:
 	./result/sw/bin/darwin-rebuild switch --flake '.#$(shell hostname)'
 
 .PHONY: build-linux-builder-docker
