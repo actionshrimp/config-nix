@@ -1,13 +1,14 @@
-{ hostName
-, homebrewCasks
-,
+{
+  hostName,
+  homebrewCasks,
 }:
-{ pkgs
-, nix
-, nixpkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  nix,
+  nixpkgs,
+  config,
+  lib,
+  ...
 }:
 {
 
@@ -38,12 +39,14 @@
     };
   };
 
-  nix.settings.trusted-users = [ "@admin" ];
   nix.nixPath = [
     {
       nixpkgs = "${nixpkgs}";
     }
   ];
+  nix.extraOptions = ''
+    secret-key-files = /var/root/.keys/cache-priv-key.pem
+  '';
 
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
