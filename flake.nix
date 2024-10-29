@@ -99,13 +99,6 @@
           pkgs = nixpkgs.legacyPackages.${system};
         };
 
-      systemCommon =
-        { buildMachines, sshKnownHosts }:
-        (import ./system/common.nix {
-          inherit buildMachines;
-          inherit sshKnownHosts;
-        });
-
       darwinSystem =
         {
           hostName,
@@ -120,7 +113,7 @@
         darwin.lib.darwinSystem {
           inherit system;
           modules = [
-            (systemCommon systemConfig)
+            (import ./system/common.nix systemConfig)
             (import ./system/darwin/darwin-configuration.nix {
               inherit hostName;
               inherit homebrewCasks;
@@ -147,7 +140,7 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules =
-            [ (systemCommon systemConfig) ]
+            [ (import ./system/common.nix systemConfig) ]
             ++ (if hostConfig ? hardwareConfiguration then [ hostConfig.hardwareConfiguration ] else [ ])
             ++ [
               (import configModule {

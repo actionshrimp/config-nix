@@ -11,6 +11,10 @@ config-nix-private: {
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;
     sshKnownHosts = config-nix-private.sshKnownHosts;
+    extraSubstituters = [ ];
+    extraTrustedSubstituters = [ ];
+    extraTrustedPublicKeys = [ ];
+    nixSecretKeyFiles = [ ];
   };
   configModule = ../../system/nixos-wsl/configuration.nix;
 }

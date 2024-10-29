@@ -14,6 +14,10 @@ config-nix-private: {
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;
     sshKnownHosts = config-nix-private.sshKnownHosts;
+    extraSubstituters = [ ];
+    extraTrustedSubstituters = [ ];
+    extraTrustedPublicKeys = [ ];
+    nixSecretKeyFiles = [ ];
   };
   homebrewCasks = [ ];
 }
