@@ -44,9 +44,6 @@
       nixpkgs = "${nixpkgs}";
     }
   ];
-  nix.extraOptions = ''
-    secret-key-files = /var/root/.keys/cache-priv-key.pem
-  '';
 
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
