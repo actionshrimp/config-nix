@@ -25,11 +25,11 @@ config-nix-private: {
       "imandra-nix-cache.1:4rM4urW8DwdkG+ipwCR/DHHB67xOm2A7FIoCLD1DEMQ="
     ];
 
-    # Manually add (key usged by nix-daemon to sign builds)
+    # Manually add (key used by nix _client_ to sign builds - daemon doesn't need access)
     # - imandra-nix-cache-signing-key
-    # - to /var/root/.keys/cache-priv-key.pem
+    # - to /Users/dave/.keys/cache-priv-key.pem
     # - chmod 600 
-    nixSecretKeyFiles = [ "/var/root/.keys/cache-priv-key.pem" ];
+    nixSecretKeyFiles = [ "/Users/dave/.keys/cache-priv-key.pem" ];
   };
   homebrewCasks = [ ];
 }
