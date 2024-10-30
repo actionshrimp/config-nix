@@ -40,17 +40,14 @@
     settings.substituters = [
       "https://nix-community.cachix.org"
       "https://anmonteiro.nix-cache.workers.dev"
-    ];
-    settings.extra-substituters = extraSubstituters;
+    ] ++ extraSubstituters;
     settings.trusted-substituters = [
       "https://nix-community.cachix.org"
       "https://anmonteiro.nix-cache.workers.dev"
-    ];
-    settings.extra-trusted-substituters = extraTrustedSubstituters;
+    ] ++ extraTrustedSubstituters;
     settings.trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "ocaml.nix-cache.com-1:/xI2h2+56rwFfKyyFVbkJSeGqSIYMC/Je+7XXqGKDIY="
-    ];
-    settings.extra-trusted-public-keys = extraTrustedPublicKeys;
+    ] ++ extraTrustedPublicKeys;
   };
 }
