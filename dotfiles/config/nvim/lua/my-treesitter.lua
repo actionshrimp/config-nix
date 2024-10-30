@@ -10,7 +10,20 @@ M.plugins = function()
       dependencies = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("nvim-treesitter.configs").setup({
-          ensure_installed = { "ocaml", "vimdoc", "vim", "lua", "norg", "gleam", "go", "elixir", "eex", "heex" },
+          ensure_installed = {
+            "ocaml",
+            "vimdoc",
+            "vim",
+            "lua",
+            "norg",
+            "gleam",
+            "go",
+            "elixir",
+            "eex",
+            "heex",
+            "gotmpl",
+            "helm",
+          },
           highlight = { enable = true },
           indent = { enable = true },
           textobjects = {

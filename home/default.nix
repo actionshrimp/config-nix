@@ -31,6 +31,7 @@
     htop
     fd
     gh
+    helm-ls
     ispell
     jq
     jnettop
