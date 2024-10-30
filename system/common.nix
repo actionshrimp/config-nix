@@ -35,7 +35,7 @@
     settings.trusted-users = [ "dave" ];
     distributedBuilds = true;
     inherit buildMachines;
-    package = pkgs.nixVersions.nix_2_21;
+    package = pkgs.nixVersions.nix_2_23;
     settings.secret-key-files = nixSecretKeyFiles;
     settings.substituters = [
       "https://nix-community.cachix.org"
