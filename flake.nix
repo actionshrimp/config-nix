@@ -40,6 +40,9 @@
       nix-direnv,
       flake-utils,
       config-nix-private ? {
+        apiKeys = {
+          openAi = "";
+        };
         sshConfig = {
           personal = { };
           work = { };
@@ -74,6 +77,7 @@
                 stateVersion
                 sshKeys
                 sshConfig
+                apiKeys
                 ;
               inherit homeOverlays;
             }
