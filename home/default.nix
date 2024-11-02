@@ -4,6 +4,7 @@
   stateVersion,
   sshConfig,
   sshKeys,
+  apiKeys,
 }:
 {
   config,
@@ -82,6 +83,7 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
+    OPENAI_API_KEY = apiKeys.openAi;
   };
 
   home.sessionPath = [ "/usr/local/bin" ];
