@@ -10,6 +10,7 @@ config-nix-private: {
       ../../home/darwin
       ../../home/syncthing.nix
     ];
+    apiKeys = { };
   };
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;

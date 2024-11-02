@@ -7,6 +7,9 @@ config-nix-private: {
     sshKeys = [ "id_ed25519" ] ++ config-nix-private.sshKeys.work;
     sshConfig = config-nix-private.sshConfig.work;
     homeModules = [ ../../home/darwin ];
+    apiKeys = {
+      openAi = config-nix-private.apiKeys.work.openAi;
+    };
   };
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;
