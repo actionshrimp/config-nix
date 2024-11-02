@@ -7,6 +7,7 @@ config-nix-private: {
     sshKeys = [ "id_ed25519" ] ++ config-nix-private.sshKeys.personal;
     sshConfig = config-nix-private.sshConfig.personal;
     homeModules = [ ../../home/linux ];
+    apiKeys = { };
   };
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;
