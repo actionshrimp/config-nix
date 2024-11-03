@@ -10,7 +10,9 @@ config-nix-private: {
       ../../home/darwin
       ../../home/syncthing.nix
     ];
-    apiKeys = { };
+    apiKeys = {
+      anthropic = config-nix-private.apiKeys.personal.anthropic;
+    };
   };
   systemConfig = {
     buildMachines = config-nix-private.buildMachines;

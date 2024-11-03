@@ -27,6 +27,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     config-nix-private.url = "git+file:///Users/dave/config-nix-private";
+    # or "git+ssh://git@github.com/actionshrimp/config-nix-private";
   };
 
   outputs =
@@ -42,6 +43,7 @@
       config-nix-private ? {
         apiKeys = {
           openAi = "";
+          anthropic = "";
         };
         sshConfig = {
           personal = { };

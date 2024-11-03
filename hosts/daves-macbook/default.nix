@@ -9,6 +9,7 @@ config-nix-private: {
     homeModules = [ ../../home/darwin ];
     apiKeys = {
       openAi = config-nix-private.apiKeys.work.openAi;
+      anthropic = config-nix-private.apiKeys.personal.anthropic;
     };
   };
   systemConfig = {

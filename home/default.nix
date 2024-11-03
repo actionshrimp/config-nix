@@ -305,6 +305,7 @@
       ''
       + pkgs.lib.strings.concatLines (
         (if apiKeys ? openAi then [ "export OPENAI_API_KEY=${apiKeys.openAi}" ] else [ ])
+        ++ (if apiKeys ? anthropic then [ "export ANTHROPIC_API_KEY=${apiKeys.anthropic}" ] else [ ])
       );
   };
 
