@@ -85,7 +85,8 @@ M.init = function()
     return ":%S/" .. w .. "/"
   end, { desc = "Replace in current file", expr = true })
   vim.keymap.set("v", "R", function()
-    return ":S/"
+    local w = vim.fn.expand("<cword>")
+    return ":S/" .. w .. "/"
   end, { desc = "Replace in current file", expr = true })
 
   vim.keymap.set("n", "<leader>pR", function()
