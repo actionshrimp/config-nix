@@ -69,6 +69,7 @@
     casks = [
       "maccy"
       "font-jetbrains-mono-nerd-font"
+      "nuage" # soundcloud native app
     ] ++ homebrewCasks;
   };
 }
