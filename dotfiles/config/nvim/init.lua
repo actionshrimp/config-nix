@@ -119,7 +119,6 @@ local lazy_spec = {
   require("my-diagnostics").plugins(),
   require("llm").plugins(),
   require("lang/ocaml").plugins(),
-  require("lang/terraform").plugins(),
   require("lang/sql").plugins(),
   require("my-kubernetes").plugins(),
   require("my-org").plugins(),
@@ -141,6 +140,7 @@ vim.cmd.set("conceallevel=1")
 require("keys").init()
 require("my-diagnostics").init()
 require("search").init()
+require("my-treesitter").init()
 
 require("lang/lua").init()
 require("lang/json").init()
@@ -155,3 +155,4 @@ require("lang/elixir").init()
 require("lang/typescript").init()
 require("my-web").init()
 require("lang/helm").init()
+require("lang/terraform").init()

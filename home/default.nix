@@ -70,6 +70,8 @@
     sqlite.dev
     stylua
     selene
+    terraform-lsp
+    tflint
     tree
     typos
     watch

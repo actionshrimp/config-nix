@@ -23,6 +23,7 @@ M.plugins = function()
             "heex",
             "gotmpl",
             "helm",
+            "hcl", -- terraform
           },
           highlight = { enable = true },
           indent = { enable = true },
@@ -84,4 +85,5 @@ M.plugins = function()
     },
   }
 end
+M.init = function() end
 return M
