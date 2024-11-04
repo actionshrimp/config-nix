@@ -122,6 +122,7 @@ local lazy_spec = {
   require("my-kubernetes").plugins(),
   require("my-org").plugins(),
   require("my-lc").plugins(),
+  require("my-neotest").plugins(),
 }
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
