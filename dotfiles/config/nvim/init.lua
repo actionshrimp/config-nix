@@ -77,13 +77,7 @@ local lazy_spec = {
     version = "*",
     opts = {},
   },
-  {
-    "echasnovski/mini.notify",
-    version = "*",
-    config = function()
-      require("mini.notify").setup()
-    end,
-  },
+  require("my-notifications").plugins(),
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
