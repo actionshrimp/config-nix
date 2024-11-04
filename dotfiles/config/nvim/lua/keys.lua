@@ -76,6 +76,9 @@ M.plugins = function()
 
             { "<leader>mt", group = "Test" },
 
+            -- "N (?)"
+            --{ "<leader>nl", require("telescope").extensions.notify.notify, desc = "Notification log" },
+
             -- "Toggle"
             { "<leader>t", group = "Toggle" },
             { "<leader>tw", "<cmd>set list!<cr>", desc = "Whitespace" },
