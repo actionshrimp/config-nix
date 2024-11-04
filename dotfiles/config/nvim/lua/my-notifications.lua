@@ -27,10 +27,6 @@ M.plugins = function()
 
         -- set vim-notify as the default notification handler
         vim.notify = require("notify")
-
-        require("which-key").add({
-          { "<leader>nn", require("telescope").extensions.notify.notify, desc = "Notifications" },
-        })
       end,
     },
   }
