@@ -21,78 +21,65 @@ M.plugins = function()
           },
           {
             mode = { "n", "v" },
+
+            -- "Apps"
+            { "<leader>a", group = "Apps" },
+            { "<leader>ad", group = "Direnv" },
+            { "<leader>ads", ":DirenvStatus<cr>", desc = "Status" },
+            { "<leader>ada", ":DirenvAllow<cr>", desc = "Allow" },
+
+            -- "Buffer"
+            { "<leader>b", group = "Buffer" },
+            { "<leader>bd", ":bd<CR>", desc = "Delete" },
+
+            -- "File"
+            { "<leader>f", group = "File" },
+            { "<leader>fe", group = "Edit" },
+            { "<leader>fed", ":e $MYVIMRC<CR>", desc = "Edit init.lua" },
+            { "<leader>feh", ":e ~/config-nix/home/default.nix<CR>", desc = "Edit home/default.nix" },
+            { "<leader>fec", ":e ~/config-nix/flake.nix<CR>", desc = "Edit flake.nix" },
+            { "<leader>fek", ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>", desc = "Edit keys.lua" },
+
+            { "<leader>fy", group = "Yank" },
             {
-              "<leader>a",
-              group = "Apps",
-              {
-                {
-                  "<leader>ad",
-                  group = "Direnv",
-                  {
-                    { "<leader>ads", ":DirenvStatus<cr>", desc = "Status" },
-                    { "<leader>ada", ":DirenvAllow<cr>", desc = "Allow" },
-                  },
-                },
-              },
+              "<leader>fyy",
+              function()
+                local f = vim.fn.expand("%:p")
+                vim.fn.setreg("+", f)
+                print(f)
+              end,
+              desc = "Current filename",
             },
-            { "<leader>b", group = "Buffer", { "<leader>bd", ":bd<CR>", desc = "Delete" } },
-            {
-              "<leader>f",
-              group = "File",
-              {
-                {
-                  "<leader>fe",
-                  group = "Edit",
-                  {
-                    { "<leader>fed", ":e $MYVIMRC<CR>", desc = "Edit init.lua" },
-                    { "<leader>feh", ":e ~/config-nix/home/default.nix<CR>", desc = "Edit home/default.nix" },
-                    { "<leader>fec", ":e ~/config-nix/flake.nix<CR>", desc = "Edit flake.nix" },
-                    {
-                      "<leader>fek",
-                      ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>",
-                      desc = "Edit keys.lua",
-                    },
-                  },
-                },
-                {
-                  "<leader>fy",
-                  group = "Yank",
-                  {
-                    {
-                      "<leader>fyy",
-                      function()
-                        local f = vim.fn.expand("%:p")
-                        vim.fn.setreg("+", f)
-                        print(f)
-                      end,
-                      desc = "Current filename",
-                    },
-                  },
-                },
-              },
-            },
-            {
-              "<leader>g",
-              group = "Git",
-              {
-                "<leader>gl",
-                group = "Link",
-                {
-                  { "<leader>gll", "<cmd>GitLink! browse<cr>", desc = "Open blob URL" },
-                  { "<leader>glL", "<cmd>GitLink browse<cr>", desc = "Copy blob URL" },
-                  { "<leader>glb", "<cmd>GitLink! blame<cr>", desc = "Open blame URL" },
-                  { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
-                },
-              },
-            },
-            {
-              "<leader>t",
-              group = "Toggle",
-              {
-                { "<leader>tw", "<cmd>set list!<cr>", { desc = "Whitespace" } },
-                { "<leader>tl", "<cmd>set wrap!<cr>", { desc = "Linewrap" } },
-              },
-            },
+
+            -- "Git"
+            { "<leader>g", group = "Git" },
+            { "<leader>gl", group = "Link" },
+            { "<leader>gll", "<cmd>GitLink! browse<cr>", desc = "Open blob URL" },
+            { "<leader>glL", "<cmd>GitLink browse<cr>", desc = "Copy blob URL" },
+            { "<leader>glb", "<cmd>GitLink! blame<cr>", desc = "Open blame URL" },
+            { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
+
+            -- "Major"
+            { "<leader>m", group = "Major" },
+            { "<leader>ma", group = "Action" },
+            { "<leader>maa", vim.lsp.buf.code_action, desc = "LSP Code action" },
+
+            { "<leader>mb", group = "LSP Backend" },
+            { "<leader>mbr", ":LspRestart<CR>", desc = "Restart" },
+
+            { "<leader>mR", vim.lsp.buf.rename, desc = "LSP Rename" },
+
+            { "<leader>mg", group = "Go" },
+            { "<leader>mgg", vim.lsp.buf.definition, desc = "Definition" },
+            { "<leader>mgg", vim.lsp.buf.type_definition, desc = "Type definition" },
+            { "<leader>mgb", "<C-o>", desc = "Back" },
+
+            { "<leader>mt", group = "Test" },
+
+            -- "Toggle"
+            { "<leader>t", group = "Toggle" },
+            { "<leader>tw", "<cmd>set list!<cr>", desc = "Whitespace" },
+            { "<leader>tl", "<cmd>set wrap!<cr>", desc = "Linewrap" },
           },
         },
       },
@@ -117,12 +104,5 @@ M.init = function()
   vim.keymap.set("n", "<LEADER>w<S-l>", "<C-w><S-l>", {})
   vim.keymap.set("n", "<LEADER>w<S-h>", "<C-w><S-h>", {})
   vim.keymap.set("n", "<LEADER>wm", "<C-w>o", {})
-
-  vim.keymap.set("n", "<LEADER>mR", vim.lsp.buf.rename, { desc = "LSP Rename" })
-  vim.keymap.set("n", "<LEADER>mgg", vim.lsp.buf.definition, { desc = "LSP definition" })
-  vim.keymap.set("n", "<LEADER>mgt", vim.lsp.buf.type_definition, { desc = "LSP type definition" })
-  vim.keymap.set("n", "<LEADER>mgb", "<C-o>", { desc = "Go back" })
-  vim.keymap.set("n", "<LEADER>maa", vim.lsp.buf.code_action, { desc = "LSP Code action" })
-  vim.keymap.set("n", "<LEADER>mbr", ":LspRestart<CR>", { desc = "LSP Restart" })
 end
 return M
