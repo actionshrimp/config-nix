@@ -71,7 +71,7 @@ M.plugins = function()
 
             { "<leader>mg", group = "Go" },
             { "<leader>mgg", vim.lsp.buf.definition, desc = "Definition" },
-            { "<leader>mgg", vim.lsp.buf.type_definition, desc = "Type definition" },
+            { "<leader>mgt", vim.lsp.buf.type_definition, desc = "Type definition" },
             { "<leader>mgb", "<C-o>", desc = "Back" },
 
             { "<leader>mt", group = "Test" },
