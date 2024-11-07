@@ -24,6 +24,7 @@ M.plugins = function()
             "gotmpl",
             "helm",
             "hcl", -- terraform
+            "typescript",
           },
           highlight = { enable = true },
           indent = { enable = true },
