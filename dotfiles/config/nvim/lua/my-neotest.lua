@@ -3,7 +3,6 @@ M.plugins = function()
   return {
     {
       "MatrosMartz/neotest-deno",
-      dev = true,
     }, -- fork
     -- { "MarkEmmons/neotest-deno" }, --original
     { "nvim-neotest/neotest-plenary" },
