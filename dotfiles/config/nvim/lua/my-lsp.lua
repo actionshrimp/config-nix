@@ -4,7 +4,11 @@ M.plugins = function()
     {
       "nvimdev/lspsaga.nvim",
       config = function()
-        require("lspsaga").setup({})
+        require("lspsaga").setup({
+          lightbulb = {
+            virtual_text = false,
+          },
+        })
       end,
       dependencies = {
         "nvim-treesitter/nvim-treesitter", -- optional
@@ -13,20 +17,6 @@ M.plugins = function()
     },
     { "neovim/nvim-lspconfig" },
     { "jose-elias-alvarez/null-ls.nvim" },
-    {
-      "kosayoda/nvim-lightbulb",
-      config = function()
-        require("nvim-lightbulb").setup({
-          autocmd = { enabled = true },
-          sign = {
-            enabled = false,
-          },
-          virtual_text = {
-            enabled = true,
-          },
-        })
-      end,
-    },
   }
 end
 return M
