@@ -1,6 +1,16 @@
 local M = {}
 M.plugins = function()
   return {
+    {
+      "nvimdev/lspsaga.nvim",
+      config = function()
+        require("lspsaga").setup({})
+      end,
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter", -- optional
+        "nvim-tree/nvim-web-devicons", -- optional
+      },
+    },
     { "neovim/nvim-lspconfig" },
     { "jose-elias-alvarez/null-ls.nvim" },
     {
