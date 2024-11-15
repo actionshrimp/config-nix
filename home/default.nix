@@ -24,52 +24,52 @@
   # completion should work in here thanks to "with pkgs;"
   home.packages = with pkgs; [
     awscli2
-    google-cloud-sql-proxy
-    dos2unix
-    gnumake
-    (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    bash-language-server
     cargo
-    htop
+    dos2unix
     fd
     gh
+    gnumake
+    (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    google-cloud-sql-proxy
     helm-ls
+    htop
     ispell
-    jq
     jnettop
+    jq
     k9s
     killall
     kubectl
     kubernetes-helm
-    ollama
     lazygit
-    lua-language-server
-    luajitPackages.luarocks
     libvterm-neovim
     lsof
+    lua-language-server
+    luajitPackages.luarocks
     mc
     moreutils
     ncdu
     nil
-    nixd
-    nix-prefetch-git
     nix-output-monitor
+    nix-prefetch-git
+    nixd
     nixfmt-classic
     nixpkgs-fmt
-    nodejs
     nodePackages.vscode-json-languageserver
+    nodejs
     nurl
+    ollama
     (lib.hiPrio parallel)
     postgresql
     python39
     realvnc-vnc-viewer
     ripgrep
-    silver-searcher
-    tailwindcss-language-server
+    selene
     shellcheck
-    bash-language-server
+    silver-searcher
     sqlite.dev
     stylua
-    selene
+    tailwindcss-language-server
     terraform-lsp
     tflint
     tree
