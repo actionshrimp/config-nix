@@ -74,6 +74,7 @@
     tflint
     tree
     typos
+    typescript-language-server
     watch
     wezterm
     wget
