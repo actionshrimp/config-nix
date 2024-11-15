@@ -6,6 +6,7 @@ M.plugins = function()
       config = function()
         require("lspsaga").setup({
           lightbulb = {
+            enable = false,
             virtual_text = false,
           },
         })
