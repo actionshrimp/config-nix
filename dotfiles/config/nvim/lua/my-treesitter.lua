@@ -25,6 +25,8 @@ M.plugins = function()
             "helm",
             "hcl", -- terraform
             "typescript",
+            "json",
+            "javascript",
           },
           highlight = { enable = true },
           indent = { enable = true },
