@@ -6,6 +6,7 @@ M.plugins = function()
     }, -- fork
     -- { "MarkEmmons/neotest-deno" }, --original
     { "nvim-neotest/neotest-plenary" },
+    { "nvim-neotest/neotest-jest" },
     {
       "nvim-neotest/neotest",
       dependencies = {
@@ -19,6 +20,14 @@ M.plugins = function()
           adapters = {
             require("neotest-deno"),
             require("neotest-plenary"),
+            require("neotest-jest")({
+              jestCommand = "npx jest",
+              jestConfigFile = "jest.config.json",
+              env = { CI = true },
+              cwd = function(path)
+                return vim.fn.getcwd()
+              end,
+            }),
           },
         })
 
@@ -30,6 +39,7 @@ M.plugins = function()
           {
             mode = "n",
             { "<leader>mts", require("neotest").summary.toggle, desc = "Summary" },
+            { "<leader>mto", require("neotest").output_panel.toggle, desc = "Output" },
             {
               "<leader>mtf",
               function()
