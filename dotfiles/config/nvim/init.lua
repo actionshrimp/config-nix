@@ -117,6 +117,7 @@ local lazy_spec = {
   require("my-org").plugins(),
   require("my-lc").plugins(),
   require("my-neotest").plugins(),
+  require("my-pomo").plugins(),
 }
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
@@ -150,3 +151,4 @@ require("lang/typescript").init()
 require("my-web").init()
 require("lang/helm").init()
 require("lang/terraform").init()
+require("my-pomo").init()
