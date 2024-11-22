@@ -99,15 +99,6 @@ M.init = function()
             desc = "Replace in current file",
             expr = true,
           },
-          {
-            "R",
-            function()
-              local w = vim.fn.expand("<cword>")
-              return ":S/" .. w .. "/"
-            end,
-            desc = "Replace in current file",
-            expr = true,
-          },
         },
       },
     },
