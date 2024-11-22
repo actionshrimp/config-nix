@@ -61,7 +61,7 @@
     ollama
     (lib.hiPrio parallel)
     postgresql
-    python39
+    python3Full
     realvnc-vnc-viewer
     ripgrep
     selene
