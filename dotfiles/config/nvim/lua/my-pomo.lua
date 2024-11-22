@@ -18,6 +18,8 @@ M.plugins = function()
             },
           },
         })
+
+        require("telescope").load_extension("pomodori")
       end,
     },
   }
