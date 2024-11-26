@@ -85,16 +85,25 @@ M.init = function()
           desc = "Search word under cursor",
         },
         { "<LEADER>sc", ":noh<CR>", desc = "Clear search" },
+        {
+          "R",
+          function()
+            local w = vim.fn.expand("<cword>")
+            return ":%S/" .. w .. "/"
+          end,
+          desc = "Replace in current file",
+          expr = true,
+        },
       },
       {
-        mode = { "n", "v" },
+        mode = { "v" },
         {
 
           {
             "R",
             function()
-              local w = vim.fn.expand("<cword>")
-              return ":%S/" .. w .. "/"
+              local w = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."))
+              return ":<C-w>%S/" .. w[1] .. "/"
             end,
             desc = "Replace in current file",
             expr = true,
