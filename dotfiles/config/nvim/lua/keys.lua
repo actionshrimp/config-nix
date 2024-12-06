@@ -83,6 +83,7 @@ M.plugins = function()
             { "<leader>t", group = "Toggle" },
             { "<leader>tw", "<cmd>set list!<cr>", desc = "Whitespace" },
             { "<leader>tl", "<cmd>set wrap!<cr>", desc = "Linewrap" },
+            { "<leader>tc", "<cmd>tabclose<cr>", desc = "Close Tab" },
           },
         },
       },
