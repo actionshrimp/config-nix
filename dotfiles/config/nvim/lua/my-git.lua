@@ -9,6 +9,20 @@ M.plugins = function()
     },
     { "linrongbin16/gitlinker.nvim", opts = {}, cmd = "GitLink" },
     {
+      "sindrets/diffview.nvim",
+      opts = {
+        keymaps = {
+          view = {
+            ["q"] = "<cmd>tabclose<cr>",
+          },
+          file_panel = {
+            ["q"] = "<cmd>tabclose<cr>",
+          },
+        },
+      },
+      -- cmd = "DiffviewOpen",
+    },
+    {
       "NeogitOrg/neogit",
       dev = true,
       dependencies = {
