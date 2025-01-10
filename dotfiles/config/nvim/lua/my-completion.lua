@@ -38,6 +38,13 @@ M.plugins = function()
         -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
         -- See the full "keymap" documentation for information on defining your own keymap.
         keymap = { preset = "default" },
+        completion = {
+          menu = {
+            auto_show = function(ctx)
+              return ctx.mode ~= "cmdline"
+            end,
+          },
+        },
 
         appearance = {
           -- Sets the fallback highlight groups to nvim-cmp's highlight groups
