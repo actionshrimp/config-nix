@@ -9,12 +9,12 @@ M.plugins = function()
         config = function()
           vim.g["db_ui_execute_on_save"] = 0
           vim.g["db_ui_use_nerd_fonts"] = 1
-          require("cmp").setup.filetype({ "sql" }, {
-            sources = {
-              { name = "vim-dadbod-completion" },
-              { name = "buffer" },
-            },
-          })
+          -- require("cmp").setup.filetype({ "sql" }, {
+          --   sources = {
+          --     { name = "vim-dadbod-completion" },
+          --     { name = "buffer" },
+          --   },
+          -- })
         end,
       },
     },
