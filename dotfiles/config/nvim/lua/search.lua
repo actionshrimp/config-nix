@@ -94,6 +94,16 @@ M.init = function()
           desc = "Replace in current file",
           expr = true,
         },
+        {
+          "<leader>R",
+          function()
+            local w = vim.fn.expand("<cword>")
+            return ":'<,'>S/" .. w .. "/"
+          end,
+          -- select first, then deselect to get your cursor to the right word you want to replace
+          desc = "Replace in previous visual region",
+          expr = true,
+        },
       },
       {
         mode = { "v" },
@@ -106,6 +116,15 @@ M.init = function()
               return ":<C-w>%S/" .. w[1] .. "/"
             end,
             desc = "Replace in current file",
+            expr = true,
+          },
+          {
+            "<leader>R",
+            function()
+              local w = vim.fn.expand("<cword>")
+              return ":S/" .. w .. "/"
+            end,
+            desc = "Replace in current visual region",
             expr = true,
           },
         },
