@@ -39,6 +39,20 @@ M.plugins = function()
           temperature = 0,
           max_tokens = 4096,
         },
+        mappings = {
+          -- NOTE: The following will be safely set by avante.nvim
+          ask = "<leader>aaa",
+          edit = "<leader>aae",
+          refresh = "<leader>aar",
+          focus = "<leader>aaf",
+          toggle = {
+            default = "<leader>aat",
+            debug = "<leader>aad",
+            hint = "<leader>aah",
+            suggestion = "<leader>aas",
+            repomap = "<leader>aaR",
+          },
+        },
       },
       -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
       build = "make",
