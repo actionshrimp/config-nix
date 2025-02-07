@@ -218,6 +218,7 @@
       bind-key v split-window -h -c "#{pane_current_path}"
       unbind-key '"'
       unbind-key s
+      bind -n 'C-\' if-shell "$is_vim" "send-keys 'C-\\'" "select-pane -l"
       bind-key s split-window -c "#{pane_current_path}"
       bind-key '"' choose-session
     '';
