@@ -30,6 +30,7 @@ M.plugins = function()
             { "<leader>ada", ":DirenvAllow<cr>", desc = "Allow" },
             { "<leader>aD", group = "Database (dadbod)" },
             { "<leader>aDD", ":DBUIToggle<CR>", desc = "Toggle" },
+            { "<leader>at", ":terminal<CR>", desc = "Terminal" },
 
             -- "Buffer"
             { "<leader>b", group = "Buffer" },
