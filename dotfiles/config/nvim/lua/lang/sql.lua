@@ -21,7 +21,6 @@ M.plugins = function()
   }
 end
 M.init = function()
-  vim.keymap.set("n", "<LEADER>ass", ":DBUIToggle<CR>", { desc = "DBUI" })
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "sql",
     callback = function(ev)

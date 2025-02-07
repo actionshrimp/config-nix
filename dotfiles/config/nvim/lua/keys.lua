@@ -24,9 +24,12 @@ M.plugins = function()
 
             -- "Apps"
             { "<leader>a", group = "Apps" },
+            { "<leader>aa", group = "Avante" },
             { "<leader>ad", group = "Direnv" },
             { "<leader>ads", ":DirenvStatus<cr>", desc = "Status" },
             { "<leader>ada", ":DirenvAllow<cr>", desc = "Allow" },
+            { "<leader>aD", group = "Database (dadbod)" },
+            { "<leader>aDD", ":DBUIToggle<CR>", desc = "Toggle" },
 
             -- "Buffer"
             { "<leader>b", group = "Buffer" },
