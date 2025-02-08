@@ -72,11 +72,8 @@ local lazy_spec = {
   },
   require("my-treesitter").plugins(),
   require("my-tree").plugins(),
-  {
-    "echasnovski/mini.bracketed",
-    version = "*",
-    opts = {},
-  },
+  { "echasnovski/mini.bracketed", version = "*", opts = {} },
+  { "echasnovski/mini.ai", version = "*", opts = {} },
   require("my-notifications").plugins(),
   {
     "kylechui/nvim-surround",
