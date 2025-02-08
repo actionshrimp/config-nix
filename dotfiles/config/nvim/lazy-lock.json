@@ -23,6 +23,7 @@
   "lspsaga.nvim": { "branch": "main", "commit": "da8a66c53241876bba140980469876db3a183604" },
   "lua-utils.nvim": { "branch": "main", "commit": "e565749421f4bbb5d2e85e37c3cef9d56553d8bd" },
   "lualine.nvim": { "branch": "master", "commit": "2a5bae925481f999263d6f5ed8361baef8df4f83" },
+  "mini.ai": { "branch": "main", "commit": "ebb04799794a7f94628153991e6334c3304961b8" },
   "mini.bracketed": { "branch": "main", "commit": "937573c7e7d9be6cb29ffd0909d9ff83c92afbf0" },
   "neorg": { "branch": "main", "commit": "ed43ed58116caa0a17bbbc7aa663e32bf94bc531" },
   "neotest": { "branch": "master", "commit": "d66cf4e05a116957f0d3a7755a24291c7d1e1f72" },
