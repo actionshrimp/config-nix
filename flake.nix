@@ -110,6 +110,7 @@
           hostName,
           systemConfig,
           homebrewCasks,
+          nixbldGid,
           ...
         }@hostConfig:
         homeManagerConfiguration:
@@ -123,6 +124,7 @@
             (import ./system/darwin/darwin-configuration.nix {
               inherit hostName;
               inherit homebrewCasks;
+              inherit nixbldGid;
             })
             home-manager.darwinModules.home-manager
             { home-manager.users.dave = homeManagerConfiguration; }

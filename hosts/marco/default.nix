@@ -23,4 +23,6 @@ config-nix-private: {
     nixSecretKeyFiles = [ ];
   };
   homebrewCasks = [ ];
+  ## Remove for new systems
+  nixbldGid = 30000;
 }
