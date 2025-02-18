@@ -1,6 +1,7 @@
 {
   hostName,
   homebrewCasks,
+  nixbldGid ? 350,
 }:
 {
   pkgs,
@@ -22,8 +23,6 @@
 
   networking.hostName = hostName;
 
-  services.nix-daemon.enable = true;
-
   # nb: for aarch64-linux only at present sadly (and not x64_64-linux)
   nix.linux-builder = {
     enable = false;
@@ -38,6 +37,9 @@
       };
     };
   };
+
+  # ideally this would be removed for new installations
+  ids.gids.nixbld = nixbldGid;
 
   nix.nixPath = [
     {

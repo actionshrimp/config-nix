@@ -36,4 +36,7 @@ config-nix-private: {
     nixSecretKeyFiles = [ "/Users/dave/.keys/cache-priv-key.pem" ];
   };
   homebrewCasks = [ ];
+
+  ## Remove for new systems
+  nixbldGid = 30000;
 }
