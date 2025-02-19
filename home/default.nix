@@ -237,6 +237,7 @@
       gbi = "git config --local blame.ignoreRevsFile .git-blame-ignore-revs";
       nrl = "direnv reload && nix-direnv-reload |& nom --json";
       iw = "cd ~/dev/ai/imandra-web";
+      k9sc = "k9s -c context";
     };
     history = {
       size = 10000;
