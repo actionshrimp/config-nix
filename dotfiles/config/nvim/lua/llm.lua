@@ -39,6 +39,12 @@ M.plugins = function()
           temperature = 0,
           max_tokens = 4096,
         },
+        cursor_applying_provider = "fastapply",
+        behaviour = {
+          auto_suggestions = false,
+          enable_cursor_planning_mode = false,
+        },
+
         mappings = {
           -- NOTE: The following will be safely set by avante.nvim
           ask = "<leader>aaa",
@@ -51,6 +57,15 @@ M.plugins = function()
             hint = "<leader>aah",
             suggestion = "<leader>aas",
             repomap = "<leader>aaR",
+          },
+        },
+        vendors = {
+          --- ... existing vendors
+          fastapply = {
+            __inherited_from = "openai",
+            api_key_name = "",
+            endpoint = "http://localhost:11434/v1",
+            model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
           },
         },
       },
