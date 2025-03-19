@@ -63,15 +63,16 @@
     onActivation.cleanup = "zap";
     taps = [
       "homebrew/cask-fonts"
-      # "d12frosted/emacs-plus
+      # "d12frosted/emacs-plus"
     ];
     brews = [
-      # "d12frosted/emacs-plus/emacs-plus@29"
+      # "d12frosted/emacs-plus/emacs-plus"
     ];
     casks = [
       "maccy"
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
+      "emacs"
     ] ++ homebrewCasks;
   };
 }

@@ -6,7 +6,6 @@
     pkgs.coreutils
     pkgs.pinentry_mac
     pkgs.iterm2
-    pkgs.emacs-macport
     pkgs.stats
 
     # Alias sed to gsed to appease macos programs that expect gsed as gsed (nvim-spectre) -_-
