@@ -119,6 +119,7 @@ local lazy_spec = {
   require("my-lc").plugins(),
   require("my-neotest").plugins(),
   require("my-pomo").plugins(),
+  require("my-terminal").plugins(),
 }
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
