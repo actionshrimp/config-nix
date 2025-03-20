@@ -21,6 +21,10 @@ vim.g.maplocalleader = " m" -- Same for `maplocalleader`
 
 local lazy_spec = {
   {
+    "actionshrimp/keychain-environment.nvim",
+    opts = {},
+  },
+  {
     "actionshrimp/direnv.nvim",
     dev = true,
     opts = {
@@ -150,4 +154,3 @@ require("lang/helm").init()
 require("lang/terraform").init()
 require("my-pomo").init()
 require("my-terminal").init()
-require("keychain").init()
