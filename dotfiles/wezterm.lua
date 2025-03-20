@@ -12,6 +12,7 @@ config.audible_bell = "Disabled"
 -- config.color_scheme = "AdventureTime"
 config.enable_tab_bar = false
 config.font = wezterm.font({ family = "JetBrainsMono NFM" })
+config.front_end = "WebGpu" -- https://github.com/wezterm/wezterm/issues/6005
 
 -- and finally, return the configuration to wezterm
 return config
