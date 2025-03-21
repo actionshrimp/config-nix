@@ -25,6 +25,17 @@ local lazy_spec = {
     opts = {},
   },
   {
+    "willothy/flatten.nvim",
+    -- keep near the top to minimize delay when opening file from terminal
+    opts = {
+      window = {
+        open = "alternate",
+      },
+    },
+    lazy = false,
+    priority = 1001,
+  },
+  {
     "actionshrimp/direnv.nvim",
     dev = true,
     opts = {
