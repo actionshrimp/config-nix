@@ -29,7 +29,10 @@ local lazy_spec = {
     -- keep near the top to minimize delay when opening file from terminal
     opts = {
       window = {
-        open = "alternate",
+        open = "tab",
+      },
+      block_for = {
+        zsh = true,
       },
     },
     lazy = false,
