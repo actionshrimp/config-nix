@@ -112,5 +112,12 @@ M.init = function()
   vim.keymap.set("n", "<LEADER>w<S-l>", "<C-w><S-l>", {})
   vim.keymap.set("n", "<LEADER>w<S-h>", "<C-w><S-h>", {})
   vim.keymap.set("n", "<LEADER>wm", "<C-w>o", {})
+
+  if vim.g.neovide then
+    vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
+    vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
+    vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
+    vim.keymap.set("i", "<D-v>", "<C-R>+") -- Paste insert mode
+  end
 end
 return M
