@@ -55,7 +55,6 @@
     nixd
     nixfmt-classic
     nixpkgs-fmt
-    neovide
     nodePackages.vscode-json-languageserver
     nodejs
     nurl

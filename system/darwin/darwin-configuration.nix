@@ -73,6 +73,7 @@
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
       "emacs"
+      "neovide"
     ] ++ homebrewCasks;
   };
 }
