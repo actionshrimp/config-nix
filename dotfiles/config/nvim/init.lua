@@ -151,10 +151,12 @@ require("lazy").setup({
 })
 
 vim.cmd.set("number")
+vim.cmd.set("list")
 -- always show the column with lsp diagnostic 'E' or 'W' in
 vim.cmd.set("signcolumn=yes")
 vim.cmd.set("expandtab")
 vim.cmd.set("shiftwidth=2")
+vim.cmd.set("tabstop=2")
 -- hide e.g. markdown markers, but leave spaces where they are so everything doesn't shift around
 vim.cmd.set("conceallevel=1")
 
