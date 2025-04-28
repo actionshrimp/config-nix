@@ -61,6 +61,7 @@
     ollama
     (lib.hiPrio parallel)
     postgresql
+    pnpm
     python312Full
     uv
     # realvnc-vnc-viewer
