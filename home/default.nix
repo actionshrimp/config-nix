@@ -85,9 +85,13 @@
     yq-go
   ];
 
-  home.sessionVariables = ({
-    EDITOR = "vim";
-  });
+  home.sessionVariables =
+    {
+      EDITOR = "vim";
+
+    }
+    // (if apiKeys ? openAi then { OPENAI_API_KEY = "${apiKeys.openAi}"; } else { })
+    // (if apiKeys ? anthropic then { ANTHROPIC_API_KEY = "${apiKeys.anthropic}"; } else { });
 
   home.sessionPath = [ "/usr/local/bin" ];
 
@@ -245,74 +249,69 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
-    initExtra =
-      ''
-        autoload -z edit-command-line
+    initExtra = ''
+      autoload -z edit-command-line
 
-        zle -N edit-command-line
-        bindkey -M vicmd v edit-command-line
+      zle -N edit-command-line
+      bindkey -M vicmd v edit-command-line
 
-        source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        compdef __start_kubectl k
-        compdef __start_kubectl wk
+      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+      compdef __start_kubectl k
+      compdef __start_kubectl wk
 
-        export LESS="R"
+      export LESS="R"
 
-        # insert the last arg of the previous command when you press Esc-. in insert mode
-        bindkey -M viins '\e.' insert-last-word
+      # insert the last arg of the previous command when you press Esc-. in insert mode
+      bindkey -M viins '\e.' insert-last-word
 
-        # shift+tab goes back one on tab completion
-        bindkey '^[[Z' reverse-menu-complete
+      # shift+tab goes back one on tab completion
+      bindkey '^[[Z' reverse-menu-complete
 
-        if [ -n "''${TMUX}" ]; then
-          #inside tmux
-          bindkey "^[[1~" beginning-of-line
-          bindkey "^[[3~" delete-char
-          bindkey "^[[4~" end-of-line
+      if [ -n "''${TMUX}" ]; then
+        #inside tmux
+        bindkey "^[[1~" beginning-of-line
+        bindkey "^[[3~" delete-char
+        bindkey "^[[4~" end-of-line
 
-          bindkey -M vicmd "^[[1~" vi-beginning-of-line
-          bindkey -M vicmd "^[[3~" vi-delete-char
-          bindkey -M vicmd "^[[4~" vi-end-of-line
-        else
-          #outside tmux
-          bindkey "^[OH" beginning-of-line
-          bindkey "^[OF" end-of-line
-          bindkey "^[[3~" delete-char
+        bindkey -M vicmd "^[[1~" vi-beginning-of-line
+        bindkey -M vicmd "^[[3~" vi-delete-char
+        bindkey -M vicmd "^[[4~" vi-end-of-line
+      else
+        #outside tmux
+        bindkey "^[OH" beginning-of-line
+        bindkey "^[OF" end-of-line
+        bindkey "^[[3~" delete-char
 
-          bindkey -M vicmd "^[OH" vi-beginning-of-line
-          bindkey -M vicmd "^[OF" vi-end-of-line
-          bindkey -M vicmd "^[[3~" vi-delete-char
+        bindkey -M vicmd "^[OH" vi-beginning-of-line
+        bindkey -M vicmd "^[OF" vi-end-of-line
+        bindkey -M vicmd "^[[3~" vi-delete-char
 
+      fi
+
+      date-ts() {
+        date $@ --rfc-3339=seconds | sed 's/ /T/'
+      }
+
+      gc-pod-log() {
+        if [ -z "$1" ] || [ -z "$2" ]; then
+          echo "Usage: gc-pod-log PROJECT_ID POD_ID [START_TIMESTAMP:$(date-ts --date "1 day ago")]"
+          return 1
         fi
 
-        date-ts() {
-          date $@ --rfc-3339=seconds | sed 's/ /T/'
-        }
+        local DEFAULT_TS=$(date-ts --date "1 day ago")
+        local TS="''${3:-$DEFAULT_TS}"
+        local QUERY="resource.labels.pod_name=''${2} AND timestamp>=\"''${TS}\""
+        gcloud --project "$1" \
+            logging read "$QUERY" \
+            --format='value(receiveTimestamp, firstof(textPayload, jsonPayload.message))' \
+            --order asc
+      }
 
-        gc-pod-log() {
-          if [ -z "$1" ] || [ -z "$2" ]; then
-            echo "Usage: gc-pod-log PROJECT_ID POD_ID [START_TIMESTAMP:$(date-ts --date "1 day ago")]"
-            return 1
-          fi
+      my-ip() {
+        curl -s ifconfig.co
+      }
 
-          local DEFAULT_TS=$(date-ts --date "1 day ago")
-          local TS="''${3:-$DEFAULT_TS}"
-          local QUERY="resource.labels.pod_name=''${2} AND timestamp>=\"''${TS}\""
-          gcloud --project "$1" \
-              logging read "$QUERY" \
-              --format='value(receiveTimestamp, firstof(textPayload, jsonPayload.message))' \
-              --order asc
-        }
-
-        my-ip() {
-          curl -s ifconfig.co
-        }
-
-      ''
-      + pkgs.lib.strings.concatLines (
-        (if apiKeys ? openAi then [ "export OPENAI_API_KEY=${apiKeys.openAi}" ] else [ ])
-        ++ (if apiKeys ? anthropic then [ "export ANTHROPIC_API_KEY=${apiKeys.anthropic}" ] else [ ])
-      );
+    '';
   };
 
   nixpkgs.overlays = homeOverlays;
