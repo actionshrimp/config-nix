@@ -1,7 +1,9 @@
 {
   hostName,
   homebrewCasks,
+  homebrewBrews ? [ ],
   nixbldGid ? 350,
+  ...
 }:
 {
   pkgs,
@@ -67,7 +69,7 @@
     ];
     brews = [
       # "d12frosted/emacs-plus/emacs-plus"
-    ];
+    ] ++ homebrewBrews;
     casks = [
       "maccy"
       "font-jetbrains-mono-nerd-font"

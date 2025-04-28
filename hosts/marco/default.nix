@@ -22,7 +22,13 @@ config-nix-private: {
     extraTrustedPublicKeys = [ ];
     nixSecretKeyFiles = [ ];
   };
-  homebrewCasks = [ ];
+  homebrewBrews = [
+    "watchman"
+  ];
+  homebrewCasks = [
+    "android-studio"
+    "zulu@17"
+  ];
   ## Remove for new systems
   nixbldGid = 30000;
 }
