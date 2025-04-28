@@ -121,11 +121,7 @@
           inherit system;
           modules = [
             (import ./system/common.nix systemConfig)
-            (import ./system/darwin/darwin-configuration.nix {
-              inherit hostName;
-              inherit homebrewCasks;
-              inherit nixbldGid;
-            })
+            (import ./system/darwin/darwin-configuration.nix hostConfig)
             home-manager.darwinModules.home-manager
             { home-manager.users.dave = homeManagerConfiguration; }
           ];
