@@ -6,12 +6,19 @@ M.plugins = function()
       tag = "0.1.6",
       dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-live-grep-args.nvim",
       },
       config = function()
         local t = require("telescope")
-        t.setup({})
-        t.load_extension("live_grep_args")
+        local actions = require("telescope.actions")
+        t.setup({
+          pickers = {
+            live_grep = {
+              mappings = {
+                i = { ["<c-f>"] = actions.to_fuzzy_refine },
+              },
+            },
+          },
+        })
         t.load_extension("projects")
         t.load_extension("yank_history")
       end,
@@ -73,7 +80,7 @@ M.init = function()
         {
           "<LEADER>/",
           function()
-            require("telescope").extensions.live_grep_args.live_grep_args()
+            require("telescope.builtin").live_grep()
           end,
           desc = "Search",
         },
