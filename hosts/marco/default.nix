@@ -23,6 +23,7 @@ config-nix-private: {
     nixSecretKeyFiles = [ ];
   };
   homebrewBrews = [
+    "cocoapods"
     "watchman"
   ];
   homebrewCasks = [
