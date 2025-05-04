@@ -23,6 +23,7 @@
 
   # completion should work in here thanks to "with pkgs;"
   home.packages = with pkgs; [
+    aider-chat
     awscli2
     bash-language-server
     cargo
