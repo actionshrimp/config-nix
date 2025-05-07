@@ -8,9 +8,7 @@ M.init = function()
 
   require("lspconfig").ocamllsp.setup({
     autostart = false,
-    config = {
-      filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune", "iml" },
-    },
+    filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune", "iml" },
   })
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "reason",
