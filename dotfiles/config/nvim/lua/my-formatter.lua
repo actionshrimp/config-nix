@@ -16,7 +16,7 @@ M.plugins = function()
           formatters = {
             ocamlformat_iml = {
               command = "ocamlformat",
-              args = { "--impl", "$FILENAME" },
+              args = { "--impl", "--enable-outside-detected-project", "--name", "$FILENAME", "-" },
             },
           },
 
