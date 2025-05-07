@@ -1,7 +1,17 @@
 local M = {}
 M.init = function()
   -- :lua print(vim.bo.filetype)
-  require("lspconfig").ocamllsp.setup({ autostart = false })
+  vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.iml]])
+  vim.cmd([[autocmd BufRead,BufNewFile *.iml set filetype=iml]])
+
+  vim.treesitter.language.register("ocaml", "iml")
+
+  require("lspconfig").ocamllsp.setup({
+    autostart = false,
+    config = {
+      filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune", "iml" },
+    },
+  })
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "reason",
     callback = function(ev)
