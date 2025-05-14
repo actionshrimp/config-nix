@@ -6,6 +6,13 @@ M.init = function()
 
   vim.treesitter.language.register("ocaml", "iml")
 
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "iml",
+    callback = function(ev)
+      vim.cmd.set("commentstring=(*\\ %s\\ *)")
+    end,
+  })
+
   require("lspconfig").ocamllsp.setup({
     autostart = false,
     filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune", "iml" },
