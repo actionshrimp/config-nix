@@ -1,4 +1,14 @@
 local M = {}
+
+local function grep_at_current_tree_node()
+  local api = require("nvim-tree.api")
+  local node = api.tree.get_node_under_cursor()
+  if not node then
+    return
+  end
+  require("telescope.builtin").live_grep({ search_dirs = { node.absolute_path } })
+end
+
 M.plugins = function()
   return {
     {
@@ -48,6 +58,7 @@ M.plugins = function()
             vim.keymap.set("n", "ov", api.node.open.horizontal, opts("Open: Vertically"))
             vim.keymap.set("n", "<ret>", api.node.open.no_window_picker, opts("Open: Vertically"))
             vim.keymap.set("n", "oa", api.node.open.edit, opts("Open: Vertically"))
+            vim.keymap.set("n", "<LEADER>/", grep_at_current_tree_node)
           end,
         })
         vim.keymap.set("n", "<LEADER>pt", ":NvimTreeToggle .<CR>", { desc = "Open tree" })
