@@ -58,7 +58,7 @@ M.plugins = function()
             vim.keymap.set("n", "ov", api.node.open.horizontal, opts("Open: Vertically"))
             vim.keymap.set("n", "<ret>", api.node.open.no_window_picker, opts("Open: Vertically"))
             vim.keymap.set("n", "oa", api.node.open.edit, opts("Open: Vertically"))
-            vim.keymap.set("n", "<LEADER>/", grep_at_current_tree_node)
+            vim.keymap.set("n", "<LEADER>/", grep_at_current_tree_node, { buffer = bufnr })
           end,
         })
         vim.keymap.set("n", "<LEADER>pt", ":NvimTreeToggle .<CR>", { desc = "Open tree" })
