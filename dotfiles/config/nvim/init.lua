@@ -128,6 +128,7 @@ local lazy_spec = {
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  "benoror/gpg.nvim",
   require("my-dashboard").plugins(),
   require("theme").plugins(),
   require("my-git").plugins(),
@@ -182,3 +183,4 @@ require("lang/terraform").init()
 require("my-pomo").init()
 require("my-terminal").init()
 require("my-neovide").init()
+-- require("lang/swift").init()
