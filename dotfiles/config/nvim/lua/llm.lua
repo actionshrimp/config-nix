@@ -33,11 +33,17 @@ M.plugins = function()
         -- },
         provider = "claude", -- Recommend using Claude
         auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-        claude = {
-          endpoint = "https://api.anthropic.com",
-          model = "claude-3-5-sonnet-20241022",
-          temperature = 0,
-          max_tokens = 4096,
+        providers = {
+          claude = {
+            endpoint = "https://api.anthropic.com",
+            model = "claude-3-5-sonnet-20241022",
+          },
+          fastapply = {
+            __inherited_from = "openai",
+            api_key_name = "",
+            endpoint = "http://localhost:11434/v1",
+            model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
+          },
         },
         cursor_applying_provider = "fastapply",
         behaviour = {
@@ -57,15 +63,6 @@ M.plugins = function()
             hint = "<leader>aah",
             suggestion = "<leader>aas",
             repomap = "<leader>aaR",
-          },
-        },
-        vendors = {
-          --- ... existing vendors
-          fastapply = {
-            __inherited_from = "openai",
-            api_key_name = "",
-            endpoint = "http://localhost:11434/v1",
-            model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
           },
         },
       },
