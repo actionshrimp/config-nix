@@ -203,7 +203,6 @@
     enable = true;
     enableZshIntegration = true;
     agents = [
-      "ssh"
       "gpg"
     ];
   };
@@ -230,6 +229,10 @@
 
   programs.ssh = {
     enable = true;
+    addKeysToAgent = "yes";
+    extraOptionOverrides = {
+      UseKeychain = "yes";
+    };
   };
 
   programs.starship = {
