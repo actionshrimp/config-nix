@@ -10,10 +10,10 @@ M.init = function()
   })
 
   vim.lsp.enable("ts_ls")
-  vim.lsp.config("ts_ls", {
-    single_file_support = false, -- needed otherwise root_dir is ignored
-    root_dir = util.root_pattern({ "tsconfig.json" }),
-    autostart = false,
-  })
+  -- vim.lsp.config("ts_ls", {
+  --   -- single_file_support = false, -- needed otherwise root_dir is ignored
+  --   -- root_dir = util.root_pattern({ "tsconfig.json" }),
+  --   -- autostart = false,
+  -- })
 end
 return M
