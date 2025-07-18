@@ -3,7 +3,6 @@ let
   darwinOpts = {
     hostName = "marco";
     nixbldGid = 30000;
-    manageNix = true;
   };
 in
 {

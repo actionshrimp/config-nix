@@ -4,7 +4,6 @@ let
     hostName = "daves-macbook";
     ## Remove for new systems
     nixbldGid = 30000;
-    manageNix = false;
   };
 in
 {
