@@ -23,7 +23,6 @@ in
           programs.ssh.matchBlocks = config-nix-private.sshConfig.personal;
           programs.keychain.keys = lib.mkAfter [
             "0x3F92E3893C4349DD"
-            "actionshrimp.id_ed25519"
           ];
           home.sessionVariables = config-nix-private.additionalSessionVariables.personal;
           home.packages = lib.mkAfter [ ];

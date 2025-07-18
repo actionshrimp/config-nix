@@ -22,8 +22,6 @@ in
           programs.ssh.matchBlocks = config-nix-private.sshConfig.work;
           programs.keychain.keys = lib.mkAfter [
             "0x3F92E3893C4349DD"
-            "gn-dave-a.id_ed25519"
-            "actionshrimp.id_ed25519"
           ];
           home.sessionVariables = config-nix-private.additionalSessionVariables.work;
           home.packages = lib.mkAfter (
