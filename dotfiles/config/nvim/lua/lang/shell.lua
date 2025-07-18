@@ -1,5 +1,6 @@
 local M = {}
 M.init = function()
-  require("lspconfig").bashls.setup({})
+  vim.lsp.enable("bashls")
+  vim.lsp.config("bashls", { autostart = false })
 end
 return M

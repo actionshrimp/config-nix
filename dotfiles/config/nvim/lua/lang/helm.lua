@@ -11,6 +11,8 @@ M.init = function()
       ["helmfile.*%.ya?ml"] = "helm",
     },
   })
-  require("lspconfig").helm_ls.setup({ autostart = false })
+
+  vim.lsp.enable("helm_ls")
+  vim.lsp.config("helm_ls", { autostart = false })
 end
 return M
