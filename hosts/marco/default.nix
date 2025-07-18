@@ -1,35 +1,52 @@
-config-nix-private: {
-  system = "aarch64-darwin";
-  hostName = "marco";
+config-nix-private:
+let
+  darwinOpts = {
+    hostName = "marco";
+    nixbldGid = 30000;
+    manageNix = true;
+  };
+in
+{
+
   homeConfig = {
     homeDirectory = "/Users/dave";
     stateVersion = "22.05";
-    sshKeys = [ "id_ed25519" ] ++ config-nix-private.sshKeys.personal;
-    sshConfig = config-nix-private.sshConfig.personal;
+    system = "aarch64-darwin";
+    defaultGithubUser = "actionshrimp";
     homeModules = [
       ../../home/darwin
-      ../../home/syncthing.nix
+      (
+        { config, lib, ... }:
+        {
+          # localhost:8384
+          services.syncthing.enable = true;
+          programs.ssh.matchBlocks = config-nix-private.sshConfig.personal;
+          programs.keychain.keys = lib.mkAfter [
+            "0x3F92E3893C4349DD"
+            "actionshrimp.id_ed25519"
+          ];
+          home.sessionVariables = config-nix-private.additionalSessionVariables.personal;
+          home.packages = lib.mkAfter [ ];
+        }
+      )
     ];
-    apiKeys = {
-      anthropic = config-nix-private.apiKeys.personal.anthropic;
-    };
   };
-  systemConfig = {
-    buildMachines = config-nix-private.buildMachines;
-    sshKnownHosts = config-nix-private.sshKnownHosts;
-    extraSubstituters = [ ];
-    extraTrustedSubstituters = [ ];
-    extraTrustedPublicKeys = [ ];
-    nixSecretKeyFiles = [ ];
-  };
-  homebrewBrews = [
-    "cocoapods"
-    "watchman"
+  darwinModules = [
+    (import ../../system/common.nix)
+    (import ../../system/darwin/darwin-configuration.nix darwinOpts)
+    (
+      { lib, ... }:
+      {
+        homebrew.brews = lib.mkAfter [
+          "cocoapods"
+          "watchman"
+        ];
+        homebrew.casks = lib.mkAfter [
+          "android-studio"
+          "zulu@17"
+        ];
+        homebrew.taps = lib.mkAfter [ ];
+      }
+    )
   ];
-  homebrewCasks = [
-    "android-studio"
-    "zulu@17"
-  ];
-  ## Remove for new systems
-  nixbldGid = 30000;
 }

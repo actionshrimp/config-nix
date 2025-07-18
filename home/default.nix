@@ -1,10 +1,6 @@
 {
+  homeConfig,
   homeOverlays,
-  homeDirectory,
-  stateVersion,
-  sshConfig,
-  sshKeys,
-  apiKeys,
 }:
 {
   config,
@@ -14,13 +10,6 @@
 }:
 
 {
-  home.activation = {
-    spacemacs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD [ ! -d ~/.emacs.d ] && git clone git@github.com:syl20bnr/spacemacs.git ~/.emacs.d
-      $DRY_RUN_CMD cd ~/.emacs.d && git fetch && git reset --hard 4a227fc94651136a8de54bcafa7d22abe1fa0295
-    '';
-  };
-
   # completion should work in here thanks to "with pkgs;"
   home.packages = with pkgs; [
     aider-chat
@@ -29,6 +18,7 @@
     cargo
     dos2unix
     fd
+    fswatch
     gh
     gnumake
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
@@ -48,6 +38,7 @@
     lua-language-server
     luajitPackages.luarocks
     mc
+    mkcert
     moreutils
     ncdu
     nil
@@ -67,9 +58,11 @@
     uv
     # realvnc-vnc-viewer
     ripgrep
+    ruby
     selene
     shellcheck
     silver-searcher
+    socat
     sqlite.dev
     stylua
     tailwindcss-language-server
@@ -87,23 +80,11 @@
     yq-go
   ];
 
-  home.sessionVariables =
-    {
-      EDITOR = "vim";
-
-    }
-    // (if apiKeys ? openAi then { OPENAI_API_KEY = "${apiKeys.openAi}"; } else { })
-    // (if apiKeys ? anthropic then { ANTHROPIC_API_KEY = "${apiKeys.anthropic}"; } else { });
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
   home.sessionPath = [ "/usr/local/bin" ];
-
-  home.file.".spacemacs.d" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/spacemacs.d";
-  };
-
-  home.file.".authinfo.gpg" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix-private/dotfiles/authinfo.gpg";
-  };
 
   programs.carapace = {
     enable = true;
@@ -124,13 +105,8 @@
 
   programs.git = {
     enable = true;
-    userName = "Dave Aitken";
-    userEmail = "dave.aitken@gmail.com";
-    signing = {
-      signByDefault = true;
-      key = "EDB3240E95F9F2B8A24251AAFE09FD0729375918";
-    };
     ignores = [ ".DS_Store" ];
+    lfs.enable = true;
     extraConfig = {
       # swapped in favour of `gbi` alias below
       # blame = { ignoreRevsFile = ".git-blame-ignore-revs"; };
@@ -141,7 +117,79 @@
         # A value of 0 will give some reasonable default, if unset it defaults to 1.
         parallel = 0;
       };
+      safe = {
+        directory = "/Users/dave/dev/gn/goodnotes-5";
+      };
+      rebase.autoStash = true;
     };
+    includes =
+      (
+        if homeConfig.defaultGithubUser == "gn-dave-a" then
+          [
+            {
+              path = "${config.home.homeDirectory}/.config/git/config.gn-dave-a";
+            }
+          ]
+        else
+          [
+            {
+              path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+            }
+          ]
+      )
+      ++ [
+        {
+          path = "${config.home.homeDirectory}/.config/git/config.gn-dave-a";
+          condition = "gitdir:~/dev/gn/";
+        }
+        {
+          path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+          condition = "gitdir:~/dev/actionshrimp/";
+        }
+        {
+          path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+          condition = "gitdir:~/config-nix/";
+        }
+        {
+          path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+          condition = "gitdir:~/config-nix-private/";
+        }
+      ];
+  };
+
+  home.file.".config/git/config.gn-dave-a" = {
+    text = ''
+      [commit]
+          gpgSign = true
+      [core]
+          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/gn-dave-a.id_ed25519 -o IdentityAgent=none
+      [github]
+          user = gn-dave-a
+      [gpg]
+          program = gpg
+          format = openpgp
+      [user]
+          name = Dave Aitken
+          email = dave.a@goodnotesapp.com
+          signingkey = 3F92E3893C4349DD
+    '';
+  };
+
+  home.file.".config/git/config.actionshrimp" = {
+    text = ''
+      [commit]
+          gpgSign = true
+      [core]
+          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519 -o IdentityAgent=none
+      [github]
+          user = actionshrimp
+      [gpg]
+          format = ssh
+      [user]
+          name = Dave Aitken
+          email = dave.aitken@gmail.com
+          signingkey = ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519.pub
+    '';
   };
 
   programs.gpg = {
@@ -154,7 +202,6 @@
   programs.keychain = {
     enable = true;
     enableZshIntegration = true;
-    keys = [ "FE09FD0729375918" ] ++ sshKeys;
     agents = [
       "ssh"
       "gpg"
@@ -176,14 +223,13 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
   };
 
-  programs.opam = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+  # programs.opam = {
+  #   enable = true;
+  #   enableZshIntegration = true;
+  # };
 
   programs.ssh = {
     enable = true;
-    matchBlocks = sshConfig;
   };
 
   programs.starship = {
@@ -317,7 +363,6 @@
       my-ip() {
         curl -s ifconfig.co
       }
-
     '';
   };
 

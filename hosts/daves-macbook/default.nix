@@ -1,42 +1,53 @@
-config-nix-private: {
-  system = "aarch64-darwin";
-  hostName = "daves-macbook";
+config-nix-private:
+let
+  darwinOpts = {
+    hostName = "daves-macbook";
+    ## Remove for new systems
+    nixbldGid = 30000;
+    manageNix = false;
+  };
+in
+{
   homeConfig = {
     homeDirectory = "/Users/dave";
     stateVersion = "22.05";
-    sshKeys = [ "id_ed25519" ] ++ config-nix-private.sshKeys.work;
-    sshConfig = config-nix-private.sshConfig.work;
-    homeModules = [ ../../home/darwin ];
-    apiKeys = {
-      openAi = config-nix-private.apiKeys.work.openAi;
-      anthropic = config-nix-private.apiKeys.personal.anthropic;
-    };
+    system = "aarch64-darwin";
+    defaultGithubUser = "gn-dave-a";
+    homeModules = [
+      ../../home/darwin
+      (
+        { lib, pkgs, ... }:
+        {
+          # localhost:8384
+          programs.ssh.matchBlocks = config-nix-private.sshConfig.work;
+          programs.keychain.keys = lib.mkAfter [
+            "0x3F92E3893C4349DD"
+            "gn-dave-a.id_ed25519"
+            "actionshrimp.id_ed25519"
+          ];
+          home.sessionVariables = config-nix-private.additionalSessionVariables.work;
+          home.packages = lib.mkAfter (
+            with pkgs;
+            [
+              binaryen
+              corepack
+              (dvc.override { enableAWS = true; })
+            ]
+          );
+        }
+      )
+    ];
   };
-  systemConfig = {
-    buildMachines = config-nix-private.buildMachines;
-    sshKnownHosts = config-nix-private.sshKnownHosts;
-
-    # Manually add AWS creds to:
-    # - ~/.aws/credentials (for user auth)
-    # - /var/root/.aws/credentials (for nix-daemon auth)
-    extraSubstituters = [
-      "s3://imandra-nix-cache?profile=imandra-nix-cache&endpoint=https://storage.googleapis.com"
-    ];
-    extraTrustedSubstituters = [
-      "s3://imandra-nix-cache?profile=imandra-nix-cache&endpoint=https://storage.googleapis.com"
-    ];
-    extraTrustedPublicKeys = [
-      "imandra-nix-cache.1:4rM4urW8DwdkG+ipwCR/DHHB67xOm2A7FIoCLD1DEMQ="
-    ];
-
-    # Manually add (key used by nix _client_ to sign builds - daemon doesn't need access)
-    # - imandra-nix-cache-signing-key
-    # - to /Users/dave/.keys/cache-priv-key.pem
-    # - chmod 600 
-    nixSecretKeyFiles = [ "/Users/dave/.keys/cache-priv-key.pem" ];
-  };
-  homebrewCasks = [ ];
-
-  ## Remove for new systems
-  nixbldGid = 30000;
+  darwinModules = [
+    (import ../../system/common.nix)
+    (import ../../system/darwin/darwin-configuration.nix darwinOpts)
+    (
+      { lib, ... }:
+      {
+        homebrew.brews = lib.mkAfter [ ];
+        homebrew.casks = lib.mkAfter [ ];
+        homebrew.taps = lib.mkAfter [ ];
+      }
+    )
+  ];
 }

@@ -1,8 +1,7 @@
 {
   hostName,
-  homebrewCasks,
-  homebrewBrews ? [ ],
   nixbldGid ? 350,
+  manageNix ? true,
   ...
 }:
 {
@@ -43,12 +42,11 @@
   # ideally this would be removed for new installations
   ids.gids.nixbld = nixbldGid;
 
-  nix.nixPath = [
-    {
-      nixpkgs = "${nixpkgs}";
-    }
-  ];
+  nix.nixPath = [ { nixpkgs = "${nixpkgs}"; } ];
 
+  nix.enable = manageNix;
+
+  system.primaryUser = "dave";
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
     NSGlobalDomain.KeyRepeat = 1;
@@ -64,18 +62,13 @@
     enable = true;
     onActivation.cleanup = "zap";
     taps = [
-      "homebrew/cask-fonts"
-      # "d12frosted/emacs-plus"
     ];
     brews = [
-      # "d12frosted/emacs-plus/emacs-plus"
-    ] ++ homebrewBrews;
+    ];
     casks = [
       "maccy"
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
-      "emacs"
-      "neovide"
-    ] ++ homebrewCasks;
+    ];
   };
 }

@@ -1,8 +1,8 @@
 darwin-build: 
-	nix build '.#darwinConfigurations.$(shell hostname).system'
+	nix build '.#darwinConfigurations.$(shell basename $(shell hostname) .local).system'
 
 darwin-rebuild-switch:
-	./result/sw/bin/darwin-rebuild switch --flake '.#$(shell hostname)'
+	sudo ./result/sw/bin/darwin-rebuild switch --flake '.#$(shell basename $(shell hostname) .local)'
 
 .PHONY: build-linux-builder-docker
 build-linux-builder-docker:

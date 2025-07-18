@@ -1,12 +1,4 @@
 {
-  buildMachines,
-  sshKnownHosts,
-  nixSecretKeyFiles,
-  extraSubstituters,
-  extraTrustedSubstituters,
-  extraTrustedPublicKeys,
-}:
-{
   pkgs,
   nix,
   nixpkgs,
@@ -25,8 +17,6 @@
 
   programs.zsh.enable = true;
 
-  programs.ssh.knownHosts = sshKnownHosts;
-
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -34,20 +24,18 @@
     '';
     settings.trusted-users = [ "dave" ];
     distributedBuilds = true;
-    inherit buildMachines;
 
-    settings.secret-key-files = nixSecretKeyFiles;
     settings.substituters = [
       "https://nix-community.cachix.org"
       "https://anmonteiro.nix-cache.workers.dev"
-    ] ++ extraSubstituters;
+    ];
     settings.trusted-substituters = [
       "https://nix-community.cachix.org"
       "https://anmonteiro.nix-cache.workers.dev"
-    ] ++ extraTrustedSubstituters;
+    ];
     settings.trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "ocaml.nix-cache.com-1:/xI2h2+56rwFfKyyFVbkJSeGqSIYMC/Je+7XXqGKDIY="
-    ] ++ extraTrustedPublicKeys;
+    ];
   };
 }
