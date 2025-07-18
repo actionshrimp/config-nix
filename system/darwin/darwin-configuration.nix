@@ -1,7 +1,6 @@
 {
   hostName,
   nixbldGid ? 350,
-  manageNix ? true,
   ...
 }:
 {
@@ -44,7 +43,8 @@
 
   nix.nixPath = [ { nixpkgs = "${nixpkgs}"; } ];
 
-  nix.enable = manageNix;
+  # Using determinate nix instead
+  nix.enable = false;
 
   system.primaryUser = "dave";
   system.defaults = {
