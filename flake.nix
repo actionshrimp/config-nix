@@ -3,7 +3,7 @@
   description = "NixOS and home-manager configurations";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-25.05-darwin";
     nur.url = "github:nix-community/nur";
     nurl.url = "github:nix-community/nurl";
 
@@ -13,7 +13,7 @@
     };
 
     darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,46 +41,36 @@
       nix-direnv,
       flake-utils,
       config-nix-private ? {
-        apiKeys = {
-          openAi = "";
-          anthropic = "";
+        additionalSessionVariables = {
+          personal = { };
+          work = { };
         };
         sshConfig = {
           personal = { };
           work = { };
         };
-        sshKeys = {
-          personal = { };
-          work = { };
-        };
-        sshKnownHosts = { };
-        buildMachines = [ ];
       },
       ...
     }:
     let
-      mkHomeOverlays = system: [
-        nur.overlay
-        (self: super: {
-          nurl = nurl.packages.${system}.default;
-          nix-direnv = nix-direnv.packages.${system}.default;
-        })
-      ];
+      mkHomeOverlays =
+        { system, ... }@homeConfig:
+        [
+          nur.overlay
+          (self: super: {
+            nurl = nurl.packages.${system}.default;
+            nix-direnv = nix-direnv.packages.${system}.default;
+          })
+        ];
 
       homeManagerModule =
-        { homeConfig, system, ... }@hostConfig:
+        { homeConfig, ... }@hostConfig:
         let
-          homeOverlays = mkHomeOverlays system;
+          homeOverlays = mkHomeOverlays homeConfig;
 
           common = (
             import ./home {
-              inherit (homeConfig)
-                homeDirectory
-                stateVersion
-                sshKeys
-                sshConfig
-                apiKeys
-                ;
+              inherit homeConfig;
               inherit homeOverlays;
             }
           );
@@ -106,24 +96,15 @@
         };
 
       darwinSystem =
-        {
-          hostName,
-          systemConfig,
-          homebrewCasks,
-          nixbldGid,
-          ...
-        }@hostConfig:
-        homeManagerConfiguration:
+        hostConfig:
         let
           system = "aarch64-darwin";
         in
         darwin.lib.darwinSystem {
           inherit system;
-          modules = [
-            (import ./system/common.nix systemConfig)
-            (import ./system/darwin/darwin-configuration.nix hostConfig)
+          modules = hostConfig.darwinModules ++ [
             home-manager.darwinModules.home-manager
-            { home-manager.users.dave = homeManagerConfiguration; }
+            { home-manager.users.dave = homeManagerModule hostConfig; }
           ];
           specialArgs = {
             inherit nixpkgs;
@@ -133,7 +114,6 @@
       nixosSystem =
         {
           hostName,
-          systemConfig,
           configModule,
           ...
         }@hostConfig:
@@ -144,7 +124,7 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules =
-            [ (import ./system/common.nix systemConfig) ]
+            [ (import ./system/common.nix) ]
             ++ (if hostConfig ? hardwareConfiguration then [ hostConfig.hardwareConfiguration ] else [ ])
             ++ [
               (import configModule {
@@ -165,24 +145,18 @@
         baracus-hyperv = (mkHost ./hosts/baracus-hyperv);
         baracus-wsl = (mkHost ./hosts/baracus-wsl);
       };
-      homeManagerModules = {
-        daves-macbook = homeManagerModule hostConfigs.daves-macbook;
-        marco = homeManagerModule hostConfigs.marco;
-        baracus-hyperv = homeManagerModule hostConfigs.baracus-hyperv;
-        baracus-wsl = homeManagerModule hostConfigs.baracus-wsl;
-      };
     in
     {
       homeConfigurations = nixpkgs.lib.attrsets.mapAttrs (
         k: v: (homeManagerConfig hostConfigs."${k}" v)
-      ) homeManagerModules;
+      ) hostConfigs;
       nixosConfigurations = {
-        baracus-hyperv = nixosSystem (mkHost ./hosts/baracus-hyperv) homeManagerModules.baracus-hyperv;
-        baracus-wsl = nixosSystem (mkHost ./hosts/baracus-wsl) homeManagerModules.baracus-wsl;
+        baracus-hyperv = nixosSystem (hostConfigs.baracus-hyperv);
+        baracus-wsl = nixosSystem (hostConfigs.baracus-wsl);
       };
       darwinConfigurations = {
-        daves-macbook = darwinSystem (mkHost ./hosts/daves-macbook) homeManagerModules.daves-macbook;
-        marco = darwinSystem (mkHost ./hosts/marco) homeManagerModules.marco;
+        daves-macbook = darwinSystem (hostConfigs.daves-macbook);
+        marco = darwinSystem (hostConfigs.marco);
       };
     }
     // (flake-utils.lib.eachDefaultSystem (
