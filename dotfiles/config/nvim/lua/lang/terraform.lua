@@ -11,8 +11,11 @@ M.init = function()
 
   vim.treesitter.language.register("hcl", "terraform")
 
-  require("lspconfig").terraform_lsp.setup({ autostart = false })
-  require("lspconfig").tflint.setup({ autostart = false })
+  vim.lsp.enable("terraform_lsp")
+  vim.lsp.config("terraform_lsp", { autostart = false })
+
+  vim.lsp.enable("tflint")
+  vim.lsp.config("tflint", { autostart = false })
 
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "terraform",

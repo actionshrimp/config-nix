@@ -1,5 +1,6 @@
 local M = {}
 M.init = function()
-  require("lspconfig").gleam.setup({ autostart = false })
+  vim.lsp.enable("gleam")
+  vim.lsp.config("gleam", { autostart = false })
 end
 return M

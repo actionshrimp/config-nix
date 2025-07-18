@@ -48,6 +48,7 @@ local lazy_spec = {
     lazy = false,
     priority = 1001,
   },
+  require("my-lsp").plugins(),
   {
     "actionshrimp/direnv.nvim",
     dev = true,
@@ -73,7 +74,6 @@ local lazy_spec = {
       require("lualine").setup({})
     end,
   },
-  require("my-lsp").plugins(),
   require("my-completion").plugins(),
   {
     "folke/lazydev.nvim",

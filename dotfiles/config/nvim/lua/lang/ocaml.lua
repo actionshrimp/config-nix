@@ -13,7 +13,8 @@ M.init = function()
     end,
   })
 
-  require("lspconfig").ocamllsp.setup({
+  vim.lsp.enable("ocamllsp")
+  vim.lsp.config("ocamllsp", {
     autostart = false,
     filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune", "iml" },
   })

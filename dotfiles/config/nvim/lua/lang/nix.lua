@@ -1,6 +1,7 @@
 local M = {}
 M.init = function()
-  require("lspconfig").nixd.setup({
+  vim.lsp.enable("nixd")
+  vim.lsp.config("nixd", {
     autostart = false,
     timeout = 2000,
     settings = {
