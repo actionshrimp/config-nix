@@ -17,7 +17,6 @@ in
       (
         { lib, pkgs, ... }:
         {
-          # localhost:8384
           programs.ssh.matchBlocks = config-nix-private.sshConfig.work;
           programs.keychain.keys = lib.mkAfter [
             "0x3F92E3893C4349DD"
