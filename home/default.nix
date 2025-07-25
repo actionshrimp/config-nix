@@ -171,7 +171,7 @@
           format = openpgp
       [user]
           name = Dave Aitken
-          email = dave.a@goodnotesapp.com
+          email = dave.a@goodnotes.com
           signingkey = 3F92E3893C4349DD
     '';
   };
