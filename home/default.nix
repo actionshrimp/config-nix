@@ -22,8 +22,8 @@
     fswatch
     gh
     gnumake
-    (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
-    google-cloud-sql-proxy
+    # (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    # google-cloud-sql-proxy
     helm-ls
     htop
     ispell
