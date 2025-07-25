@@ -123,39 +123,32 @@
       };
       rebase.autoStash = true;
     };
-    includes =
-      (
-        if homeConfig.defaultGithubUser == "gn-dave-a" then
-          [
-            {
-              path = "${config.home.homeDirectory}/.config/git/config.gn-dave-a";
-            }
-          ]
-        else
-          [
-            {
-              path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-            }
-          ]
-      )
-      ++ [
-        {
-          path = "${config.home.homeDirectory}/.config/git/config.gn-dave-a";
-          condition = "gitdir:~/dev/gn/";
-        }
-        {
-          path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-          condition = "gitdir:~/dev/actionshrimp/";
-        }
-        {
-          path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-          condition = "gitdir:~/config-nix/";
-        }
-        {
-          path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-          condition = "gitdir:~/config-nix-private/";
-        }
-      ];
+    includes = (
+      if homeConfig.defaultGithubUser == "gn-dave-a" then
+        [
+          {
+            path = "${config.home.homeDirectory}/.config/git/config.gn-dave-a";
+          }
+          {
+            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+            condition = "gitdir:~/dev/actionshrimp/";
+          }
+          {
+            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+            condition = "gitdir:~/config-nix/";
+          }
+          {
+            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+            condition = "gitdir:~/config-nix-private/";
+          }
+        ]
+      else
+        [
+          {
+            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+          }
+        ]
+    );
   };
 
   home.file.".config/git/config.gn-dave-a" = {
