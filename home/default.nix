@@ -16,6 +16,7 @@
     awscli2
     bash-language-server
     cargo
+    devenv
     dos2unix
     fd
     fswatch
