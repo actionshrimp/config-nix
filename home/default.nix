@@ -163,7 +163,7 @@
       [commit]
           gpgSign = true
       [core]
-          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/gn-dave-a.id_ed25519 -o IdentityAgent=none
+          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/gn-dave-a.id_ed25519
       [github]
           user = gn-dave-a
       [gpg]
@@ -181,7 +181,7 @@
       [commit]
           gpgSign = true
       [core]
-          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519 -o IdentityAgent=none
+          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519
       [github]
           user = actionshrimp
       [gpg]
