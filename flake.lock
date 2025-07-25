@@ -6,11 +6,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1752840526,
-        "narHash": "sha256-DOVDMIFC6o4HX5CSAO5hoPAMGswlviGb11Tom8W8IAo=",
+        "lastModified": 1753088002,
+        "narHash": "sha256-zecL0dg3qRGi1KS60GOl+DvktlEvwLR6nfVVAoCMh98=",
         "ref": "refs/heads/main",
-        "rev": "fd35a80220f4a188fff927b95e6216e787d3082f",
-        "revCount": 11,
+        "rev": "0e4111edd0a4453875dac053898c951a5f5ee7b4",
+        "revCount": 12,
         "type": "git",
         "url": "file:///Users/dave/config-nix-private"
       },
