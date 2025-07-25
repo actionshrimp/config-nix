@@ -15,5 +15,7 @@ M.init = function()
   --   -- root_dir = util.root_pattern({ "tsconfig.json" }),
   --   -- autostart = false,
   -- })
+
+  vim.lsp.enable("eslint")
 end
 return M
