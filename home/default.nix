@@ -185,11 +185,12 @@
       [github]
           user = actionshrimp
       [gpg]
-          format = ssh
+          program = gpg
+          format = openpgp
       [user]
           name = Dave Aitken
           email = dave.aitken@gmail.com
-          signingkey = ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519.pub
+          signingkey = 0x4C030895BE1EEBE1
     '';
   };
 
