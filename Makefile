@@ -1,5 +1,5 @@
 darwin-build: 
-	nix build '.#darwinConfigurations.$(shell basename $(shell hostname) .local).system'
+	nix build '.#darwinConfigurations.$(shell basename $(shell hostname) .local).system' --log-format internal-json -v |& nom --json
 
 darwin-rebuild-switch:
 	sudo ./result/sw/bin/darwin-rebuild switch --flake '.#$(shell basename $(shell hostname) .local)'
