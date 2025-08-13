@@ -24,7 +24,7 @@
   home.sessionPath = [ "/opt/homebrew/bin" ];
 
   programs.zsh = {
-    initExtra = ''
+    initContent = ''
       ulimit -n 99999
 
       vnodes() {

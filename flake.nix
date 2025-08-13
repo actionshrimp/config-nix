@@ -3,12 +3,13 @@
   description = "NixOS and home-manager configurations";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-25.05-darwin";
-    nur.url = "github:nix-community/nur";
-    nurl.url = "github:nix-community/nurl";
+
+    # update from latest version on https://status.nixos.org/
+    # nixpkgs-25.05-darwin
+    nixpkgs.url = "github:NixOS/nixpkgs/aa68d16c20fa0bc9f43fad423af5c40b990fdf6d";
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,9 +23,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-direnv.url = "github:nix-community/nix-direnv";
+    nix-direnv = {
+      url = "github:nix-community/nix-direnv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
 
     config-nix-private.url = "git+file:///Users/dave/config-nix-private";
     # or "git+ssh://git@github.com/actionshrimp/config-nix-private";
@@ -34,8 +40,6 @@
     {
       darwin,
       home-manager,
-      nur,
-      nurl,
       nixpkgs,
       nixos-wsl,
       nix-direnv,
@@ -56,9 +60,7 @@
       mkHomeOverlays =
         { system, ... }@homeConfig:
         [
-          nur.overlay
           (self: super: {
-            nurl = nurl.packages.${system}.default;
             nix-direnv = nix-direnv.packages.${system}.default;
           })
         ];

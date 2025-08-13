@@ -55,9 +55,8 @@
     (lib.hiPrio parallel)
     postgresql
     pnpm
-    python312Full
+    python3Full
     uv
-    # realvnc-vnc-viewer
     ripgrep
     ruby
     selene
@@ -66,19 +65,21 @@
     socat
     sqlite.dev
     stylua
-    tailwindcss-language-server
+    # tailwindcss-language-server - moved to brew
     terraform-lsp
     tflint
     tree
     typos
     typescript-language-server
     watch
-    wezterm
+    # wezterm - moved to brew
     wget
     xclip
     xmlstarlet
     xsel
     yq-go
+    noto-fonts
+    noto-fonts-cjk-sans
   ];
 
   home.sessionVariables = {
@@ -106,7 +107,10 @@
 
   programs.git = {
     enable = true;
-    ignores = [ ".DS_Store" ];
+    ignores = [
+      ".DS_Store"
+      ".ignore"
+    ];
     lfs.enable = true;
     extraConfig = {
       # swapped in favour of `gbi` alias below
@@ -300,7 +304,7 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
-    initExtra = ''
+    initContent = ''
       autoload -z edit-command-line
 
       zle -N edit-command-line

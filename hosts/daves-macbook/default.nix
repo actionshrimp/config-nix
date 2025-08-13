@@ -28,7 +28,6 @@ in
             [
               binaryen
               corepack
-              (dvc.override { enableAWS = true; })
             ]
           );
         }
@@ -41,7 +40,7 @@ in
     (
       { lib, ... }:
       {
-        homebrew.brews = lib.mkAfter [ ];
+        homebrew.brews = lib.mkAfter [ "dvc" ];
         homebrew.casks = lib.mkAfter [ ];
         homebrew.taps = lib.mkAfter [ ];
       }
