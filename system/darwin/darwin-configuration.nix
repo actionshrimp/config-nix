@@ -69,6 +69,8 @@
       "maccy"
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
+      "wezterm"
+      "tailwindcss-language-server"
     ];
   };
 }
