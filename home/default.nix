@@ -135,6 +135,10 @@
           }
           {
             path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
+            condition = "gitdir:~/dev/nvim/";
+          }
+          {
+            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
             condition = "gitdir:~/dev/actionshrimp/";
           }
           {
