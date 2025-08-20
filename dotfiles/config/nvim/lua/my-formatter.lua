@@ -20,14 +20,20 @@ M.plugins = function()
               command = "ocamlformat",
               args = { "--impl", "--enable-outside-detected-project", "--name", "$FILENAME", "-" },
             },
+            biome = {
+              require_cwd = true,
+            },
+            prettier = {
+              require_cwd = true,
+            },
           },
 
           -- :lua print(vim.bo.filetype)
           formatters_by_ft = {
-            javascript = { "biome" },
-            json = { "biome" },
-            typescriptreact = { "biome" },
-            typescript = { "biome" },
+            javascript = { "biome", "prettier" },
+            json = { "biome", "prettier" },
+            typescriptreact = { "biome", "prettier" },
+            typescript = { "biome", "prettier" },
             lua = { "stylua" },
             terraform = { "terraform_fmt" },
             nix = { "nixfmt" },
