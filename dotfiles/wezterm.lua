@@ -11,8 +11,13 @@ config.audible_bell = "Disabled"
 -- For example, changing the color scheme:
 -- config.color_scheme = "AdventureTime"
 config.enable_tab_bar = false
-config.font = wezterm.font({ family = "JetBrainsMono NFM" })
+config.font = wezterm.font_with_fallback({
+  -- Main font
+  "JetBrainsMono NFM",
+  "Noto Sans",
+})
 config.front_end = "WebGpu" -- https://github.com/wezterm/wezterm/issues/6005
+config.harfbuzz_features = { "calt = 0", "clig = 0", "liga = 0" }
 
 -- and finally, return the configuration to wezterm
 return config
