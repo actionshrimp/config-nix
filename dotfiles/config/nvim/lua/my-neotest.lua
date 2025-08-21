@@ -14,20 +14,22 @@ M.plugins = function()
         "nvim-lua/plenary.nvim",
         "antoinemadec/FixCursorHold.nvim",
         "nvim-treesitter/nvim-treesitter",
+        "marilari88/neotest-vitest",
       },
       config = function()
         require("neotest").setup({
           adapters = {
             require("neotest-deno"),
             require("neotest-plenary"),
-            require("neotest-jest")({
-              jestCommand = "npx jest",
-              jestConfigFile = "jest.config.json",
-              env = { CI = true },
-              cwd = function(path)
-                return vim.fn.getcwd()
-              end,
-            }),
+            -- require("neotest-jest")({
+            --   jestCommand = "npx jest",
+            --   jestConfigFile = "jest.config.json",
+            --   env = { CI = true },
+            --   cwd = function(path)
+            --     return vim.fn.getcwd()
+            --   end,
+            -- }),
+            require("neotest-vitest"),
           },
         })
 
