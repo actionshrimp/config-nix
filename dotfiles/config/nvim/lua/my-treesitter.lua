@@ -27,6 +27,7 @@ M.plugins = function()
             "typescript",
             "json",
             "javascript",
+            "tsx",
           },
           highlight = { enable = true },
           indent = { enable = true },
