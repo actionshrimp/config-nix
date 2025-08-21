@@ -120,6 +120,9 @@ M.plugins = function()
             { "<leader>glb", "<cmd>GitLink! blame<cr>", desc = "Open blame URL" },
             { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
 
+            { "]g", "<cmd>Gitsigns nav_hunk next<cr>", desc = "Next" },
+            { "[g", "<cmd>Gitsigns nav_hunk prev<cr>", desc = "Prev" },
+
             -- "Major"
             { "<leader>m", group = "Major" },
             { "<leader>ma", group = "Action" },
