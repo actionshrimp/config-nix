@@ -141,9 +141,7 @@ local lazy_spec = {
   require("lang/sql").plugins(),
   require("my-kubernetes").plugins(),
   require("my-org").plugins(),
-  require("my-lc").plugins(),
   require("my-neotest").plugins(),
-  require("my-pomo").plugins(),
   require("my-terminal").plugins(),
 }
 require("lazy").setup({
@@ -180,7 +178,6 @@ require("lang/typescript").init()
 require("my-web").init()
 require("lang/helm").init()
 require("lang/terraform").init()
-require("my-pomo").init()
 require("my-terminal").init()
 require("my-neovide").init()
 require("lang/swift").init()

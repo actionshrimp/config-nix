@@ -6,7 +6,7 @@ local function grep_at_current_tree_node()
   if not node then
     return
   end
-  require("telescope.builtin").live_grep({ search_dirs = { node.absolute_path } })
+  require("snacks").picker.grep({ dirs = { node.absolute_path } })
 end
 
 M.plugins = function()
