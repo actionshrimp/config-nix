@@ -5,6 +5,7 @@ M.plugins = function()
     opts = {
       picker = {
         frecency = true,
+        fuzzy = true,
       },
       explorer = {},
     },
