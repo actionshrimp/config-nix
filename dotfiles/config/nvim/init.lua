@@ -133,7 +133,7 @@ local lazy_spec = {
   require("theme").plugins(),
   require("my-git").plugins(),
   require("project").plugins(),
-  require("search").plugins(),
+  require("my-search").plugins(),
   require("my-formatter").plugins(),
   require("my-diagnostics").plugins(),
   require("llm").plugins(),
@@ -163,7 +163,7 @@ vim.cmd.set("conceallevel=1")
 
 require("keys").init()
 require("my-diagnostics").init()
-require("search").init()
+require("my-search").init()
 require("my-treesitter").init()
 
 require("lang/lua").init()
