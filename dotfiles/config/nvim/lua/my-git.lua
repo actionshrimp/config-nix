@@ -28,7 +28,7 @@ M.plugins = function()
       dependencies = {
         "nvim-lua/plenary.nvim", -- required
         "sindrets/diffview.nvim", -- optional - Diff integration
-        "nvim-telescope/telescope.nvim",
+        "folke/snacks.nvim", -- optional - picker
       },
       config = function()
         require("neogit").setup({
