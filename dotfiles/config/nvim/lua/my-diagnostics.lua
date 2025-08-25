@@ -42,8 +42,9 @@ M.plugins = function()
 end
 
 M.init = function()
+  local s = require("snacks")
   vim.diagnostic.config({ virtual_text = false })
   vim.keymap.set("n", "<LEADER>m=b", vim.lsp.buf.format)
-  vim.keymap.set("n", "<LEADER>el", ":Telescope diagnostics<CR>", {})
+  vim.keymap.set("n", "<LEADER>el", s.picker.diagnostics, {})
 end
 return M
