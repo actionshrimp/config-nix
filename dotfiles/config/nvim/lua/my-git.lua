@@ -1,12 +1,7 @@
 local M = {}
 M.plugins = function()
   return {
-    {
-      "lewis6991/gitsigns.nvim",
-      config = function()
-        require("gitsigns").setup()
-      end,
-    },
+    { "echasnovski/mini.diff", version = "*", opts = {} },
     { "linrongbin16/gitlinker.nvim", opts = {}, cmd = "GitLink" },
     {
       "sindrets/diffview.nvim",
