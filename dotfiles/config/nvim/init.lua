@@ -99,9 +99,14 @@ local lazy_spec = {
     end,
   },
   require("my-treesitter").plugins(),
-  require("my-tree").plugins(),
+  -- require("my-tree").plugins(),
   { "echasnovski/mini.bracketed", version = "*", opts = {} },
   { "echasnovski/mini.ai", version = "*", opts = {} },
+  { "echasnovski/mini.files", version = "*", opts = {
+    windows = {
+      preview = true,
+    },
+  } },
   require("my-notifications").plugins(),
   {
     "kylechui/nvim-surround",
@@ -121,12 +126,6 @@ local lazy_spec = {
     config = function()
       vim.keymap.set("n", "<LEADER>au", ":UndotreeToggle<CR>")
     end,
-  },
-  {
-    "stevearc/oil.nvim",
-    opts = {},
-    -- Optional dependencies
-    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   "benoror/gpg.nvim",
   require("my-dashboard").plugins(),
