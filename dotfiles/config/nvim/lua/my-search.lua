@@ -8,6 +8,7 @@ M.plugins = function()
         fuzzy = true,
       },
       explorer = {},
+      image = { enabled = false },
     },
   }
 end
