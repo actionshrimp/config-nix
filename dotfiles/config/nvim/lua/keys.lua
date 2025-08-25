@@ -61,9 +61,13 @@ M.plugins = function()
             { "<leader>glL", "<cmd>GitLink browse<cr>", desc = "Copy blob URL" },
             { "<leader>glb", "<cmd>GitLink! blame<cr>", desc = "Open blame URL" },
             { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
-
-            { "]g", "<cmd>Gitsigns nav_hunk next<cr>", desc = "Next" },
-            { "[g", "<cmd>Gitsigns nav_hunk prev<cr>", desc = "Prev" },
+            {
+              "<leader>go",
+              function()
+                require("mini.diff").toggle_overlay()
+              end,
+              desc = "Overlay",
+            },
 
             -- "Major"
             { "<leader>m", group = "Major" },
