@@ -10,6 +10,7 @@ M.plugins = function()
       explorer = {},
       image = { enabled = false },
     },
+    { "gbprod/yanky.nvim", opts = {} },
   }
 end
 
@@ -35,6 +36,7 @@ M.init = function()
         { "<leader>bb", s.picker.buffers, desc = "Buffers" },
         { "<leader>fr", s.picker.recent, desc = "Recent files" },
         { "<leader>rl", s.picker.resume, desc = "Resume search" },
+        { "<leader>ry", s.picker.yanky, desc = "Clipboard" },
 
         -- search
         {
