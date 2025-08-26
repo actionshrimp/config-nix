@@ -288,6 +288,12 @@
     '';
   };
 
+  programs.z-lua = {
+    enable = true;
+    enableZshIntegration = true;
+    enableAliases = true;
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
