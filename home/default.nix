@@ -292,6 +292,11 @@
     enable = true;
     enableZshIntegration = true;
     enableAliases = true;
+    options = [
+      "enhanced"
+      "once"
+      "fzf"
+    ];
   };
 
   programs.zsh = {
