@@ -16,7 +16,7 @@ config.font = wezterm.font_with_fallback({
   "JetBrainsMono NFM",
   "Noto Sans",
 })
-config.front_end = "WebGpu" -- https://github.com/wezterm/wezterm/issues/6005
+-- config.front_end = "WebGpu" -- https://github.com/wezterm/wezterm/issues/6005
 config.harfbuzz_features = { "calt = 0", "clig = 0", "liga = 0" }
 
 -- and finally, return the configuration to wezterm
