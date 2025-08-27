@@ -79,11 +79,16 @@ local lazy_spec = {
   -- require("my-tree").plugins(),
   { "echasnovski/mini.bracketed", version = "*", opts = {} },
   { "echasnovski/mini.ai", version = "*", opts = {} },
-  { "echasnovski/mini.files", version = "*", opts = {
-    windows = {
-      preview = true,
+  {
+    "echasnovski/mini.files",
+    version = "*",
+    opts = {
+      windows = {
+        preview = true,
+        width_preview = 50,
+      },
     },
-  } },
+  },
   require("my-notifications").plugins(),
   {
     "kylechui/nvim-surround",
