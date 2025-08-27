@@ -35,18 +35,20 @@ local lazy_spec = {
     opts = {},
   },
   {
-    "willothy/flatten.nvim",
-    -- keep near the top to minimize delay when opening file from terminal
-    opts = {
-      window = {
-        open = "tab",
-      },
-      block_for = {
-        zsh = true,
-      },
-    },
-    lazy = false,
-    priority = 1001,
+    "mrjones2014/smart-splits.nvim",
+    config = function()
+      require("smart-splits").setup({})
+      vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)
+      vim.keymap.set("n", "<A-j>", require("smart-splits").resize_down)
+      vim.keymap.set("n", "<A-k>", require("smart-splits").resize_up)
+      vim.keymap.set("n", "<A-l>", require("smart-splits").resize_right)
+      -- moving between splits
+      vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
+      vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
+      vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
+      vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
+      vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
+    end,
   },
   require("my-search").plugins(),
   require("my-lsp").plugins(),
@@ -64,12 +66,6 @@ local lazy_spec = {
   "nvim-tree/nvim-web-devicons",
   "tpope/vim-repeat",
   {
-    "ggandor/leap.nvim",
-    config = function()
-      require("leap").create_default_mappings()
-    end,
-  },
-  {
     "nvim-lualine/lualine.nvim",
     config = function()
       require("lualine").setup({})
@@ -81,22 +77,6 @@ local lazy_spec = {
     opts = {},
     config = function()
       require("lazydev").setup({})
-    end,
-  },
-  {
-    "alexghergh/nvim-tmux-navigation",
-    config = function()
-      require("nvim-tmux-navigation").setup({
-        disable_when_zoomed = true, -- defaults to false
-        keybindings = {
-          left = "<C-h>",
-          down = "<C-j>",
-          up = "<C-k>",
-          right = "<C-l>",
-          last_active = "<C-\\>",
-          next = "<C-Space>",
-        },
-      })
     end,
   },
   require("my-treesitter").plugins(),
