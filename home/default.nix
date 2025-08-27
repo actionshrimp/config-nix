@@ -179,23 +179,28 @@
     '';
   };
 
-  home.file.".config/git/config.actionshrimp" = {
-    text = ''
-      [commit]
-          gpgSign = true
-      [core]
-          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519 -o IdentityAgent=none
-      [github]
-          user = actionshrimp
-      [gpg]
-          program = gpg
-          format = openpgp
-      [user]
-          name = Dave Aitken
-          email = dave.aitken@gmail.com
-          signingkey = 0xFE09FD0729375918
-    '';
-  };
+  home.file.".config/git/config.actionshrimp" =
+    let
+      signingKey =
+        if homeConfig.defaultGithubUser == "gn-dave-a" then "0x4C030895BE1EEBE1" else "0xFE09FD0729375918";
+    in
+    {
+      text = ''
+        [commit]
+            gpgSign = true
+        [core]
+            sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519 -o IdentityAgent=none
+        [github]
+            user = actionshrimp
+        [gpg]
+            program = gpg
+            format = openpgp
+        [user]
+            name = Dave Aitken
+            email = dave.aitken@gmail.com
+            signingkey = ${signingKey}
+      '';
+    };
 
   programs.gpg = {
     enable = true;
