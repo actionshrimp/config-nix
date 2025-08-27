@@ -6,6 +6,12 @@ local config = wezterm.config_builder()
 config.automatically_reload_config = true
 config.audible_bell = "Disabled"
 
+config.unix_domains = {
+  {
+    name = "unix",
+  },
+}
+
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
