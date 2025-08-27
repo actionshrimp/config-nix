@@ -28,6 +28,7 @@ M.plugins = function()
             "json",
             "javascript",
             "tsx",
+            "regex",
           },
           highlight = { enable = true },
           indent = { enable = true },

@@ -48,6 +48,7 @@ local lazy_spec = {
     lazy = false,
     priority = 1001,
   },
+  require("my-search").plugins(),
   require("my-lsp").plugins(),
   {
     "actionshrimp/direnv.nvim",
@@ -132,7 +133,6 @@ local lazy_spec = {
   require("theme").plugins(),
   require("my-git").plugins(),
   require("project").plugins(),
-  require("my-search").plugins(),
   require("my-formatter").plugins(),
   require("my-diagnostics").plugins(),
   require("llm").plugins(),

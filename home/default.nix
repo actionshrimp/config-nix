@@ -27,6 +27,8 @@
     helm-ls
     htop
     ispell
+    imagemagick
+    ghostscript
     jnettop
     jq
     k9s

@@ -43,28 +43,21 @@ M.plugins = function()
             { "<leader>fec", ":e ~/config-nix/flake.nix<CR>", desc = "Edit flake.nix" },
             { "<leader>fek", ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>", desc = "Edit keys.lua" },
 
+            { "<leader>p", group = "Project" },
             {
-              "<leader>fp",
+              "<leader>pt",
               function()
-                require("mini.files").open(nil)
+                require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
               end,
-              desc = "Project",
+              desc = "Tree",
             },
             {
-              "<leader>fP",
+              "<leader>pT",
               function()
                 require("mini.files").open(nil, false)
               end,
               desc = "Project (fresh)",
             },
-            {
-              "<leader>fb",
-              function()
-                require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
-              end,
-              desc = "Buffer",
-            },
-
             { "<leader>fy", group = "Yank" },
             {
               "<leader>fyy",
