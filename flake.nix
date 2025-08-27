@@ -6,7 +6,7 @@
 
     # update from latest version on https://status.nixos.org/
     # nixpkgs-25.05-darwin
-    nixpkgs.url = "github:NixOS/nixpkgs/aa68d16c20fa0bc9f43fad423af5c40b990fdf6d";
+    nixpkgs.url = "github:NixOS/nixpkgs/7083431e0cbce10cb531e8cbea9659d475665034";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
