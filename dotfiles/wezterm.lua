@@ -57,8 +57,8 @@ end
 
 -- Leader is the same as my old tmux prefix
 config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
+
 config.keys = {
-  -- splitting
   {
     mods = "LEADER",
     key = "s",
@@ -92,8 +92,29 @@ config.keys = {
   {
     mods = "LEADER",
     key = "Space",
-    action = wezterm.action.ActivateCopyMode,
+    action = wezterm.action.QuickSelect,
   },
+  {
+    mods = "LEADER",
+    key = "d",
+    action = wezterm.action.DetachDomain("CurrentPaneDomain"),
+  },
+  {
+    mods = "LEADER",
+    key = "b",
+    action = wezterm.action.ActivateLastTab,
+  },
+  {
+    mods = "LEADER|CTRL",
+    key = "b",
+    action = wezterm.action.ActivateLastTab,
+  },
+  {
+    mods = "LEADER",
+    key = "a",
+    action = wezterm.action.ShowLauncher,
+  },
+
   -- move between split panes
   split_nav("move", "h"),
   split_nav("move", "j"),
