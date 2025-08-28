@@ -1,25 +1,4 @@
 local M = {}
-M.plugins = function()
-  return {
-    {
-      "folke/snacks.nvim",
-      priority = 1000,
-      lazy = false,
-      ---@type snacks.Config
-      opts = {
-        image = {
-          enabled = false,
-        },
-        picker = {
-          ui_select = true,
-          frecency = true,
-          fuzzy = true,
-        },
-      },
-    },
-    { "gbprod/yanky.nvim", opts = {} },
-  }
-end
 
 M.init = function()
   local s = require("snacks")
@@ -109,4 +88,5 @@ M.init = function()
   vim.cmd.set("ignorecase")
   vim.cmd.set("smartcase")
 end
+
 return M
