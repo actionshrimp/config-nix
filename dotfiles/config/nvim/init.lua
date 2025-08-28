@@ -46,7 +46,24 @@ local lazy_spec = {
       vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
     end,
   },
-  require("my-search").plugins(),
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      image = {
+        enabled = false,
+      },
+      picker = {
+        ui_select = true,
+        frecency = true,
+        fuzzy = true,
+      },
+      dashboard = require("my-dashboard"),
+    },
+  },
+  { "gbprod/yanky.nvim", opts = {} },
   require("my-lsp").plugins(),
   {
     "actionshrimp/direnv.nvim",
@@ -160,4 +177,3 @@ require("lang/terraform").init()
 require("my-terminal").init()
 require("my-neovide").init()
 require("lang/swift").init()
-require("my-dashboard").init()
