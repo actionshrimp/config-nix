@@ -120,6 +120,9 @@
       init = {
         defaultBranch = "main";
       };
+      core = {
+        attributesfile = "~/.gitattributes";
+      };
       fetch = {
         # A value of 0 will give some reasonable default, if unset it defaults to 1.
         parallel = 0;
@@ -164,6 +167,12 @@
           }
         ]
     );
+  };
+
+  home.file.".gitattributes" = {
+    text = ''
+      *.png diff=image
+    '';
   };
 
   home.file.".config/git/config.gn-dave-a" = {
