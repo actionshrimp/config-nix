@@ -1,0 +1,6 @@
+echo "$1" "$2"
+extension="${1##*.}"
+tmpfile=$(mktemp --suffix=".$extension")
+#compare "$2" "$1" png:- | montage -geometry +4+4 "$2" - "$1" png:- > "$tmpfile"
+compare "$1" "$2" -compose png:- | montage -geometry +4+4 "$2" - "$1" png:- > "$tmpfile"
+open "$tmpfile"
