@@ -373,6 +373,10 @@
         git fetch origin
         nvim -c ":DiffviewOpen origin/develop...origin/$1"
       }
+
+      diff-screenshots() {
+        compare "$1" "$2" -compose src diff.png
+      }
     '';
   };
 
