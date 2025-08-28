@@ -110,7 +110,6 @@ local lazy_spec = {
     end,
   },
   "benoror/gpg.nvim",
-  require("my-dashboard").plugins(),
   require("theme").plugins(),
   require("my-git").plugins(),
   require("project").plugins(),
@@ -161,3 +160,4 @@ require("lang/terraform").init()
 require("my-terminal").init()
 require("my-neovide").init()
 require("lang/swift").init()
+require("my-dashboard").init()
