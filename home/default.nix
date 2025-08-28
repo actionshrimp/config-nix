@@ -300,6 +300,7 @@
       nrl = "direnv reload && nix-direnv-reload |& nom --json";
       gn = "cd ~/dev/gn/goodnotes-5";
       k9sc = "k9s -c context";
+      pr = "review-pr";
     };
     history = {
       size = 10000;
@@ -366,6 +367,11 @@
 
       my-ip() {
         curl -s ifconfig.co
+      }
+
+      review-pr() {
+        git fetch origin
+        nvim -c ":DiffviewOpen origin/develop...origin/$1"
       }
     '';
   };
