@@ -10,6 +10,10 @@ M.plugins = function()
       dependencies = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("nvim-treesitter.configs").setup({
+          modules = {},
+          sync_install = false,
+          ignore_install = {},
+          auto_install = false,
           ensure_installed = {
             "ocaml",
             "vimdoc",
@@ -81,6 +85,7 @@ M.plugins = function()
       config = function()
         require("treesj").setup({
           use_default_keymaps = false,
+          max_join_length = 2048,
         })
 
         vim.keymap.set("n", "<LEADER>tj", function()
