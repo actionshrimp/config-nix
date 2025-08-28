@@ -35,6 +35,7 @@ M.plugins = function()
               ["p"] = "PushPopup",
               ["F"] = "PullPopup",
               ["O"] = "ResetPopup",
+              ["z"] = "StashPopup",
             },
           },
         })
