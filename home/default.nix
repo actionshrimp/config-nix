@@ -127,6 +127,11 @@
       safe = {
         directory = "/Users/dave/dev/gn/goodnotes-5";
       };
+      diff = {
+        image = {
+          command = "~/.local/bin/git-diff-image";
+        };
+      };
       rebase.autoStash = true;
     };
     includes = (
@@ -230,6 +235,10 @@
 
   home.file.".wezterm.lua" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
+  };
+
+  home.file.".local/bin/git-diff-image" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/bin/git-diff-image";
   };
 
   # programs.opam = {
