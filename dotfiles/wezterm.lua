@@ -136,6 +136,11 @@ config.keys = {
     key = "k",
     action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
   },
+  {
+    mods = "LEADER",
+    key = "/",
+    action = wezterm.action.Search({ Regex = "" }),
+  },
 
   -- move between split panes
   split_nav("h"),
