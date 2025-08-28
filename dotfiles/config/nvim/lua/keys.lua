@@ -38,6 +38,15 @@ M.plugins = function()
             -- "File"
             { "<leader>f", group = "File" },
             { "<leader>fe", group = "Edit" },
+            {
+              "<leader>fee",
+              function()
+                require("snacks").picker.files({
+                  dirs = { "~/config-nix" },
+                })
+              end,
+              desc = "Search config",
+            },
             { "<leader>fed", ":e $MYVIMRC<CR>", desc = "Edit init.lua" },
             { "<leader>feh", ":e ~/config-nix/home/default.nix<CR>", desc = "Edit home/default.nix" },
             { "<leader>fec", ":e ~/config-nix/flake.nix<CR>", desc = "Edit flake.nix" },
