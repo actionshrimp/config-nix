@@ -141,6 +141,11 @@ config.keys = {
     key = "/",
     action = wezterm.action.Search({ Regex = "" }),
   },
+  {
+    mods = "LEADER",
+    key = "z",
+    action = wezterm.action.TogglePaneZoomState,
+  },
 
   -- move between split panes
   split_nav("h"),
