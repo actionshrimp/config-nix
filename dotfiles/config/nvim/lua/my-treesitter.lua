@@ -36,6 +36,15 @@ M.plugins = function()
           },
           highlight = { enable = true },
           indent = { enable = true },
+          incremental_selection = {
+            enable = true,
+            keymaps = {
+              init_selection = "<cr>",
+              node_incremental = "L",
+              scope_incremental = "J",
+              node_decremental = "H",
+            },
+          },
           textobjects = {
             select = {
               enable = true,
