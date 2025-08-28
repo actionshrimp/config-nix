@@ -17,6 +17,7 @@ M.plugins = function()
       },
       -- cmd = "DiffviewOpen",
     },
+    { "tpope/vim-fugitive" },
     {
       "NeogitOrg/neogit",
       dev = true,
