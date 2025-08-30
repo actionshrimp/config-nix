@@ -32,7 +32,9 @@ M.init = function()
         },
         {
           "<LEADER>*",
-          s.picker.grep_word,
+          function()
+            s.picker.grep_word({ live = true })
+          end,
           desc = "Search word under cursor",
         },
         { "<LEADER>sc", ":noh<CR>", desc = "Clear search" },
