@@ -80,11 +80,31 @@ M.plugins = function()
 
             -- "Git"
             { "<leader>g", group = "Git" },
+            { "<leader>gl", group = "File" },
+            {
+              "<leader>gfl",
+              function()
+                local f = vim.fn.expand("%")
+                require("snacks").picker.git_log_file()
+              end,
+              desc = "Log",
+            },
+
+            {
+              "<leader>gL",
+              function()
+                local f = vim.fn.expand("%")
+                require("snacks").picker.git_log()
+              end,
+              desc = "Log",
+            },
+
             { "<leader>gl", group = "Link" },
             { "<leader>gll", "<cmd>GitLink! browse<cr>", desc = "Open blob URL" },
             { "<leader>glL", "<cmd>GitLink browse<cr>", desc = "Copy blob URL" },
             { "<leader>glb", "<cmd>GitLink! blame<cr>", desc = "Open blame URL" },
             { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
+
             {
               "<leader>go",
               function()
@@ -118,6 +138,7 @@ M.plugins = function()
             { "<leader>tw", "<cmd>set list!<cr>", desc = "Whitespace" },
             { "<leader>tl", "<cmd>set wrap!<cr>", desc = "Linewrap" },
             { "<leader>tc", "<cmd>tabclose<cr>", desc = "Close Tab" },
+            { "<leader>tC", "<cmd>CccPick<cr>", desc = "Pick Colour" },
           },
         },
       },
