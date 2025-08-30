@@ -48,6 +48,13 @@ M.plugins = function()
               desc = "Search config",
             },
             { "<leader>fed", ":e $MYVIMRC<CR>", desc = "Edit init.lua" },
+            {
+              "<leader>feD",
+              function()
+                require("snacks").dashboard()
+              end,
+              desc = "View dashboard",
+            },
             { "<leader>feh", ":e ~/config-nix/home/default.nix<CR>", desc = "Edit home/default.nix" },
             { "<leader>fec", ":e ~/config-nix/flake.nix<CR>", desc = "Edit flake.nix" },
             { "<leader>fek", ":e ~/config-nix/dotfiles/config/nvim/lua/keys.lua<CR>", desc = "Edit keys.lua" },
