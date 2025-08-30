@@ -139,7 +139,19 @@ local lazy_spec = {
   require("my-org").plugins(),
   require("my-neotest").plugins(),
   require("my-terminal").plugins(),
+  {
+    "uga-rosa/ccc.nvim",
+    config = function()
+      require("ccc").setup({
+        highlighter = {
+          auto_enable = true,
+          lsp = true,
+        },
+      })
+    end,
+  },
 }
+
 require("lazy").setup({
   dev = { path = "~/dev/nvim" },
   spec = lazy_spec,
