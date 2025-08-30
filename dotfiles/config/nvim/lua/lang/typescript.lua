@@ -17,5 +17,6 @@ M.init = function()
   -- })
 
   vim.lsp.enable("eslint")
+  vim.lsp.enable("biome")
 end
 return M
