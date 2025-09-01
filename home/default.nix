@@ -18,6 +18,7 @@
     cargo
     devenv
     dos2unix
+    entr
     fd
     fswatch
     gh
@@ -395,6 +396,10 @@
 
       diff-screenshots() {
         compare "$1" "$2" -compose src diff.png
+      }
+
+      watch-xps() {
+        find .. \( -path '../Crossplatform/*' -or -path '../CommonSwift/*' \) -and -name '*.swift' -and -not -path '*.build*' | entr -rcs 'echo Reloading; echo; ./scripts/updateWasmModule.sh debug'
       }
     '';
   };
