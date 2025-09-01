@@ -12,8 +12,11 @@ M.plugins = function()
             if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
               return
             end
-            return { timeout_ms = 500, lsp_format = "fallback" }
+            return { timeout_ms = 500 }
           end,
+          default_format_opts = {
+            lsp_format = "fallback",
+          },
 
           formatters = {
             ocamlformat_iml = {
@@ -39,6 +42,7 @@ M.plugins = function()
             nix = { "nixfmt" },
             ocaml = { "ocamlformat" },
             iml = { "ocamlformat_iml" },
+            swift = { lsp_format = "never" },
           },
         })
 
