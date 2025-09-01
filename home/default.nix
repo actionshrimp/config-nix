@@ -319,6 +319,7 @@
       gn = "cd ~/dev/gn/goodnotes-5";
       k9sc = "k9s -c context";
       pr = "review-pr";
+      wt = "wezterm cli set-tab-title";
     };
     history = {
       size = 10000;
