@@ -61,6 +61,7 @@ local lazy_spec = {
         fuzzy = true,
       },
       dashboard = require("my-dashboard"),
+      notifier = { enabled = true },
     },
   },
   { "gbprod/yanky.nvim", opts = {} },
@@ -106,7 +107,6 @@ local lazy_spec = {
       },
     },
   },
-  require("my-notifications").plugins(),
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features

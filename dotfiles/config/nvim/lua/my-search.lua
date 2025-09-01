@@ -23,6 +23,7 @@ M.init = function()
         { "<leader>fr", s.picker.recent, desc = "Recent files" },
         { "<leader>rl", s.picker.resume, desc = "Resume search" },
         { "<leader>ry", s.picker.yanky, desc = "Clipboard" },
+        { "<leader>rn", s.picker.notifications, desc = "Notifications" },
 
         -- search
         {
