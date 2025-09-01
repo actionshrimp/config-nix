@@ -113,12 +113,13 @@ M.plugins = function()
             { "<leader>glB", "<cmd>GitLink blame<cr>", desc = "Copy blame URL" },
 
             {
-              "<leader>go",
+              "<leader>gO",
               function()
                 require("mini.diff").toggle_overlay()
               end,
               desc = "Overlay",
             },
+            { "<leader>gl", group = "Octo" },
 
             -- "Major"
             { "<leader>m", group = "Major" },
