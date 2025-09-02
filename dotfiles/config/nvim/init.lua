@@ -139,6 +139,7 @@ local lazy_spec = {
   require("my-org").plugins(),
   require("my-neotest").plugins(),
   require("my-terminal").plugins(),
+  require("my-debugger").plugins(),
   {
     "uga-rosa/ccc.nvim",
     config = function()

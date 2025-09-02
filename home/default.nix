@@ -74,6 +74,7 @@
     tree
     typos
     typescript-language-server
+    vscode-js-debug
     watch
     # wezterm - moved to brew
     wget

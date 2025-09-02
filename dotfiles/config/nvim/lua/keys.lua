@@ -136,6 +136,13 @@ M.plugins = function()
             { "<leader>mgt", vim.lsp.buf.type_definition, desc = "Type definition" },
             { "<leader>mgb", "<C-o>", desc = "Back" },
 
+            { "<leader>md", group = "Debug" },
+            { "<leader>mdb", ":DapToggleBreakpoint<CR>", desc = "Breakpoint" },
+            { "<leader>mdn", ":DapNew<CR>", desc = "New session" },
+            { "<leader>mdc", ":DapContinue<CR>", desc = "Continue" },
+            { "<leader>mdj", ":DapStepOver<CR>", desc = "Step Over" },
+            { "<leader>mdl", ":DapStepInto<CR>", desc = "Step Into" },
+
             { "<leader>mt", group = "Test" },
 
             -- "N (?)"
