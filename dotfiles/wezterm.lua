@@ -146,6 +146,11 @@ config.keys = {
     key = "z",
     action = wezterm.action.TogglePaneZoomState,
   },
+  {
+    key = "Q",
+    mods = "LEADER",
+    action = wezterm.action.CloseCurrentPane({ confirm = true }),
+  },
 
   -- move between split panes
   split_nav("h"),
