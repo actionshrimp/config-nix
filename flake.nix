@@ -9,7 +9,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/7083431e0cbce10cb531e8cbea9659d475665034";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

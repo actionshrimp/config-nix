@@ -50,6 +50,7 @@
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
     NSGlobalDomain.KeyRepeat = 1;
+    # NSGlobalDomain._HIHideMenuBar = true;
     dock.autohide = true;
     dock.autohide-time-modifier = 0.4;
     dock.autohide-delay = 1000.0;
@@ -71,6 +72,7 @@
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
       "wezterm@nightly"
+      "sol"
     ];
   };
 }
