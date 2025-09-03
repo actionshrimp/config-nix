@@ -20,7 +20,14 @@ M.init = function()
 
         -- buffer
         { "<leader>bb", s.picker.buffers, desc = "Buffers" },
-        { "<leader>fr", s.picker.recent, desc = "Recent files" },
+        { "<leader>fR", s.picker.recent, desc = "Recent files (all)" },
+        {
+          "<leader>fr",
+          function()
+            s.picker.recent({ filter = { cwd = true } })
+          end,
+          desc = "Recent files (cwd)",
+        },
         { "<leader>rl", s.picker.resume, desc = "Resume search" },
         { "<leader>ry", s.picker.yanky, desc = "Clipboard" },
         { "<leader>rn", s.picker.notifications, desc = "Notifications" },
