@@ -51,6 +51,9 @@
         alt-j = "focus down";
         alt-k = "focus up";
         alt-l = "focus right";
+        alt-w = "close";
+        alt-n = "focus-monitor next";
+        alt-p = "focus-monitor prev";
         alt-shift-h = "move left";
         alt-shift-j = "move down";
         alt-shift-k = "move up";
@@ -98,12 +101,31 @@
         "1" = "built-in";
         "2" = "built-in";
         "3" = "built-in";
-        "4" = [ "lg hdr 4k" ];
-        "5" = [ "lg hdr 4k" ];
-        "6" = [ "lg hdr 4k" ];
-        "7" = [ "27gl850" ];
-        "8" = [ "27gl850" ];
-        "9" = [ "27gl850" ];
+        "4" = [
+          "lg hdr 4k"
+          "dell u2725qe"
+        ];
+        "5" = [
+          "lg hdr 4k"
+          "dell u2725qe"
+        ];
+        "6" = [
+          "lg hdr 4k"
+          "dell u2725qe"
+        ];
+        "7" = [
+          "27gl850"
+          "dell u2725qe"
+        ];
+
+        "8" = [
+          "27gl850"
+          "dell u2725qe"
+        ];
+        "9" = [
+          "27gl850"
+          "dell u2725qe"
+        ];
       };
       on-focused-monitor-changed = [ ];
     };
