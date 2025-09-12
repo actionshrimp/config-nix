@@ -8,6 +8,10 @@ M.plugins = function()
     { "nvim-neotest/neotest-plenary" },
     { "nvim-neotest/neotest-jest" },
     {
+      "marilari88/neotest-vitest",
+      dev = true,
+    },
+    {
       "nvim-neotest/neotest",
       dependencies = {
         "nvim-neotest/nvim-nio",
@@ -29,7 +33,17 @@ M.plugins = function()
             --     return vim.fn.getcwd()
             --   end,
             -- }),
-            require("neotest-vitest"),
+            require("neotest-vitest")({
+              cwd = function(path)
+                -- Find the position of "CrossplatformWeb" in the path
+                local _, finish = string.find(path, "CrossplatformWeb")
+                if finish then
+                  -- Return the substring from the start of the path to the end of "CrossplatformWeb"
+                  return string.sub(path, 1, finish)
+                end
+                return nil -- Return the original path if "CrossplatformWeb" is not found
+              end,
+            }),
           },
         })
 
