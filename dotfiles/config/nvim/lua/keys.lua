@@ -25,6 +25,10 @@ M.plugins = function()
             -- "Apps"
             { "<leader>a", group = "Apps" },
             { "<leader>aa", group = "Avante" },
+
+            { "<leader>ac", group = "Claude Code" },
+            { "<leader>acc", ":ClaudeCode<CR>", desc = "Toggle" },
+
             { "<leader>ad", group = "Direnv" },
             { "<leader>ads", ":DirenvStatus<cr>", desc = "Status" },
             { "<leader>ada", ":DirenvAllow<cr>", desc = "Allow" },

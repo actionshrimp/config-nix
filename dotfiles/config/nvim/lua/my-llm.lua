@@ -2,24 +2,11 @@ local M = {}
 M.plugins = function()
   return {
     {
-      "David-Kunz/gen.nvim",
-      config = function(opts)
-        require("gen").setup({
-          display_mode = "split", -- The display mode. Can be "float" or "split".
-          -- model = "mistral", -- The default model to use.
-          model = "codellama", -- The default model to use.
-          --   show_prompt = true,     -- Shows the Prompt submitted to Ollama.
-          --   show_model = true,      -- Displays which model you are using at the beginning of your chat session.
-        })
-        vim.keymap.set("v", "<LEADER>agg", ":'<,'>Gen<CR>")
-        vim.keymap.set("n", "<LEADER>agc", ":Gen Chat<CR>")
-      end,
-    },
-    {
       "yetone/avante.nvim",
       event = "VeryLazy",
       lazy = false,
       version = false, -- set this if you want to always pull the latest change
+      mode = "legacy",
       opts = {
         -- provider = "openai",
         -- auto_suggestions_provider = "openai",
@@ -31,8 +18,8 @@ M.plugins = function()
         --   max_tokens = 4096,
         --   ["local"] = false,
         -- },
-        provider = "claude", -- Recommend using Claude
-        auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+        provider = "litellm",
+        auto_suggestions_provider = "litellm", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
         providers = {
           claude = {
             endpoint = "https://api.anthropic.com",
@@ -43,6 +30,12 @@ M.plugins = function()
             api_key_name = "",
             endpoint = "http://localhost:11434/v1",
             model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
+          },
+          litellm = {
+            __inherited_from = "openai",
+            endpoint = "https://litellm.ml.goodnotesbeta.com",
+            model_name = "claude-3-7-sonnet-latest",
+            api_key_name = "ANTHROPIC_AUTH_TOKEN",
           },
         },
         cursor_applying_provider = "fastapply",
@@ -103,6 +96,16 @@ M.plugins = function()
           ft = { "markdown", "Avante" },
         },
       },
+    },
+    {
+      "greggh/claude-code.nvim",
+      dependencies = {
+        "nvim-lua/plenary.nvim", -- Required for git operations
+      },
+      -- keys = { { "<leader>ac", group = "Claude Code" }, { "<leader>acc", desc = "Toggle" } },
+      config = function()
+        require("claude-code").setup({})
+      end,
     },
   }
 end

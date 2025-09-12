@@ -132,7 +132,7 @@ local lazy_spec = {
   require("project").plugins(),
   require("my-formatter").plugins(),
   require("my-diagnostics").plugins(),
-  require("llm").plugins(),
+  require("my-llm").plugins(),
   require("lang/ocaml").plugins(),
   require("lang/sql").plugins(),
   require("my-kubernetes").plugins(),
