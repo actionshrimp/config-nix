@@ -103,28 +103,28 @@
         "3" = "built-in";
         "4" = [
           "lg hdr 4k"
-          "dell u2725qe"
+          "dell"
         ];
         "5" = [
           "lg hdr 4k"
-          "dell u2725qe"
+          "dell"
         ];
         "6" = [
           "lg hdr 4k"
-          "dell u2725qe"
+          "dell"
         ];
         "7" = [
           "27gl850"
-          "dell u2725qe"
+          "dell"
         ];
 
         "8" = [
           "27gl850"
-          "dell u2725qe"
+          "dell"
         ];
         "9" = [
           "27gl850"
-          "dell u2725qe"
+          "dell"
         ];
       };
       on-focused-monitor-changed = [ ];
