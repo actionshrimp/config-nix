@@ -59,11 +59,6 @@ M.plugins = function()
             },
           },
         })
-
-        vim.keymap.set("n", "<LEADER>gs", ":Neogit<CR>", {})
-        vim.keymap.set("n", "<LEADER>gS", function()
-          vim.cmd.Git({ mods = { vertical = true } })
-        end, {})
       end,
     },
     {
