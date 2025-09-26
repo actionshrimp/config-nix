@@ -33,10 +33,10 @@ M.plugins = function()
 
           -- :lua print(vim.bo.filetype)
           formatters_by_ft = {
-            javascript = { "biome", "prettier" },
-            json = { "biome", "prettier" },
-            typescriptreact = { "biome", "prettier" },
-            typescript = { "biome", "prettier" },
+            javascript = { "biome", "biome-organize-imports", "prettier" },
+            json = { "biome", "biome-organize-imports", "prettier" },
+            typescriptreact = { "biome", "biome-organize-imports", "prettier" },
+            typescript = { "biome", "biome-organize-imports", "prettier" },
             lua = { "stylua" },
             terraform = { "terraform_fmt" },
             nix = { "nixfmt" },
