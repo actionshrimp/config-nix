@@ -64,7 +64,12 @@ config.keys = {
   {
     mods = "LEADER",
     key = "s",
-    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain"}),
+  },
+  {
+    key="Enter",
+    mods="SHIFT",
+    action = wezterm.action.SendString "\x1b\r",
   },
   {
     mods = "LEADER",
