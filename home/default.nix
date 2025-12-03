@@ -52,7 +52,7 @@
     nixfmt-classic
     nixpkgs-fmt
     nodePackages.vscode-json-languageserver
-    nodejs
+    nodejs_22
     nurl
     ollama
     (lib.hiPrio parallel)
@@ -402,6 +402,10 @@
       watch-xps() {
         find .. \( -path '../Crossplatform/*' -or -path '../CommonSwift/*' \) -and -name '*.swift' -and -not -path '*.build*' | entr -rcs 'echo Reloading; echo; ./scripts/updateWasmModule.sh debug'
       }
+
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     '';
   };
 
