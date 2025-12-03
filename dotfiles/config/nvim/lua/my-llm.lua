@@ -18,27 +18,23 @@ M.plugins = function()
         --   max_tokens = 4096,
         --   ["local"] = false,
         -- },
+        -- provider = "litellm_claude_sonnet",
         provider = "litellm",
-        auto_suggestions_provider = "litellm", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+        -- Since auto-suggestions are a high-frequency operation and therefore expensive,
+        -- it is recommended to specify an inexpensive provider or even a free provider: copilot
+        -- auto_suggestions_provider = "litellm_",
         providers = {
-          claude = {
-            endpoint = "https://api.anthropic.com",
-            model = "claude-3-7-sonnet-latest",
-          },
-          fastapply = {
-            __inherited_from = "openai",
-            api_key_name = "",
-            endpoint = "http://localhost:11434/v1",
-            model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
-          },
           litellm = {
             __inherited_from = "openai",
             endpoint = "https://litellm.ml.goodnotesbeta.com",
-            model_name = "claude-3-7-sonnet-latest",
             api_key_name = "ANTHROPIC_AUTH_TOKEN",
+            model_names = {
+              "anthropic/claude-sonnet-4-5",
+              "anthropic/claude-opus-4-5-20251101",
+              "openai/gpt-5-codex",
+            },
           },
         },
-        cursor_applying_provider = "fastapply",
         behaviour = {
           auto_suggestions = false,
           enable_cursor_planning_mode = false,
@@ -104,7 +100,11 @@ M.plugins = function()
       },
       -- keys = { { "<leader>ac", group = "Claude Code" }, { "<leader>acc", desc = "Toggle" } },
       config = function()
-        require("claude-code").setup({})
+        require("claude-code").setup({
+          window = {
+            position = "vertical",
+          },
+        })
       end,
     },
   }
