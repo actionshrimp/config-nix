@@ -11,7 +11,7 @@ M.plugins = function()
       },
       config = function()
         require("org-roam").setup({
-          directory = "~/notes/org-roam",
+          directory = "~/Documents/notes/org-roam",
         })
       end,
     },
