@@ -66,6 +66,8 @@
     ];
     brews = [
       "tailwindcss-language-server"
+      "terminal-notifier"
+      "tailscale"
     ];
     casks = [
       "maccy"
