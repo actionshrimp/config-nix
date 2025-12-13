@@ -27,7 +27,6 @@ M.plugins = function()
             "json",
             "lua",
             "markdown",
-            "norg",
             "ocaml",
             "regex",
             "tsx",
