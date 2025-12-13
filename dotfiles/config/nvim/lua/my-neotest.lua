@@ -7,10 +7,7 @@ M.plugins = function()
     -- { "MarkEmmons/neotest-deno" }, --original
     { "nvim-neotest/neotest-plenary" },
     { "nvim-neotest/neotest-jest" },
-    {
-      "marilari88/neotest-vitest",
-      dev = true,
-    },
+    { "marilari88/neotest-vitest" },
     {
       "nvim-neotest/neotest",
       dependencies = {
