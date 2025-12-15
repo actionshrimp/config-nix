@@ -25,9 +25,53 @@ M.plugins = function()
             -- "Apps"
             { "<leader>a", group = "Apps" },
             { "<leader>aa", group = "Avante" },
-
             { "<leader>ac", group = "Claude Code" },
-            { "<leader>acc", ":ClaudeCode<CR>", desc = "Toggle" },
+            {
+              "<leader>acc",
+              function()
+                require("sidekick.cli").toggle({ name = "claude", focus = true })
+              end,
+              desc = "Toggle",
+            },
+            {
+              "<leader>acs",
+              function()
+                require("sidekick.cli").select()
+              end,
+              -- Or to select only installed tools:
+              -- require("sidekick.cli").select({ filter = { installed = true } })
+              desc = "Select CLI",
+            },
+            {
+              "<leader>acd",
+              function()
+                require("sidekick.cli").close()
+              end,
+              desc = "Detach a CLI Session",
+            },
+            {
+              "<leader>acv",
+              function()
+                require("sidekick.cli").send({ msg = "{selection}" })
+              end,
+              mode = { "x" },
+              desc = "Send Visual Selection",
+            },
+            {
+              "<leader>act",
+              function()
+                require("sidekick.cli").send({ msg = "{this}" })
+              end,
+              mode = { "x", "n" },
+              desc = "Send This",
+            },
+            {
+              "<leader>acf",
+              function()
+                require("sidekick.cli").send({ msg = "{file}" })
+              end,
+              desc = "Send File",
+            },
 
             { "<leader>ad", group = "Direnv" },
             { "<leader>ads", ":DirenvStatus<cr>", desc = "Status" },
@@ -127,7 +171,7 @@ M.plugins = function()
             {
               "<leader>gO",
               function()
-                require("mini.diff").toggle_overlay()
+                require("mini.diff").toggle_overlay(nil)
               end,
               desc = "Overlay",
             },
