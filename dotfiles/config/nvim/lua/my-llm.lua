@@ -24,7 +24,7 @@ M.plugins = function()
             },
             win = {
               keys = {
-                buffers = { "<c-n>", "buffers", mode = "nt", desc = "open buffer picker" },
+                buffers = { "<c-.>", "buffers", mode = "nt", desc = "open buffer picker" },
                 files = { "<c-f>", "files", mode = "nt", desc = "open file picker" },
                 hide_n = { "q", "hide", mode = "n", desc = "hide the terminal window" },
                 hide_ctrl_q = { "<c-q>", "hide", mode = "n", desc = "hide the terminal window" },
