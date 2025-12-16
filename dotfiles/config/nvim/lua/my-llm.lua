@@ -200,20 +200,6 @@ M.plugins = function()
         },
       },
     },
-    {
-      "greggh/claude-code.nvim",
-      dependencies = {
-        "nvim-lua/plenary.nvim", -- Required for git operations
-      },
-      -- keys = { { "<leader>ac", group = "Claude Code" }, { "<leader>acc", desc = "Toggle" } },
-      config = function()
-        require("claude-code").setup({
-          window = {
-            position = "vertical",
-          },
-        })
-      end,
-    },
   }
 end
 return M
