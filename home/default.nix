@@ -324,7 +324,7 @@
       wt = "wezterm cli set-tab-title";
     };
     history = {
-      size = 10000;
+      size = 10000000;
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
