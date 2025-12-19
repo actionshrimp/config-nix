@@ -24,11 +24,12 @@ M.plugins = function()
             },
             win = {
               keys = {
-                buffers = { "<c-.>", "buffers", mode = "nt", desc = "open buffer picker" },
+                buffers = { "<c-]>", "buffers", mode = "nt", desc = "open buffer picker" },
                 files = { "<c-f>", "files", mode = "nt", desc = "open file picker" },
                 hide_n = { "q", "hide", mode = "n", desc = "hide the terminal window" },
                 prompt = { "<c-p>", "prompt", mode = "t", desc = "insert prompt or context" },
                 stopinsert = { "<c-q>", "stopinsert", mode = "t", desc = "enter normal mode" },
+                hide_ctrl_dot = nil,
                 -- Navigate windows in terminal mode. Only active when:
                 -- * layout is not "float"
                 -- * there is another window in the direction
@@ -58,7 +59,7 @@ M.plugins = function()
             "<S-tab>",
             function()
               -- clear the next edit suggestions
-              require("sidekick.nes").toggle()
+              require("sidekick.nes").clear()
             end,
             expr = true,
             desc = "Clear Next Edit Suggestions",
@@ -123,22 +124,18 @@ M.plugins = function()
         --   ["local"] = false,
         -- },
         -- provider = "litellm_claude_sonnet",
-        provider = "litellm",
-        -- Since auto-suggestions are a high-frequency operation and therefore expensive,
-        -- it is recommended to specify an inexpensive provider or even a free provider: copilot
-        -- auto_suggestions_provider = "litellm_",
         providers = {
-          litellm = {
-            __inherited_from = "openai",
-            endpoint = "https://litellm.ml.goodnotesbeta.com",
-            api_key_name = "ANTHROPIC_AUTH_TOKEN",
-            model_names = {
-              "anthropic/claude-sonnet-4-5",
-              "anthropic/claude-opus-4-5-20251101",
-              "openai/gpt-5-codex",
+          claude = {
+            endpoint = "https://api.anthropic.com",
+            model = "claude-sonnet-4-20250514",
+            -- timeout = 30000, -- Timeout in milliseconds
+            extra_request_body = {
+              -- temperature = 0.75,
+              -- max_tokens = 20480,
             },
           },
         },
+
         behaviour = {
           auto_suggestions = false,
           enable_cursor_planning_mode = false,

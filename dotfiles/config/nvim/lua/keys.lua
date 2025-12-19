@@ -210,6 +210,13 @@ M.plugins = function()
             { "<leader>tl", "<cmd>set wrap!<cr>", desc = "Linewrap" },
             { "<leader>tc", "<cmd>tabclose<cr>", desc = "Close Tab" },
             { "<leader>tC", "<cmd>CccPick<cr>", desc = "Pick Colour" },
+            {
+              "<leader>tt",
+              function()
+                require("sidekick.nes").toggle()
+              end,
+              desc = "Next Edit Suggestions",
+            },
           },
         },
       },
