@@ -29,6 +29,27 @@ M.plugins = function()
             prettier = {
               require_cwd = true,
             },
+            swiftformat = {
+              meta = {
+                url = "https://github.com/nicklockwood/SwiftFormat",
+                description = "SwiftFormat relative bin setup",
+              },
+              command = "./binary/swiftformat",
+              stdin = true,
+              args = { "--stdinpath", "$FILENAME" },
+              range_args = function(self, ctx)
+                local startOffset = ctx.range.start[1]
+                local endOffset = ctx.range["end"][1]
+
+                return {
+                  "--linerange",
+                  startOffset .. "," .. endOffset,
+                  "--stdinpath",
+                  "$FILENAME",
+                }
+              end,
+              cwd = require("conform.util").root_file({ "devenv.lock" }),
+            },
           },
 
           -- :lua print(vim.bo.filetype)
@@ -42,7 +63,7 @@ M.plugins = function()
             nix = { "nixfmt" },
             ocaml = { "ocamlformat" },
             iml = { "ocamlformat_iml" },
-            swift = { lsp_format = "never" },
+            swift = { "swiftformat", lsp_format = "never" },
           },
         })
 
