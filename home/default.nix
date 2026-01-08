@@ -115,7 +115,7 @@
       ".ignore"
     ];
     lfs.enable = true;
-    extraConfig = {
+    settings = {
       # swapped in favour of `gbi` alias below
       # blame = { ignoreRevsFile = ".git-blame-ignore-revs"; };
       init = {
@@ -227,9 +227,6 @@
   programs.keychain = {
     enable = true;
     enableZshIntegration = true;
-    agents = [
-      "gpg"
-    ];
   };
 
   programs.neovim = {
@@ -258,9 +255,12 @@
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
-    extraOptionOverrides = {
-      UseKeychain = "yes";
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      addKeysToAgent = "yes";
+      extraOptions = {
+        UseKeychain = "yes";
+      };
     };
   };
 
