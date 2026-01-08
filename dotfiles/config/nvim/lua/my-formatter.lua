@@ -5,6 +5,58 @@ M.plugins = function()
       "stevearc/conform.nvim",
       config = function()
         vim.keymap.set("n", "<LEADER>m=b", vim.lsp.buf.format)
+
+        local util = require("conform.util")
+        ---@type conform.FileFormatterConfig
+        local biome = {
+          meta = {
+            url = "https://biomejs.dev/reference/cli/#biome-format",
+            description = "A toolchain for web projects, aimed to provide functionalities to maintain them. This config runs formatting *only* using in-place file editing (not stdin) to avoid emoji issues. See `biome-check` or `biome-organize-imports` for other options.",
+          },
+          command = util.from_node_modules("biome"),
+          stdin = false,
+          args = function(self, ctx)
+            if self:cwd(ctx) then
+              return { "format", "--write", "$FILENAME" }
+            end
+            -- only when biome.json{,c} don't exist
+            return {
+              "format",
+              "--write",
+              "--indent-style",
+              vim.bo[ctx.buf].expandtab and "space" or "tab",
+              "--indent-width",
+              ctx.shiftwidth,
+              "$FILENAME",
+            }
+          end,
+          cwd = util.root_file({
+            "biome.json",
+            "biome.jsonc",
+          }),
+        }
+
+        local biome_organize_imports = {
+          meta = {
+            url = "https://github.com/biomejs/biome",
+            description = "A toolchain for web projects, aimed to provide functionalities to maintain them. This config runs import sorting *only* using in-place file editing (not stdin) to avoid emoji issues. See `biome` or `biome-check` for other options.",
+          },
+          command = util.from_node_modules("biome"),
+          stdin = false,
+          args = {
+            "check",
+            "--write",
+            "--formatter-enabled=false",
+            "--linter-enabled=false",
+            "--assist-enabled=true",
+            "$FILENAME",
+          },
+          cwd = util.root_file({
+            "biome.json",
+            "biome.jsonc",
+          }),
+        }
+
         require("conform").setup({
           async = true,
           format_on_save = function(bufnr)
@@ -23,9 +75,8 @@ M.plugins = function()
               command = "ocamlformat",
               args = { "--impl", "--enable-outside-detected-project", "--name", "$FILENAME", "-" },
             },
-            biome = {
-              require_cwd = true,
-            },
+            biome = vim.tbl_extend("force", biome, { require_cwd = true }),
+            ["biome-organize-imports"] = vim.tbl_extend("force", biome_organize_imports, { require_cwd = true }),
             prettier = {
               require_cwd = true,
             },
