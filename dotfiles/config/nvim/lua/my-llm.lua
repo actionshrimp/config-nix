@@ -3,12 +3,17 @@ M.plugins = function()
   return {
     {
       {
-        "folke/sidekick.nvim",
-        lazy = false,
+        "zbirenbaum/copilot.lua",
         dependencies = {
-          "zbirenbaum/copilot.vim",
           "copilotlsp-nvim/copilot-lsp",
         },
+        config = function(args)
+          require("copilot").setup(args.opts)
+        end,
+      },
+      {
+        "folke/sidekick.nvim",
+        lazy = false,
         config = function(args)
           vim.lsp.enable("copilot")
           vim.lsp.config("copilot", {})
@@ -106,94 +111,94 @@ M.plugins = function()
         },
       },
     },
-    {
-      "yetone/avante.nvim",
-      event = "VeryLazy",
-      lazy = false,
-      version = false, -- set this if you want to always pull the latest change
-      mode = "legacy",
-      opts = {
-        -- provider = "openai",
-        -- auto_suggestions_provider = "openai",
-        -- openai = {
-        --   endpoint = "https://api.openai.com/v1",
-        --   model = "gpt-4o",
-        --   timeout = 30000, -- Timeout in milliseconds
-        --   temperature = 0,
-        --   max_tokens = 4096,
-        --   ["local"] = false,
-        -- },
-        -- provider = "litellm_claude_sonnet",
-        providers = {
-          claude = {
-            endpoint = "https://api.anthropic.com",
-            model = "claude-sonnet-4-20250514",
-            -- timeout = 30000, -- Timeout in milliseconds
-            extra_request_body = {
-              -- temperature = 0.75,
-              -- max_tokens = 20480,
-            },
-          },
-        },
-
-        behaviour = {
-          auto_suggestions = false,
-          enable_cursor_planning_mode = false,
-        },
-
-        mappings = {
-          -- NOTE: The following will be safely set by avante.nvim
-          ask = "<leader>aaa",
-          edit = "<leader>aae",
-          refresh = "<leader>aar",
-          focus = "<leader>aaf",
-          toggle = {
-            default = "<leader>aat",
-            debug = "<leader>aad",
-            hint = "<leader>aah",
-            suggestion = "<leader>aas",
-            repomap = "<leader>aaR",
-          },
-        },
-      },
-      -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-      build = "make",
-      -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-      dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        "stevearc/dressing.nvim",
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        --- The below dependencies are optional,
-        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-        "zbirenbaum/copilot.lua", -- for providers='copilot'
-        {
-          -- support for image pasting
-          "HakonHarnes/img-clip.nvim",
-          event = "VeryLazy",
-          opts = {
-            -- recommended settings
-            default = {
-              embed_image_as_base64 = false,
-              prompt_for_file_name = false,
-              drag_and_drop = {
-                insert_mode = true,
-              },
-              -- required for Windows users
-              use_absolute_path = true,
-            },
-          },
-        },
-        {
-          -- Make sure to set this up properly if you have lazy=true
-          "MeanderingProgrammer/render-markdown.nvim",
-          opts = {
-            file_types = { "markdown", "Avante" },
-          },
-          ft = { "markdown", "Avante" },
-        },
-      },
-    },
+    -- {
+    --   "yetone/avante.nvim",
+    --   event = "VeryLazy",
+    --   lazy = false,
+    --   version = false, -- set this if you want to always pull the latest change
+    --   mode = "legacy",
+    --   opts = {
+    --     -- provider = "openai",
+    --     -- auto_suggestions_provider = "openai",
+    --     -- openai = {
+    --     --   endpoint = "https://api.openai.com/v1",
+    --     --   model = "gpt-4o",
+    --     --   timeout = 30000, -- Timeout in milliseconds
+    --     --   temperature = 0,
+    --     --   max_tokens = 4096,
+    --     --   ["local"] = false,
+    --     -- },
+    --     -- provider = "litellm_claude_sonnet",
+    --     providers = {
+    --       claude = {
+    --         endpoint = "https://api.anthropic.com",
+    --         model = "claude-sonnet-4-20250514",
+    --         -- timeout = 30000, -- Timeout in milliseconds
+    --         extra_request_body = {
+    --           -- temperature = 0.75,
+    --           -- max_tokens = 20480,
+    --         },
+    --       },
+    --     },
+    --
+    --     behaviour = {
+    --       auto_suggestions = false,
+    --       enable_cursor_planning_mode = false,
+    --     },
+    --
+    --     mappings = {
+    --       -- NOTE: The following will be safely set by avante.nvim
+    --       ask = "<leader>aaa",
+    --       edit = "<leader>aae",
+    --       refresh = "<leader>aar",
+    --       focus = "<leader>aaf",
+    --       toggle = {
+    --         default = "<leader>aat",
+    --         debug = "<leader>aad",
+    --         hint = "<leader>aah",
+    --         suggestion = "<leader>aas",
+    --         repomap = "<leader>aaR",
+    --       },
+    --     },
+    --   },
+    --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    --   build = "make",
+    --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    --   dependencies = {
+    --     "nvim-treesitter/nvim-treesitter",
+    --     "stevearc/dressing.nvim",
+    --     "nvim-lua/plenary.nvim",
+    --     "MunifTanjim/nui.nvim",
+    --     --- The below dependencies are optional,
+    --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+    --     "zbirenbaum/copilot.lua", -- for providers='copilot'
+    --     {
+    --       -- support for image pasting
+    --       "HakonHarnes/img-clip.nvim",
+    --       event = "VeryLazy",
+    --       opts = {
+    --         -- recommended settings
+    --         default = {
+    --           embed_image_as_base64 = false,
+    --           prompt_for_file_name = false,
+    --           drag_and_drop = {
+    --             insert_mode = true,
+    --           },
+    --           -- required for Windows users
+    --           use_absolute_path = true,
+    --         },
+    --       },
+    --     },
+    --     {
+    --       -- Make sure to set this up properly if you have lazy=true
+    --       "MeanderingProgrammer/render-markdown.nvim",
+    --       opts = {
+    --         file_types = { "markdown", "Avante" },
+    --       },
+    --       ft = { "markdown", "Avante" },
+    --     },
+    --   },
+    -- },
   }
 end
 return M

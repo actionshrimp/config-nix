@@ -58,7 +58,6 @@
     (lib.hiPrio parallel)
     postgresql
     pnpm
-    python3Full
     uv
     ripgrep
     ruby
