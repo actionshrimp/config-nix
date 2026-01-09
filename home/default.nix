@@ -302,6 +302,7 @@
     # enableZshIntegration = true;
     settings = {
       theme = "kanagawa";
+      show_startup_tips = false;
     };
   };
 
