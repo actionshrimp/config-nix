@@ -57,7 +57,6 @@
     ollama
     (lib.hiPrio parallel)
     postgresql
-    pnpm
     uv
     ripgrep
     ruby
