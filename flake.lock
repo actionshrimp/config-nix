@@ -6,11 +6,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1767907650,
-        "narHash": "sha256-EiUY1KBY349E3FvNXwTE2z3R93QxmosZo8oNissuM2A=",
+        "lastModified": 1765980607,
+        "narHash": "sha256-aaKHt3wuywFg3ILVm+GgspwPPLPQmNBjiBQCHPQmhIc=",
         "ref": "refs/heads/main",
-        "rev": "ac8799a0762c7ad82a8f3ecb86c4a6088045a37d",
-        "revCount": 19,
+        "rev": "93490dea1774bddd990b63bc076594b00acd2b9e",
+        "revCount": 18,
         "type": "git",
         "url": "file:///Users/dave/config-nix-private"
       },
@@ -102,11 +102,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767850628,
-        "narHash": "sha256-D3QzdIT11J66I4mzwmIpAGLzPAcbCS2VaKN8fmOe6+E=",
+        "lastModified": 1767910483,
+        "narHash": "sha256-MOU5YdVu4DVwuT5ztXgQpPuRRBjSjUGIdUzOQr9iQOY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8c8a16d41353a174767c38b962359b51a56ca02e",
+        "rev": "82fb7dedaad83e5e279127a38ef410bcfac6d77c",
         "type": "github"
       },
       "original": {
