@@ -217,6 +217,10 @@ M.plugins = function()
               end,
               desc = "Next Edit Suggestions",
             },
+            --
+            -- "Toggle"
+            { "<leader>x", group = "Text" },
+            { "<leader>xe", ":InsertEmoji<CR>", desc = "Insert Emoji" },
           },
         },
       },

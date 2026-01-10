@@ -8,6 +8,7 @@
   "copilot-lsp": { "branch": "main", "commit": "1b6d8273594643f51bb4c0c1d819bdb21b42159d" },
   "copilot.lua": { "branch": "master", "commit": "c13f6f5147b80298301eb409991f28a991736cc3" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
+  "emoji.nvim": { "branch": "main", "commit": "5c68359b56d2470583832b6b2b559566c5b39dc8" },
   "friendly-snippets": { "branch": "main", "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175" },
   "gitlinker.nvim": { "branch": "master", "commit": "0a746e66eb6a047f0b88b31ed2791a22953a3967" },
   "gpg.nvim": { "branch": "main", "commit": "e86411b07863718169d634c6361f0e0120ed7a83" },
