@@ -140,6 +140,7 @@ local lazy_spec = {
   require("my-neotest").plugins(),
   require("my-terminal").plugins(),
   require("my-debugger").plugins(),
+  require("my-emoji").plugins(),
 }
 
 require("lazy").setup({
