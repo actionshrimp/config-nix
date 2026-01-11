@@ -2,6 +2,11 @@
 font-family = JetBrainsMono NFM
 font-family = Noto Sans
 
+# Disable ligatures (matching wezterm harfbuzz_features)
+font-feature = -calt
+font-feature = -clig
+font-feature = -liga
+
 # Cursor
 cursor-style = block
 cursor-style-blink = false
@@ -15,3 +20,6 @@ shell-integration-features = no-cursor
 
 # Appearance
 window-decoration = true
+
+# Bell
+audible-bell = none
