@@ -126,6 +126,13 @@ local lazy_spec = {
       vim.keymap.set("n", "<LEADER>au", ":UndotreeToggle<CR>")
     end,
   },
+  {
+    "stevearc/quicker.nvim",
+    ft = "qf",
+    ---@module "quicker"
+    ---@type quicker.SetupOptions
+    opts = {},
+  },
   "benoror/gpg.nvim",
   require("theme").plugins(),
   require("my-git").plugins(),
