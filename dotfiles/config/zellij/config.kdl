@@ -1,4 +1,6 @@
 theme "kanagawa"
+pane_frames false
+default_layout "compact"
 
 keybinds clear-defaults=true {
     normal {
@@ -43,6 +45,18 @@ keybinds clear-defaults=true {
 
         // Session
         bind "d" { Detach; }
+        bind "a" { SwitchToMode "Session"; }
+    }
+    session {
+        bind "Esc" { SwitchToMode "Normal"; }
+        bind "d" { Detach; }
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal";
+        }
     }
     scroll {
         bind "Esc" { SwitchToMode "Normal"; }
