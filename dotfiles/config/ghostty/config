@@ -1,0 +1,17 @@
+# Font
+font-family = JetBrainsMono NFM
+font-family = Noto Sans
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Scrollback (100MB - very large)
+scrollback-limit = 100000000
+
+# Shell integration
+shell-integration = zsh
+shell-integration-features = no-cursor
+
+# Appearance
+window-decoration = true
