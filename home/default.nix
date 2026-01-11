@@ -247,6 +247,14 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/bin/git-diff-image";
   };
 
+  home.file.".config/ghostty/config" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/ghostty/config";
+  };
+
+  home.file.".config/zellij/config.kdl" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/zellij/config.kdl";
+  };
+
   # programs.opam = {
   #   enable = true;
   #   enableZshIntegration = true;
@@ -299,10 +307,7 @@
   programs.zellij = {
     enable = true;
     # enableZshIntegration = true;
-    settings = {
-      theme = "kanagawa";
-      show_startup_tips = false;
-    };
+    # settings moved to dotfiles/config/zellij/config.kdl
   };
 
   programs.zsh = {
@@ -321,6 +326,7 @@
       k9sc = "k9s -c context";
       pr = "review-pr";
       wt = "wezterm cli set-tab-title";
+      zt = "zellij action rename-tab";
     };
     history = {
       size = 10000000;
