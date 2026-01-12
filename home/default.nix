@@ -251,8 +251,8 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/ghostty/config";
   };
 
-  home.file.".config/zellij/config.kdl" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/zellij/config.kdl";
+  home.file.".config/zellij" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/zellij";
   };
 
   # programs.opam = {
