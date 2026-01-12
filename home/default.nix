@@ -326,7 +326,7 @@
       k9sc = "k9s -c context";
       pr = "review-pr";
       wt = "wezterm cli set-tab-title";
-      zt = "zellij action rename-tab";
+      tt = "zellij action rename-tab";
     };
     history = {
       size = 10000000;
