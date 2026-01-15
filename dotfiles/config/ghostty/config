@@ -1,6 +1,7 @@
 # Font
 font-family = JetBrainsMono NFM
 font-family = Noto Sans
+font-size = 12
 
 # Disable ligatures (matching wezterm harfbuzz_features)
 font-feature = -calt

@@ -99,7 +99,6 @@ keybinds clear-defaults=true {
         bind "?" { SwitchToMode "EnterSearch"; Search "up"; }
         bind "n" { Search "down"; }
         bind "N" { Search "up"; }
-        bind "y" { Copy; SwitchToMode "Normal"; }
     }
     search {
         bind "Esc" { SwitchToMode "Normal"; }
