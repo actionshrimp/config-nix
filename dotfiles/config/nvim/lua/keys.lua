@@ -135,9 +135,9 @@ M.plugins = function()
 
             -- "Git"
             { "<leader>g", group = "Git" },
-            { "<leader>gs", ":Neogit<CR>", desc = "Status (neogit)" },
+            { "<leader>gS", ":Neogit<CR>", desc = "Status (neogit)" },
             {
-              "<leader>gS",
+              "<leader>gs",
               function()
                 vim.cmd.Git({ mods = { vertical = true } })
               end,
