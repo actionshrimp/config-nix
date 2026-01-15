@@ -16,6 +16,7 @@
     awscli2
     bash-language-server
     cargo
+    cpulimit
     devenv
     dos2unix
     entr
