@@ -19,6 +19,11 @@ M.plugins = function()
     },
     { "tpope/vim-fugitive" },
     {
+      "actionshrimp/gitlad.nvim",
+      dev = true,
+      opts = {},
+    },
+    {
       "pwntester/octo.nvim",
       keys = {
         {
