@@ -25,7 +25,6 @@ M.plugins = function()
             mux = {
               backend = "zellij",
               enabled = true,
-              create = "split",
             },
             win = {
               keys = {
