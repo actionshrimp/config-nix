@@ -54,6 +54,7 @@ keybinds clear-defaults=true {
 
         // Tabs
         bind "c" { NewTab; SwitchToMode "Normal"; }
+        bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "n" { GoToNextTab; }
         bind "p" { GoToPreviousTab; }
         bind "N" { MoveTab "Right"; }
@@ -112,5 +113,9 @@ keybinds clear-defaults=true {
     entersearch {
         bind "Esc" { SwitchToMode "Normal"; }
         bind "Enter" { SwitchToMode "Search"; }
+    }
+    renametab {
+        bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
+        bind "Enter" { SwitchToMode "Normal"; }
     }
 }
