@@ -73,6 +73,7 @@ keybinds clear-defaults=true {
         // Scroll/Copy/Search
         bind "[" { SwitchToMode "Scroll"; }
         bind "/" { SwitchToMode "EnterSearch"; Search "down"; }
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
 
         // Session
         bind "d" { Detach; }
