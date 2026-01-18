@@ -136,13 +136,14 @@ M.plugins = function()
             -- "Git"
             { "<leader>g", group = "Git" },
             { "<leader>gS", ":Neogit<CR>", desc = "Status (neogit)" },
-            {
-              "<leader>gs",
-              function()
-                vim.cmd.Git({ mods = { vertical = true } })
-              end,
-              desc = "Status (fugitive)",
-            },
+            { "<leader>gs", ":Gitlad<CR>", desc = "Status (gitlad)" },
+            -- {
+            --   "<leader>gs",
+            --   function()
+            --     vim.cmd.Git({ mods = { vertical = true } })
+            --   end,
+            --   desc = "Status (fugitive)",
+            -- },
             { "<leader>gl", group = "File" },
             {
               "<leader>gfl",
