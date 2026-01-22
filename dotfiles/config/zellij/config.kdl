@@ -1,6 +1,7 @@
 theme "kanagawa"
 pane_frames false
 // default_layout "default"
+show_startup_tips false
 
 keybinds clear-defaults=true {
     normal {
