@@ -75,7 +75,6 @@
       "nuage" # soundcloud native app
       "wezterm@nightly"
       "ghostty"
-      "sol"
       "claude-code"
     ];
   };
