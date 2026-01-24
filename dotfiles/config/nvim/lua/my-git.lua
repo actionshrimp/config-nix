@@ -5,6 +5,7 @@ M.plugins = function()
     { "linrongbin16/gitlinker.nvim", opts = {}, cmd = "GitLink" },
     {
       "sindrets/diffview.nvim",
+      dev = true,
       opts = {
         keymaps = {
           view = {
