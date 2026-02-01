@@ -43,6 +43,7 @@
     lsof
     lua-language-server
     luajitPackages.luarocks
+    lua
     mc
     mkcert
     moreutils
