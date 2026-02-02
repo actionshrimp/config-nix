@@ -33,7 +33,6 @@
     ghostscript
     jnettop
     jq
-    jira-cli-go
     k9s
     killall
     kubectl

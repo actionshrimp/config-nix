@@ -63,8 +63,11 @@
     enable = true;
     onActivation.cleanup = "zap";
     taps = [
+      "atlassian/homebrew-acli"
     ];
     brews = [
+      "atlassian/homebrew-acli/acli"
+      "rbenv"
       "tailwindcss-language-server"
       "terminal-notifier"
       "tailscale"
