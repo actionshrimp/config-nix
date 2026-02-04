@@ -20,6 +20,7 @@
     devenv
     dos2unix
     entr
+    emacs
     fd
     fswatch
     gh
