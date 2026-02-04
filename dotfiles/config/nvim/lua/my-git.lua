@@ -22,7 +22,27 @@ M.plugins = function()
     {
       "actionshrimp/gitlad.nvim",
       dev = true,
-      opts = {},
+      opts = {
+        watcher = {
+          enabled = true,
+          auto_refresh = true,
+        },
+        status = {
+          sections = {
+
+            "untracked",
+            "unstaged",
+            "staged",
+            "conflicted",
+            "stashes",
+            -- "submodules",  -- uncomment to show submodules section
+            "unpushed",
+            "unpulled",
+            { "recent", count = 10 }, -- limit recent commits shown
+            { "worktrees", min_count = 2 }, -- only show if >= min_count worktrees
+          },
+        },
+      },
     },
     {
       "pwntester/octo.nvim",
