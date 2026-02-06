@@ -33,23 +33,53 @@ M.plugins = function()
               end,
               desc = "Toggle",
             },
-            { "<leader>acn", group = "Claude (yolo)" },
             {
-              "<leader>acn1",
+              "<leader>acy",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_yolo", focus = true })
+              end,
+              desc = "Toggle",
+            },
+            { "<leader>acn", group = "Claudes" },
+            { "<leader>acnc", group = "Claude" },
+            {
+              "<leader>acnc1",
+              function()
+                require("sidekick.cli").toggle({ name = "claude", focus = true })
+              end,
+              desc = "Claude 1",
+            },
+            {
+              "<leader>acnc2",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_2", focus = true })
+              end,
+              desc = "Claude 2",
+            },
+            {
+              "<leader>acnc3",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_3", focus = true })
+              end,
+              desc = "Claude 3",
+            },
+            { "<leader>acny", group = "Claude (yolo)" },
+            {
+              "<leader>acny1",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo", focus = true })
               end,
               desc = "Yolo 1",
             },
             {
-              "<leader>acn2",
+              "<leader>acny2",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo_2", focus = true })
               end,
               desc = "Yolo 2",
             },
             {
-              "<leader>acn3",
+              "<leader>acny3",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo_3", focus = true })
               end,
@@ -133,7 +163,11 @@ M.plugins = function()
             {
               "<leader>pt",
               function()
-                require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
+                local path = vim.api.nvim_buf_get_name(0)
+                if vim.uv.fs_stat(path) == nil then
+                  path = vim.fn.getcwd(0)
+                end
+                require("mini.files").open(path, false)
               end,
               desc = "Tree",
             },
