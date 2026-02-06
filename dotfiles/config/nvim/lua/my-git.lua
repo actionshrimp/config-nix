@@ -27,6 +27,9 @@ M.plugins = function()
           enabled = true,
           auto_refresh = true,
         },
+        worktree = {
+          directory_strategy = "sibling-bare",
+        },
         status = {
           sections = {
 
