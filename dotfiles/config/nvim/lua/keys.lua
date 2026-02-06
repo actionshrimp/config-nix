@@ -33,6 +33,28 @@ M.plugins = function()
               end,
               desc = "Toggle",
             },
+            { "<leader>acn", group = "Claude (yolo)" },
+            {
+              "<leader>acn1",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_yolo", focus = true })
+              end,
+              desc = "Yolo 1",
+            },
+            {
+              "<leader>acn2",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_yolo_2", focus = true })
+              end,
+              desc = "Yolo 2",
+            },
+            {
+              "<leader>acn3",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_yolo_3", focus = true })
+              end,
+              desc = "Yolo 3",
+            },
             {
               "<leader>acs",
               function()
