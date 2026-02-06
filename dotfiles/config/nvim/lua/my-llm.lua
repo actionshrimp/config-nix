@@ -20,8 +20,14 @@ M.plugins = function()
           require("sidekick").setup(args.opts)
         end,
         opts = {
-          -- add any options here
           cli = {
+            tools = {
+              claude_2 = { cmd = { "claude" } },
+              claude_3 = { cmd = { "claude" } },
+              claude_yolo = { cmd = { "claude", "--dangerously-skip-permissions" } },
+              claude_yolo_2 = { cmd = { "claude", "--dangerously-skip-permissions" } },
+              claude_yolo_3 = { cmd = { "claude", "--dangerously-skip-permissions" } },
+            },
             mux = {
               backend = "zellij",
               enabled = true,
