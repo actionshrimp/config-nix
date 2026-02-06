@@ -1,0 +1,18 @@
+# Ignore everything by default
+*
+
+# Track config
+!.gitignore
+!settings.json
+
+# Track custom scripts
+!statusline.sh
+!refresh-session.py
+
+# Track custom commands, agents, skills
+!commands/
+!commands/**
+!agents/
+!agents/**
+!skills/
+!skills/**
