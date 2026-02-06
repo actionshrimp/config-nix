@@ -31,14 +31,14 @@ M.plugins = function()
               function()
                 require("sidekick.cli").toggle({ name = "claude", focus = true })
               end,
-              desc = "Toggle",
+              desc = "Claude",
             },
             {
               "<leader>acy",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo", focus = true })
               end,
-              desc = "Toggle",
+              desc = "Claude (yolo)",
             },
             { "<leader>acn", group = "Claudes" },
             { "<leader>acnc", group = "Claude" },
