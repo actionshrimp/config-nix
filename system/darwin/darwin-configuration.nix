@@ -59,6 +59,11 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
+  # Disable Spotlight indexing
+  system.activationScripts.postActivation.text = ''
+    mdutil -a -i off
+  '';
+
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
