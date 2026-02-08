@@ -146,12 +146,24 @@ def copy_db(db_path):
     return tmp_dir, dst
 
 
+DEFAULT_CONFIG = """\
+# Claude statusline configuration
+# Org ID from: https://claude.ai/api/organizations (first "id" in response)
+CLAUDE_ORG_ID=""
+# Session cookie (auto-populated by refresh-session.py)
+CLAUDE_SESSION_COOKIE=""
+"""
+
+
 def update_config(session_key):
     cookie = f"sessionKey={session_key}"
 
     if not os.path.exists(CONFIG_FILE):
-        print(f"Config not found: {CONFIG_FILE}", file=sys.stderr)
-        sys.exit(1)
+        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+        with open(CONFIG_FILE, "w") as f:
+            f.write(DEFAULT_CONFIG)
+        print(f"Created default config: {CONFIG_FILE}")
+        print(f"NOTE: Edit {CONFIG_FILE} to set CLAUDE_ORG_ID for usage tracking.")
 
     with open(CONFIG_FILE, "r") as f:
         content = f.read()
