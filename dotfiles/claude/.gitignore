@@ -7,7 +7,6 @@
 
 # Track custom scripts
 !statusline.sh
-!refresh-session.py
 
 # Track custom commands, agents, skills
 !commands/

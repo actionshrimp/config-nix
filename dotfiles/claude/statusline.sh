@@ -1,12 +1,7 @@
 #!/bin/bash
 # Claude Code custom statusline with usage limits and upgrade indicator
 #
-# Configuration required in ~/.claude/statusline-config.sh:
-#   CLAUDE_ORG_ID="your-org-id-from-url"
-#   CLAUDE_SESSION_COOKIE="sessionKey=sk-ant-..."
-#
-# Get your org ID from: https://claude.ai/api/organizations (first id in response)
-# Get your session cookie from browser DevTools > Application > Cookies > claude.ai > sessionKey
+# Reads OAuth token from macOS Keychain (stored by Claude Code)
 
 set -eo pipefail
 
@@ -14,15 +9,11 @@ set -eo pipefail
 INPUT=$(cat)
 
 # Configuration
-CONFIG_FILE="$HOME/.claude/statusline-config.sh"
 CACHE_DIR="$HOME/.claude/cache/statusline"
 USAGE_CACHE="$CACHE_DIR/usage.json"
 UPGRADE_CACHE="$CACHE_DIR/upgrade.txt"
-COOKIE_CACHE="$CACHE_DIR/cookie.txt"
-CF_CLEARANCE_CACHE="$CACHE_DIR/cf_clearance.txt"
 USAGE_CACHE_TTL=60      # seconds - refresh usage every minute
 UPGRADE_CACHE_TTL=3600  # seconds - check upgrades every hour
-COOKIE_CACHE_TTL=300    # seconds - re-read browser cookie every 5 min
 
 # Colors (ANSI)
 GREEN='\033[0;32m'
@@ -35,55 +26,11 @@ RESET='\033[0m'
 # Ensure cache directory exists
 mkdir -p "$CACHE_DIR"
 
-# Load configuration
-CLAUDE_ORG_ID=""
-CLAUDE_SESSION_COOKIE=""
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
-fi
-
-# Auto-refresh cookies from Firefox (sessionKey + cf_clearance)
-CLAUDE_CF_CLEARANCE=""
-refresh_cookie() {
-    if cache_valid "$COOKIE_CACHE" "$COOKIE_CACHE_TTL"; then
-        CLAUDE_SESSION_COOKIE="sessionKey=$(cat "$COOKIE_CACHE")"
-        [[ -f "$CF_CLEARANCE_CACHE" ]] && CLAUDE_CF_CLEARANCE=$(cat "$CF_CLEARANCE_CACHE")
-        return
-    fi
-
-    # Find Firefox profile
-    local profiles_dir="$HOME/Library/Application Support/Firefox/Profiles"
-    local db_path=""
-    for pattern in "$profiles_dir"/*.default-release "$profiles_dir"/*.default; do
-        if [[ -f "$pattern/cookies.sqlite" ]]; then
-            db_path="$pattern/cookies.sqlite"
-            break
-        fi
-    done
-    [[ -z "$db_path" ]] && return
-
-    # Copy DB to avoid lock conflicts, include WAL
-    local tmp_dir
-    tmp_dir=$(mktemp -d)
-    cp "$db_path" "$tmp_dir/cookies.sqlite"
-    [[ -f "${db_path}-wal" ]] && cp "${db_path}-wal" "$tmp_dir/cookies.sqlite-wal"
-    [[ -f "${db_path}-shm" ]] && cp "${db_path}-shm" "$tmp_dir/cookies.sqlite-shm"
-
-    local session_val cf_val
-    session_val=$(sqlite3 "$tmp_dir/cookies.sqlite" \
-        "SELECT value FROM moz_cookies WHERE host LIKE '%claude.ai' AND name = 'sessionKey' LIMIT 1" 2>/dev/null) || true
-    cf_val=$(sqlite3 "$tmp_dir/cookies.sqlite" \
-        "SELECT value FROM moz_cookies WHERE host LIKE '%claude.ai' AND name = 'cf_clearance' LIMIT 1" 2>/dev/null) || true
-    rm -rf "$tmp_dir"
-
-    if [[ -n "$session_val" ]]; then
-        echo "$session_val" > "$COOKIE_CACHE"
-        CLAUDE_SESSION_COOKIE="sessionKey=$session_val"
-    fi
-    if [[ -n "$cf_val" ]]; then
-        echo "$cf_val" > "$CF_CLEARANCE_CACHE"
-        CLAUDE_CF_CLEARANCE="$cf_val"
-    fi
+# Get OAuth token from macOS Keychain
+get_oauth_token() {
+    local creds
+    creds=$(security find-generic-password -s "Claude Code-credentials" -a "$(whoami)" -w 2>/dev/null) || return 1
+    echo "$creds" | jq -r '.claudeAiOauth.accessToken // empty'
 }
 
 # Progress bar function using Unicode blocks
@@ -134,29 +81,26 @@ cache_valid() {
     (( age < ttl ))
 }
 
-# Fetch usage from claude.ai API
+# Fetch usage from OAuth API
 fetch_usage() {
-    if [[ -z "$CLAUDE_ORG_ID" || -z "$CLAUDE_SESSION_COOKIE" ]]; then
-        echo '{"error":"not_configured"}'
-        return
-    fi
-
     if cache_valid "$USAGE_CACHE" "$USAGE_CACHE_TTL"; then
         cat "$USAGE_CACHE"
         return
     fi
 
-    # Build cookie header
-    local cookie_header="$CLAUDE_SESSION_COOKIE"
-    [[ -n "$CLAUDE_CF_CLEARANCE" ]] && cookie_header+="; cf_clearance=$CLAUDE_CF_CLEARANCE"
+    local token
+    token=$(get_oauth_token)
+    if [[ -z "$token" ]]; then
+        echo '{"error":"no_token"}'
+        return
+    fi
 
-    # Fetch from API
     local response
     response=$(curl -s --max-time 3 \
-        -H "Cookie: $cookie_header" \
+        -H "Authorization: Bearer $token" \
+        -H "anthropic-beta: oauth-2025-04-20" \
         -H "Accept: application/json" \
-        -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0" \
-        "https://claude.ai/api/organizations/${CLAUDE_ORG_ID}/usage" 2>/dev/null) || response='{"error":"fetch_failed"}'
+        "https://api.anthropic.com/api/oauth/usage" 2>/dev/null) || response='{"error":"fetch_failed"}'
 
     # Cache if successful
     if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
@@ -229,8 +173,7 @@ main() {
     output+="ctx:$(progress_bar "$ctx_percent" 8) "
     output+="${DIM}${ctx_percent}%${RESET}    "
 
-    # Auto-refresh cookie from Firefox, then fetch usage
-    refresh_cookie
+    # Fetch usage from OAuth API
     local usage=$(fetch_usage)
 
     if echo "$usage" | jq -e '.five_hour' >/dev/null 2>&1; then
