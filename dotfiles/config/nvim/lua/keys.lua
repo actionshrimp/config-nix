@@ -29,61 +29,61 @@ M.plugins = function()
             {
               "<leader>acc",
               function()
-                require("sidekick.cli").toggle({ name = "claude", focus = true })
-              end,
-              desc = "Claude",
-            },
-            {
-              "<leader>acy",
-              function()
                 require("sidekick.cli").toggle({ name = "claude_yolo", focus = true })
               end,
               desc = "Claude (yolo)",
             },
-            { "<leader>acn", group = "Claudes" },
-            { "<leader>acnc", group = "Claude" },
             {
-              "<leader>acnc1",
+              "<leader>acy",
               function()
                 require("sidekick.cli").toggle({ name = "claude", focus = true })
               end,
-              desc = "Claude 1",
+              desc = "Claude (why)",
             },
+            { "<leader>acn", group = "Claudes" },
+            { "<leader>acnc", group = "Claude (yolo)" },
             {
-              "<leader>acnc2",
-              function()
-                require("sidekick.cli").toggle({ name = "claude_2", focus = true })
-              end,
-              desc = "Claude 2",
-            },
-            {
-              "<leader>acnc3",
-              function()
-                require("sidekick.cli").toggle({ name = "claude_3", focus = true })
-              end,
-              desc = "Claude 3",
-            },
-            { "<leader>acny", group = "Claude (yolo)" },
-            {
-              "<leader>acny1",
+              "<leader>acnc1",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo", focus = true })
               end,
               desc = "Yolo 1",
             },
             {
-              "<leader>acny2",
+              "<leader>acnc2",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo_2", focus = true })
               end,
               desc = "Yolo 2",
             },
             {
-              "<leader>acny3",
+              "<leader>acnc3",
               function()
                 require("sidekick.cli").toggle({ name = "claude_yolo_3", focus = true })
               end,
               desc = "Yolo 3",
+            },
+            { "<leader>acny", group = "Claude (why)" },
+            {
+              "<leader>acny1",
+              function()
+                require("sidekick.cli").toggle({ name = "claude", focus = true })
+              end,
+              desc = "Claude 1",
+            },
+            {
+              "<leader>acny2",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_2", focus = true })
+              end,
+              desc = "Claude 2",
+            },
+            {
+              "<leader>acny3",
+              function()
+                require("sidekick.cli").toggle({ name = "claude_3", focus = true })
+              end,
+              desc = "Claude 3",
             },
             {
               "<leader>acs",
