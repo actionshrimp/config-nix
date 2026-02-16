@@ -61,7 +61,7 @@
 
   # Disable Spotlight indexing
   system.activationScripts.postActivation.text = ''
-    mdutil -a -i off
+    mdutil -i off / /System/Volumes/Preboot || true
   '';
 
   homebrew = {
