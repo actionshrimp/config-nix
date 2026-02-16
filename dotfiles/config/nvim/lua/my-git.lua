@@ -32,7 +32,7 @@ M.plugins = function()
         },
         status = {
           sections = {
-
+            "rebase_sequence",
             "untracked",
             "unstaged",
             "staged",
