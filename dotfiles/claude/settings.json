@@ -1,5 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "DISABLE_AUTOUPDATER": "1",
+    "ENABLE_LSP_TOOL": "1"
+  },
   "includeCoAuthoredBy": false,
   "hooks": {
     "Notification": [
@@ -17,12 +21,10 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "env": {
-    "DISABLE_AUTOUPDATER": "1"
-  },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "dev-browser@dev-browser-marketplace": true
-  }
+  },
+  "skipDangerousModePermissionPrompt": true
 }
