@@ -97,14 +97,6 @@ M.plugins = function()
         vim.keymap.set("n", "<LEADER>gb", ":BlameToggle<CR>", {})
       end,
     },
-    {
-      "bajor/nvim-raccoon",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      dev = true,
-      config = function()
-        require("raccoon").setup()
-      end,
-    },
   }
 end
 
