@@ -30,6 +30,7 @@ in
               corepack
             ]
           );
+
         }
       )
     ];
@@ -37,6 +38,7 @@ in
   darwinModules = [
     (import ../../system/common.nix)
     (import ../../system/darwin/darwin-configuration.nix darwinOpts)
+    (import ../../system/darwin/gn-nginx.nix)
     (
       { lib, ... }:
       {
