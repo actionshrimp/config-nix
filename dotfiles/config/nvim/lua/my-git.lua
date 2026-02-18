@@ -100,6 +100,7 @@ M.plugins = function()
     {
       "bajor/nvim-raccoon",
       dependencies = { "nvim-lua/plenary.nvim" },
+      dev = true,
       config = function()
         require("raccoon").setup()
       end,
