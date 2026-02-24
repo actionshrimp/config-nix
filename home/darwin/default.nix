@@ -47,17 +47,6 @@
     launchd.enable = true;
     userSettings = {
       mode.main.binding = {
-        alt-h = "focus left";
-        alt-j = "focus down";
-        alt-k = "focus up";
-        alt-l = "focus right";
-        alt-w = "close";
-        alt-n = "focus-monitor next";
-        alt-p = "focus-monitor prev";
-        alt-shift-h = "move left";
-        alt-shift-j = "move down";
-        alt-shift-k = "move up";
-        alt-shift-l = "move right";
         alt-1 = "workspace 1";
         alt-2 = "workspace 2";
         # alt-3 = "workspace 3"; conflicts with # symbol...
