@@ -22,5 +22,8 @@ shell-integration-features = no-cursor
 # Appearance
 window-decoration = true
 
+# Treat Option as Alt/Meta (sends ESC sequences instead of Unicode chars)
+macos-option-as-alt = left
+
 # Bell (disable all bell features)
 bell-features = no-attention, no-title
