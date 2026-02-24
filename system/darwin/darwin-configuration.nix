@@ -82,7 +82,7 @@
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
       "wezterm@nightly"
-      "ghostty"
+      "ghostty@tip"
       "claude-code"
     ];
   };
