@@ -48,25 +48,6 @@ M.plugins = function()
       },
     },
     {
-      "pwntester/octo.nvim",
-      keys = {
-        {
-          "<leader>gor",
-          function()
-            local last_two_months = os.date("%Y-%m-%d", os.time() - (2 * 30 * 24 * 60 * 60))
-            vim.cmd("Octo search user-review-requested:@me is:pr is:open created:>=" .. last_two_months)
-          end,
-          desc = "PRs to Review",
-          remap = false,
-        },
-      },
-      config = function()
-        require("octo").setup({
-          picker = "snacks",
-        })
-      end,
-    },
-    {
       "NeogitOrg/neogit",
       dev = true,
       dependencies = {
