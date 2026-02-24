@@ -23,7 +23,10 @@ shell-integration-features = no-cursor
 window-decoration = true
 
 # Treat Option as Alt/Meta (sends ESC sequences instead of Unicode chars)
-macos-option-as-alt = left
+macos-option-as-alt = true
+
+# UK keyboard: Alt+3 = # (since Option is now Alt)
+keybind = alt+three=text:#
 
 # Bell (disable all bell features)
 bell-features = no-attention, no-title
