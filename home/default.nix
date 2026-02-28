@@ -318,6 +318,7 @@
       k9sc = "k9s -c context";
       pr = "review-pr";
       tt = "zellij action rename-tab";
+      clc = "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude --dangerously-skip-permissions";
     };
     history = {
       size = 10000000;
