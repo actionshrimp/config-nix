@@ -288,6 +288,34 @@
     };
   };
 
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    terminal = "screen-256color";
+    escapeTime = 30;
+    historyLimit = 20000;
+    plugins = with pkgs.tmuxPlugins; [
+      cpu
+      power-theme
+      yank
+      vim-tmux-navigator
+    ];
+    extraConfig = ''
+      unbind-key c
+      bind-key c new-window -c "#{pane_current_path}"
+      bind-key -T copy-mode-vi 'v' send -X begin-selection
+      bind-key -T copy-mode-vi Escape send -X clear-selection
+      bind ^B last-window
+      unbind-key %
+      bind-key v split-window -h -c "#{pane_current_path}"
+      unbind-key '"'
+      unbind-key s
+      bind -n 'C-\' if-shell "$is_vim" "send-keys 'C-\\'" "select-pane -l"
+      bind-key s split-window -c "#{pane_current_path}"
+      bind-key '"' choose-session
+    '';
+  };
+
   programs.z-lua = {
     enable = true;
     enableZshIntegration = true;
