@@ -72,6 +72,7 @@
     ];
     brews = [
       "atlassian/homebrew-acli/acli"
+      "gemini-cli"
       "rbenv"
       "tailwindcss-language-server"
       "terminal-notifier"
@@ -84,6 +85,7 @@
       "wezterm@nightly"
       "ghostty@tip"
       "claude-code"
+      "codex"
     ];
   };
 }

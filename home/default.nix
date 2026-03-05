@@ -15,7 +15,9 @@
     aider-chat
     awscli2
     bash-language-server
+    bun
     cargo
+    rustc
     cpulimit
     devenv
     dos2unix
@@ -46,6 +48,7 @@
     lua
     mc
     mkcert
+    mise
     moreutils
     ncdu
     nil
