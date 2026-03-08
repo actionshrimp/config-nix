@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "DISABLE_AUTOUPDATER": "1",
-    "ENABLE_LSP_TOOL": "1"
+    "ENABLE_LSP_TOOL": "true"
   },
   "includeCoAuthoredBy": false,
   "hooks": {
@@ -15,20 +15,40 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/context-monitor.sh",
+            "timeout": 2000
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/context-compact-warning.sh",
+            "timeout": 2000
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "env": {
-    "DISABLE_AUTOUPDATER": "1",
-    "ENABLE_LSP_TOOL": "true"
-  },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
-    "dev-browser@dev-browser-marketplace": true
+    "dev-browser@dev-browser-marketplace": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true
 }

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# zelcld-pane-wrapper: runs inside each new Zellij pane spawned by the tmux shim.
+# Restores the parent environment, signals readiness, then reads and execs
+# commands from a FIFO.
+
+PANE_NUM="${1:?Usage: zelcld-pane-wrapper <pane-number> <state-dir>}"
+STATE_DIR="${2:?Usage: zelcld-pane-wrapper <pane-number> <state-dir>}"
+
+FIFO="${STATE_DIR}/pane_${PANE_NUM}.fifo"
+
+# Restore parent environment from snapshot, filtering out Zellij-internal vars
+# and variables that should reflect this pane's state
+if [ -f "${STATE_DIR}/env.snapshot" ]; then
+  while IFS='=' read -r key value; do
+    case "${key}" in
+      ZELLIJ_PANE_ID|SHLVL|PWD|OLDPWD|_|TERM_SESSION_ID|WINDOWID) continue ;;
+      '') continue ;;
+      *) export "${key}=${value}" 2>/dev/null || true ;;
+    esac
+  done < "${STATE_DIR}/env.snapshot"
+fi
+
+# Set this pane's correct TMUX_PANE identity (not the parent's %0)
+export TMUX_PANE="%${PANE_NUM}"
+
+# Record Zellij pane ID for kill-pane support
+if [ -n "${ZELLIJ_PANE_ID:-}" ]; then
+  echo "${ZELLIJ_PANE_ID}" > "${STATE_DIR}/pane_${PANE_NUM}.zellij_id"
+fi
+
+# Record our PID
+echo "$$" > "${STATE_DIR}/pane_${PANE_NUM}.pid"
+
+# Signal readiness
+touch "${STATE_DIR}/pane_${PANE_NUM}.ready"
+
+# Cleanup on exit
+cleanup() {
+  rm -f "${STATE_DIR}/pane_${PANE_NUM}.pid" 2>/dev/null || true
+  rm -f "${STATE_DIR}/pane_${PANE_NUM}.ready" 2>/dev/null || true
+  rm -f "${STATE_DIR}/pane_${PANE_NUM}.fifo" 2>/dev/null || true
+  rm -f "${STATE_DIR}/pane_${PANE_NUM}.zellij_id" 2>/dev/null || true
+  rmdir "${STATE_DIR}/pane_${PANE_NUM}.lock" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+# Read command from FIFO (blocks until shim writes to it)
+cmd=$(cat "${FIFO}" 2>/dev/null) || exit 0
+
+if [ -z "${cmd}" ]; then
+  exit 0
+fi
+
+# Execute the command — when it exits, the pane closes (--close-on-exit)
+eval "${cmd}"
