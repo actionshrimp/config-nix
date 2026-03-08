@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# zelcld: Zellij compatibility shim for Claude Code agent teams
+# Fakes tmux so Claude Code's --teammate-mode tmux works inside Zellij.
+
+if [ -z "${ZELLIJ:-}" ]; then
+  echo "zelcld: must be run inside a Zellij session" >&2
+  exit 1
+fi
+
+if [ -n "${ZELCLD_ACTIVE:-}" ]; then
+  echo "zelcld: already active in this session" >&2
+  exit 1
+fi
+
+# Derive a session name from the Zellij session
+SESSION_NAME="zelcld-$$"
+STATE_DIR="${HOME}/.local/state/zelcld/${SESSION_NAME}"
+mkdir -p "${STATE_DIR}"
+
+# Save the real tmux path so the shim can find it if needed
+REAL_TMUX="$(command -v tmux 2>/dev/null || true)"
+if [ -n "${REAL_TMUX}" ]; then
+  echo "${REAL_TMUX}" > "${STATE_DIR}/real_tmux"
+fi
+
+# Snapshot environment for child panes to restore
+env > "${STATE_DIR}/env.snapshot"
+
+# Shim directory (contains our fake tmux)
+SHIM_DIR="$(cd "$(dirname "$0")/zelcld-shims" && pwd)"
+
+# Cleanup on exit
+cleanup() {
+  # Kill any child panes we spawned
+  for pidfile in "${STATE_DIR}"/pane_*.pid; do
+    [ -f "${pidfile}" ] || continue
+    local pid
+    pid=$(cat "${pidfile}" 2>/dev/null) || continue
+    kill "${pid}" 2>/dev/null || true
+  done
+  rm -rf "${STATE_DIR}"
+}
+trap cleanup EXIT
+
+# Export environment for the shim and Claude Code
+export TMUX="zelcld-shim:${STATE_DIR}:0"
+export TMUX_PANE="%0"
+export ZELCLD_ACTIVE=1
+export ZELCLD_STATE="${STATE_DIR}"
+export ZELCLD_SESSION="${SESSION_NAME}"
+export ZELCLD_SHIM_DIR="${SHIM_DIR}"
+
+# Prepend shim dir to PATH so our fake tmux is found first
+export PATH="${SHIM_DIR}:${PATH}"
+
+# Mark session as existing
+touch "${STATE_DIR}/session"
+
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+exec claude --teammate-mode tmux "$@"

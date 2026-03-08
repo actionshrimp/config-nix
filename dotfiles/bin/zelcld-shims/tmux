@@ -1,0 +1,413 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# zelcld tmux shim: intercepts tmux commands from Claude Code and
+# translates them into Zellij operations.
+
+STATE_DIR="${ZELCLD_STATE:?zelcld tmux shim: ZELCLD_STATE not set}"
+SESSION_NAME="${ZELCLD_SESSION:-zelcld}"
+
+# Debug logging
+log() {
+  if [ "${ZELCLD_DEBUG:-}" = "1" ]; then
+    echo "[$(date '+%H:%M:%S.%N')] $*" >> "${STATE_DIR}/shim.log"
+  fi
+}
+
+log "tmux called with: $*"
+
+# --- Pane ID allocation (atomic via mkdir) ---
+allocate_pane_id() {
+  local n=1
+  while true; do
+    if mkdir "${STATE_DIR}/pane_${n}.lock" 2>/dev/null; then
+      echo "${n}"
+      return
+    fi
+    n=$((n + 1))
+  done
+}
+
+# --- Extract pane number from target like %N ---
+parse_pane_target() {
+  local target="$1"
+  # Strip leading % if present
+  target="${target#%}"
+  # Strip session:window. prefix if present (e.g. "sess:@0.%3" -> "3")
+  target="${target##*.%}"
+  target="${target##*%}"
+  # Also handle bare "sess:%3"
+  target="${target##*:}"
+  target="${target#%}"
+  echo "${target}"
+}
+
+# --- Wait for pane to be ready ---
+wait_for_pane() {
+  local pane_num="$1"
+  local timeout=10
+  local elapsed=0
+  while [ ! -f "${STATE_DIR}/pane_${pane_num}.ready" ]; do
+    sleep 0.1
+    elapsed=$((elapsed + 1))
+    if [ "${elapsed}" -ge $((timeout * 10)) ]; then
+      log "timeout waiting for pane ${pane_num} to be ready"
+      return 1
+    fi
+  done
+  return 0
+}
+
+# --- Command dispatch ---
+
+# No arguments: Claude sometimes calls bare `tmux` to check it exists
+if [ $# -eq 0 ]; then
+  exit 0
+fi
+
+CMD="$1"
+shift
+
+case "${CMD}" in
+
+  # --- Version ---
+  -V)
+    echo "tmux 3.5"
+    exit 0
+    ;;
+
+  # --- display-message ---
+  display-message)
+    # Parse flags
+    local_print=""
+    format=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -p) local_print=1; shift ;;
+        -t) shift; shift ;;  # skip target
+        *)
+          format="$1"; shift ;;
+      esac
+    done
+    if [ -n "${local_print}" ]; then
+      # Substitute all known tmux variables in the format string
+      result="${format}"
+      result="${result//\#\{pane_id\}/${TMUX_PANE:-"%0"}}"
+      result="${result//\#\{pane_pid\}/$$}"
+      result="${result//\#\{pane_tty\}//dev/null}"
+      result="${result//\#\{pane_active\}/1}"
+      result="${result//\#\{session_name\}/${SESSION_NAME}}"
+      result="${result//\#\{window_id\}/@0}"
+      result="${result//\#\{window_index\}/0}"
+      result="${result//\#\{window_name\}/main}"
+      echo "${result}"
+    fi
+    exit 0
+    ;;
+
+  # --- has-session ---
+  has-session)
+    # Parse -t target
+    target=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -t) shift; target="${1:-}"; shift ;;
+        *) shift ;;
+      esac
+    done
+    if [ -f "${STATE_DIR}/session" ]; then
+      exit 0
+    else
+      exit 1
+    fi
+    ;;
+
+  # --- new-session ---
+  new-session)
+    # Just record that the session exists
+    touch "${STATE_DIR}/session"
+    log "new-session created"
+    exit 0
+    ;;
+
+  # --- split-window ---
+  split-window)
+    target=""
+    shell_cmd=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -h|-v) shift ;;  # direction ignored — we control layout
+        -d) shift ;;  # detached - we handle this anyway
+        -t) shift; target="${1:-}"; shift ;;
+        -P) shift ;;
+        -F) shift; shift ;;  # skip format
+        -l) shift; shift ;;  # skip size
+        -p) shift; shift ;;  # skip percentage
+        -e) shift ;;  # skip env
+        --) shift; break ;;
+        -*)
+          # Skip unknown single flags
+          shift ;;
+        *)
+          # Remaining args are the command
+          break
+          ;;
+      esac
+    done
+    # Anything left is the shell command
+    if [ $# -gt 0 ]; then
+      shell_cmd="$*"
+    fi
+
+    PANE_NUM=$(allocate_pane_id)
+    FIFO="${STATE_DIR}/pane_${PANE_NUM}.fifo"
+    mkfifo "${FIFO}"
+
+    # Layout: first agent pane splits right, subsequent ones stack downward
+    # in the agent column (matching tmux's built-in behavior)
+    existing_panes=$(find "${STATE_DIR}" -name "pane_*.pid" 2>/dev/null | wc -l | tr -d ' ')
+    if [ "${existing_panes}" -eq 0 ]; then
+      direction="right"
+    else
+      # Move focus into the agent column before splitting down
+      zellij action move-focus right 2>/dev/null || true
+      direction="down"
+    fi
+
+    log "split-window: pane=%${PANE_NUM} direction=${direction} existing=${existing_panes} cmd=${shell_cmd}"
+
+    # Launch pane in Zellij
+    zellij action new-pane --close-on-exit --direction "${direction}" -- \
+      "${ZELCLD_SHIM_DIR}/zelcld-pane-wrapper" "${PANE_NUM}" "${STATE_DIR}" &
+    disown
+
+    # Wait for the pane wrapper to signal ready
+    wait_for_pane "${PANE_NUM}"
+
+    # If Claude passed a command to run, send it via the FIFO
+    if [ -n "${shell_cmd}" ]; then
+      echo "${shell_cmd}" > "${FIFO}"
+    fi
+
+    echo "%${PANE_NUM}"
+    exit 0
+    ;;
+
+  # --- send-keys ---
+  send-keys)
+    target=""
+    # Collect all args
+    args=()
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -t) shift; target="${1:-}"; shift ;;
+        -l) shift ;;  # literal flag, ignore
+        *) args+=("$1"); shift ;;
+      esac
+    done
+
+    if [ -z "${target}" ]; then
+      log "send-keys: no target specified"
+      exit 0
+    fi
+
+    PANE_NUM=$(parse_pane_target "${target}")
+    FIFO="${STATE_DIR}/pane_${PANE_NUM}.fifo"
+
+    if [ ! -p "${FIFO}" ]; then
+      log "send-keys: FIFO not found for pane ${PANE_NUM}"
+      exit 1
+    fi
+
+    # Reconstruct the text to send
+    text=""
+    for arg in "${args[@]}"; do
+      case "${arg}" in
+        Enter|enter)
+          text+=$'\n'
+          ;;
+        C-c)
+          text+=$'\x03'
+          ;;
+        C-d)
+          text+=$'\x04'
+          ;;
+        C-z)
+          text+=$'\x1a'
+          ;;
+        Space)
+          text+=" "
+          ;;
+        Tab)
+          text+=$'\t'
+          ;;
+        Escape)
+          text+=$'\x1b'
+          ;;
+        BSpace)
+          text+=$'\x7f'
+          ;;
+        *)
+          text+="${arg}"
+          ;;
+      esac
+    done
+
+    log "send-keys: pane=%${PANE_NUM} text=$(echo -n "${text}" | head -c 100)"
+
+    # Write to FIFO (non-blocking: if pane is dead, don't hang)
+    echo -n "${text}" > "${FIFO}" &
+    WRITE_PID=$!
+    # Give it a moment, then check if write completed
+    sleep 0.5
+    if kill -0 "${WRITE_PID}" 2>/dev/null; then
+      # Still running - pane might be dead
+      kill "${WRITE_PID}" 2>/dev/null || true
+      log "send-keys: write to FIFO timed out for pane ${PANE_NUM}"
+    fi
+    wait "${WRITE_PID}" 2>/dev/null || true
+    exit 0
+    ;;
+
+  # --- kill-pane ---
+  kill-pane)
+    target=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -t) shift; target="${1:-}"; shift ;;
+        *) shift ;;
+      esac
+    done
+
+    if [ -z "${target}" ]; then
+      exit 0
+    fi
+
+    PANE_NUM=$(parse_pane_target "${target}")
+    log "kill-pane: pane=%${PANE_NUM}"
+
+    # Kill via PID
+    if [ -f "${STATE_DIR}/pane_${PANE_NUM}.pid" ]; then
+      pid=$(cat "${STATE_DIR}/pane_${PANE_NUM}.pid")
+      kill "${pid}" 2>/dev/null || true
+    fi
+
+    # Also try closing the Zellij pane
+    if [ -f "${STATE_DIR}/pane_${PANE_NUM}.zellij_id" ]; then
+      zid=$(cat "${STATE_DIR}/pane_${PANE_NUM}.zellij_id")
+      zellij action close-pane --pane-id "${zid}" 2>/dev/null || true
+    fi
+
+    # Cleanup state files
+    rm -f "${STATE_DIR}"/pane_"${PANE_NUM}".* 2>/dev/null || true
+    rmdir "${STATE_DIR}/pane_${PANE_NUM}.lock" 2>/dev/null || true
+    exit 0
+    ;;
+
+  # --- list-panes ---
+  list-panes)
+    # Parse format string
+    format=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -F) shift; format="${1:-}"; shift ;;
+        -f) shift; shift ;;  # skip filter
+        -t) shift; shift ;;
+        -a) shift ;;
+        -s) shift ;;
+        *) shift ;;
+      esac
+    done
+
+    # Enumerate panes
+    for pidfile in "${STATE_DIR}"/pane_*.pid; do
+      [ -f "${pidfile}" ] || continue
+      pane_num=$(basename "${pidfile}" .pid)
+      pane_num="${pane_num#pane_}"
+      pid=$(cat "${pidfile}" 2>/dev/null) || continue
+
+      # Check if alive
+      if ! kill -0 "${pid}" 2>/dev/null; then
+        continue
+      fi
+
+      # Format output based on requested format
+      if [ -n "${format}" ]; then
+        line="${format}"
+        line="${line//\#\{pane_id\}/%${pane_num}}"
+        line="${line//\#\{pane_pid\}/${pid}}"
+        line="${line//\#\{pane_active\}/0}"
+        line="${line//\#\{pane_title\}/}"
+        line="${line//\#\{pane_tty\}//dev/null}"
+        line="${line//\#\{window_id\}/@0}"
+        line="${line//\#\{window_index\}/0}"
+        line="${line//\#\{session_name\}/${SESSION_NAME}}"
+        echo "${line}"
+      else
+        echo "%${pane_num}: [alive] (pid ${pid})"
+      fi
+    done
+
+    # Also include %0 (the main pane) if nothing else matched or for completeness
+    if [ -n "${format}" ]; then
+      line="${format}"
+      line="${line//\#\{pane_id\}/%0}"
+      line="${line//\#\{pane_pid\}/$$}"
+      line="${line//\#\{pane_active\}/1}"
+      line="${line//\#\{pane_title\}/}"
+      line="${line//\#\{pane_tty\}//dev/null}"
+      line="${line//\#\{window_id\}/@0}"
+      line="${line//\#\{window_index\}/0}"
+      line="${line//\#\{session_name\}/${SESSION_NAME}}"
+      echo "${line}"
+    fi
+    exit 0
+    ;;
+
+  # --- list-windows ---
+  list-windows)
+    format=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -F) shift; format="${1:-}"; shift ;;
+        -t) shift; shift ;;
+        *) shift ;;
+      esac
+    done
+    if [ -n "${format}" ]; then
+      line="${format}"
+      line="${line//\#\{window_id\}/@0}"
+      line="${line//\#\{window_index\}/0}"
+      line="${line//\#\{window_name\}/main}"
+      line="${line//\#\{session_name\}/${SESSION_NAME}}"
+      echo "${line}"
+    else
+      echo "0: main (1 panes)"
+    fi
+    exit 0
+    ;;
+
+  # --- list-sessions ---
+  list-sessions)
+    echo "${SESSION_NAME}: 1 windows (created $(date))"
+    exit 0
+    ;;
+
+  # --- No-ops: commands Claude may send that we can safely ignore ---
+  select-layout|resize-pane|set-option|set-window-option|\
+  bind-key|unbind-key|select-pane|select-window|\
+  move-window|swap-pane|swap-window|rename-window|\
+  rename-session|set-environment|last-pane|next-window|\
+  previous-window|last-window|respawn-pane|pipe-pane|\
+  capture-pane|show-options|show-window-options)
+    log "no-op: ${CMD} $*"
+    exit 0
+    ;;
+
+  # --- Catch-all ---
+  *)
+    log "unhandled: ${CMD} $*"
+    # Don't fail on unknown commands - just no-op
+    exit 0
+    ;;
+esac

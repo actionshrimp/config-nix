@@ -94,7 +94,7 @@
     EDITOR = "vim";
   };
 
-  home.sessionPath = [ "/usr/local/bin" ];
+  home.sessionPath = [ "/usr/local/bin" "${config.home.homeDirectory}/config-nix/dotfiles/bin" ];
 
   programs.carapace = {
     enable = true;
@@ -349,7 +349,7 @@
       k9sc = "k9s -c context";
       pr = "review-pr";
       tt = "zellij action rename-tab";
-      clc = "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude --dangerously-skip-permissions";
+      clc = "if [ -n \"$ZELLIJ\" ]; then zelcld --dangerously-skip-permissions; else claude --dangerously-skip-permissions; fi";
     };
     history = {
       size = 10000000;
