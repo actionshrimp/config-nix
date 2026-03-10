@@ -75,6 +75,7 @@
       "gemini-cli"
       "rbenv"
       "tailwindcss-language-server"
+      "worktrunk"
       "terminal-notifier"
       "tailscale"
     ];
