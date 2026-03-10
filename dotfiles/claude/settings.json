@@ -16,29 +16,6 @@
           }
         ]
       }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/context-monitor.sh",
-            "timeout": 2000
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "matcher": "auto",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/context-compact-warning.sh",
-            "timeout": 2000
-          }
-        ]
-      }
     ]
   },
   "statusLine": {
