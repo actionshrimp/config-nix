@@ -35,6 +35,7 @@
     imagemagick
     ghostscript
     jnettop
+    jre
     jq
     k9s
     killall
@@ -92,6 +93,7 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
+    JAVA_HOME = "${pkgs.jre}";
   };
 
   home.sessionPath = [ "/usr/local/bin" "${config.home.homeDirectory}/config-nix/dotfiles/bin" ];
@@ -240,6 +242,10 @@
 
   home.file.".claude" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude";
+  };
+
+  home.file.".config/direnv/direnvrc" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/direnv/direnvrc";
   };
 
   home.file.".config/ghostty/config" = {
