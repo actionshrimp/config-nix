@@ -2,7 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "DISABLE_AUTOUPDATER": "1",
-    "ENABLE_LSP_TOOL": "true"
+    "ENABLE_LSP_TOOL": "true",
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   },
   "includeCoAuthoredBy": false,
   "hooks": {
@@ -45,10 +46,11 @@
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": false,
     "lua-lsp@claude-plugins-official": true,
     "dev-browser@dev-browser-marketplace": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true
 }
