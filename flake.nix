@@ -32,6 +32,11 @@
       url = "github:numtide/flake-utils";
     };
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     config-nix-private.url = "git+file:///Users/dave/config-nix-private";
     # or "git+ssh://git@github.com/actionshrimp/config-nix-private";
   };
@@ -43,6 +48,7 @@
       nixpkgs,
       nixos-wsl,
       nix-direnv,
+      llm-agents,
       flake-utils,
       config-nix-private ? {
         additionalSessionVariables = {
@@ -63,7 +69,17 @@
           (self: super: {
             nix-direnv = nix-direnv.packages.${system}.default;
           })
-        ];
+        ]
+        ++ (
+          if llm-agents.packages ? ${system} then
+            [
+              (self: super: {
+                pi = llm-agents.packages.${system}.pi;
+              })
+            ]
+          else
+            [ ]
+        );
 
       homeManagerModule =
         { homeConfig, ... }@hostConfig:
