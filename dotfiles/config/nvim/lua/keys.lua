@@ -26,6 +26,7 @@ M.plugins = function()
             { "<leader>a", group = "Apps" },
             { "<leader>aa", group = "Avante" },
             { "<leader>ac", group = "Claude Code" },
+            { "<leader>ap", group = "Pi" },
             {
               "<leader>acc",
               function()
@@ -119,6 +120,73 @@ M.plugins = function()
             },
             {
               "<leader>acf",
+              function()
+                require("sidekick.cli").send({ msg = "{file}" })
+              end,
+              desc = "Send File",
+            },
+
+            {
+              "<leader>app",
+              function()
+                require("sidekick.cli").toggle({ name = "pi", focus = true })
+              end,
+              desc = "Pi",
+            },
+            { "<leader>apn", group = "Pis" },
+            {
+              "<leader>apn1",
+              function()
+                require("sidekick.cli").toggle({ name = "pi", focus = true })
+              end,
+              desc = "Pi 1",
+            },
+            {
+              "<leader>apn2",
+              function()
+                require("sidekick.cli").toggle({ name = "pi_2", focus = true })
+              end,
+              desc = "Pi 2",
+            },
+            {
+              "<leader>apn3",
+              function()
+                require("sidekick.cli").toggle({ name = "pi_3", focus = true })
+              end,
+              desc = "Pi 3",
+            },
+            {
+              "<leader>aps",
+              function()
+                require("sidekick.cli").select()
+              end,
+              desc = "Select CLI",
+            },
+            {
+              "<leader>apd",
+              function()
+                require("sidekick.cli").close()
+              end,
+              desc = "Detach a CLI Session",
+            },
+            {
+              "<leader>apv",
+              function()
+                require("sidekick.cli").send({ msg = "{selection}" })
+              end,
+              mode = { "x" },
+              desc = "Send Visual Selection",
+            },
+            {
+              "<leader>apt",
+              function()
+                require("sidekick.cli").send({ msg = "{this}" })
+              end,
+              mode = { "x", "n" },
+              desc = "Send This",
+            },
+            {
+              "<leader>apf",
               function()
                 require("sidekick.cli").send({ msg = "{file}" })
               end,
