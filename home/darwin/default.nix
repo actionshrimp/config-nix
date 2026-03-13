@@ -92,27 +92,32 @@
         "3" = "built-in";
         "4" = [
           "lg hdr 4k"
-          "dell"
+          "DELL U2725QE \\(1\\)"
         ];
         "5" = [
           "lg hdr 4k"
+          "DELL U2725QE \\(1\\)"
           "dell"
         ];
         "6" = [
           "lg hdr 4k"
+          "DELL U2725QE \\(1\\)"
           "dell"
         ];
         "7" = [
           "27gl850"
+          "DELL U2725QE \\(2\\)"
           "dell"
         ];
 
         "8" = [
           "27gl850"
+          "DELL U2725QE \\(2\\)"
           "dell"
         ];
         "9" = [
           "27gl850"
+          "DELL U2725QE \\(2\\)"
           "dell"
         ];
       };
