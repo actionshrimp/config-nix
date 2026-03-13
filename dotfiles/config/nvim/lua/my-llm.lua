@@ -27,6 +27,9 @@ M.plugins = function()
               claude_yolo = { cmd = { "claude", "--dangerously-skip-permissions" } },
               claude_yolo_2 = { cmd = { "claude", "--dangerously-skip-permissions" } },
               claude_yolo_3 = { cmd = { "claude", "--dangerously-skip-permissions" } },
+              pi = { cmd = { "pi" } },
+              pi_2 = { cmd = { "pi" } },
+              pi_3 = { cmd = { "pi" } },
             },
             mux = {
               backend = "zellij",
