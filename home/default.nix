@@ -446,13 +446,6 @@
       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
       [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-      wt() {
-        python3 "scripts/worktree.py" "$@"
-        if [ $? -eq 0 ] && [ -f ".worktree_path" ]; then
-          cd "$(cat ".worktree_path")"
-          rm "../../.worktree_path"
-        fi
-      }
     '';
   };
 
