@@ -245,6 +245,10 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude";
   };
 
+  home.file.".pi" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/pi";
+  };
+
   home.file.".config/direnv/direnvrc" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/direnv/direnvrc";
   };

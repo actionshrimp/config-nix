@@ -1,0 +1,4 @@
+# Keep Pi runtime state out of version control.
+agent/auth.json
+agent/sessions/
+agent/*.lock
