@@ -42,7 +42,10 @@ in
     (
       { lib, ... }:
       {
-        homebrew.brews = lib.mkAfter [ "dvc" ];
+        homebrew.brews = lib.mkAfter [
+          "dvc"
+          "schpet/tap/linear"
+        ];
         homebrew.casks = lib.mkAfter [ ];
         homebrew.taps = lib.mkAfter [ ];
       }
