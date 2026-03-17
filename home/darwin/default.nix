@@ -121,6 +121,14 @@
           "dell"
         ];
       };
+      on-window-detected = [
+        {
+          "if" = {
+            app-id = "com.apple.finder";
+          };
+          run = "layout floating";
+        }
+      ];
       on-focused-monitor-changed = [ ];
     };
   };
