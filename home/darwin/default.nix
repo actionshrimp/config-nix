@@ -128,6 +128,12 @@
           };
           run = "layout floating";
         }
+        {
+          "if" = {
+            app-id = "com.cleanshot.mac";
+          };
+          run = "layout floating";
+        }
       ];
       on-focused-monitor-changed = [ ];
     };
