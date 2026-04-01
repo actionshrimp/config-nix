@@ -49,7 +49,7 @@
     lua
     mc
     mkcert
-    mise
+
     moreutils
     ncdu
     nil
@@ -82,6 +82,7 @@
     typescript-language-server
     vscode-js-debug
     watch
+    watchexec
     # wezterm - moved to brew
     wget
     xclip
@@ -97,7 +98,10 @@
     JAVA_HOME = "${pkgs.jre}";
   };
 
-  home.sessionPath = [ "/usr/local/bin" "${config.home.homeDirectory}/config-nix/dotfiles/bin" ];
+  home.sessionPath = [
+    "/usr/local/bin"
+    "${config.home.homeDirectory}/config-nix/dotfiles/bin"
+  ];
 
   programs.carapace = {
     enable = true;
@@ -222,6 +226,11 @@
   };
 
   programs.keychain = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.mise = {
     enable = true;
     enableZshIntegration = true;
   };

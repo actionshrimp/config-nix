@@ -62,6 +62,7 @@
   # Disable Spotlight indexing
   system.activationScripts.postActivation.text = ''
     mdutil -i off / /System/Volumes/Preboot || true
+    sudo -u dave mdimport /Applications /Users/dave/Applications || true
   '';
 
   homebrew = {
