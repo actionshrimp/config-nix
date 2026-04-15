@@ -148,6 +148,7 @@ local lazy_spec = {
   require("my-terminal").plugins(),
   require("my-debugger").plugins(),
   require("my-emoji").plugins(),
+  require("lang/markdown").plugins(),
 }
 
 require("lazy").setup({
@@ -187,3 +188,4 @@ require("lang/terraform").init()
 require("my-terminal").init()
 require("my-neovide").init()
 require("lang/swift").init()
+require("lang/markdown").init()
