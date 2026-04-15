@@ -134,6 +134,12 @@
           };
           run = "layout floating";
         }
+        {
+          "if" = {
+            app-id = "com.github.Electron";
+          };
+          run = "move-node-to-workspace 9";
+        }
       ];
       on-focused-monitor-changed = [ ];
     };
