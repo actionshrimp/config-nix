@@ -61,7 +61,6 @@
     nodePackages.vscode-json-languageserver
     nodejs_22
     nurl
-    ollama
     pi
     (lib.hiPrio parallel)
     postgresql
