@@ -12,7 +12,6 @@
 {
   # completion should work in here thanks to "with pkgs;"
   home.packages = with pkgs; [
-    aider-chat
     awscli2
     bash-language-server
     bun
@@ -61,7 +60,6 @@
     nodePackages.vscode-json-languageserver
     nodejs_22
     nurl
-    pi
     (lib.hiPrio parallel)
     postgresql
     uv
@@ -225,11 +223,6 @@
   };
 
   programs.keychain = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.mise = {
     enable = true;
     enableZshIntegration = true;
   };
