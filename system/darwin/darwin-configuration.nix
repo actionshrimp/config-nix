@@ -79,6 +79,7 @@
       "worktrunk"
       "terminal-notifier"
       "tailscale"
+      "mise"
     ];
     casks = [
       "maccy"
