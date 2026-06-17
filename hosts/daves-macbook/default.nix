@@ -45,7 +45,7 @@ in
         homebrew.brews = lib.mkAfter [
           "dvc"
           "schpet/tap/linear"
-          "ollama"
+          "llama.cpp"
         ];
         homebrew.casks = lib.mkAfter [ ];
         homebrew.taps = lib.mkAfter [ ];

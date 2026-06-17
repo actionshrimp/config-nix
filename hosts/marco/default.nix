@@ -36,11 +36,9 @@ in
       { lib, ... }:
       {
         homebrew.brews = lib.mkAfter [
-          "cocoapods"
-          "watchman"
+          "llama.cpp"
         ];
         homebrew.casks = lib.mkAfter [
-          "android-studio"
           "zulu@17"
         ];
         homebrew.taps = lib.mkAfter [ ];

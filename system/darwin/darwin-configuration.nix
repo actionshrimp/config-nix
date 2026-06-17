@@ -72,6 +72,7 @@
       "atlassian/homebrew-acli"
     ];
     brews = [
+      "apfel"
       "atlassian/homebrew-acli/acli"
       "gemini-cli"
       "rbenv"
