@@ -95,10 +95,10 @@ local lazy_spec = {
   },
   require("my-treesitter").plugins(),
   -- require("my-tree").plugins(),
-  { "echasnovski/mini.bracketed", version = "*", opts = {} },
-  { "echasnovski/mini.ai", version = "*", opts = {} },
+  { "nvim-mini/mini.bracketed", version = "*", opts = {} },
+  { "nvim-mini/mini.ai", version = "*", opts = {} },
   {
-    "echasnovski/mini.files",
+    "nvim-mini/mini.files",
     version = "*",
     opts = {
       windows = {
@@ -111,12 +111,13 @@ local lazy_spec = {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
+    init = function()
+      vim.g.nvim_surround_no_visual_mappings = true
+    end,
     config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-        keymaps = {
-          visual = "s",
-        },
+      require("nvim-surround").setup({})
+      vim.keymap.set("x", "s", "<Plug>(nvim-surround-visual)", {
+        desc = "Add a surrounding pair around a visual selection",
       })
     end,
   },
