@@ -44,9 +44,11 @@ in
       { lib, ... }:
       {
         homebrew.brews = lib.mkAfter [
-          "dvc"
           "schpet/tap/linear"
           "llama.cpp"
+          "dopplerhq/cli/doppler"
+          "withgraphite/tap/graphite"
+          "nvm"
         ];
         homebrew.casks = lib.mkAfter [ ];
         homebrew.taps = lib.mkAfter [ ];

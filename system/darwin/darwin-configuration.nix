@@ -71,18 +71,15 @@
     enable = true;
     onActivation.cleanup = "zap";
     taps = [
-      "atlassian/homebrew-acli"
     ];
     brews = [
       "apfel"
-      "atlassian/homebrew-acli/acli"
       "gemini-cli"
       "rbenv"
       "tailwindcss-language-server"
       "worktrunk"
       "terminal-notifier"
       "tailscale"
-      "mise"
     ];
     casks = [
       "maccy"
@@ -91,7 +88,6 @@
       "wezterm@nightly"
       "ghostty@tip"
       "claude-code"
-      "codex"
     ];
   };
 }
