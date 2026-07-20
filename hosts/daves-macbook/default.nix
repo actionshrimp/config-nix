@@ -1,17 +1,19 @@
 config-nix-private:
 let
+  username = "dave.aitken";
+  homeDirectory = "/Users/dave.aitken";
   darwinOpts = {
     hostName = "daves-macbook";
+    inherit username homeDirectory;
     ## Remove for new systems
     nixbldGid = 30000;
   };
 in
 {
   homeConfig = {
-    homeDirectory = "/Users/dave";
+    inherit username homeDirectory;
     stateVersion = "22.05";
     system = "aarch64-darwin";
-    defaultGithubUser = "gn-dave-a";
     homeModules = [
       ../../home/darwin
       (

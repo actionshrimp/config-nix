@@ -1,7 +1,7 @@
 # Local nginx reverse proxy for development.
 # Runs as a launchd service, serves configs from conf.d/ dynamically.
 # Scripts that manage configs live in the project repo, not here.
-{ pkgs, lib, ... }:
+{ pkgs, lib, username, ... }:
 let
   dataDir = "/usr/local/var/gn-nginx";
   confDir = "${dataDir}/conf.d";
@@ -48,7 +48,7 @@ in
   system.activationScripts.postActivation.text = lib.mkAfter ''
     echo "Setting up gn-nginx directories..."
     mkdir -p ${confDir} ${certDir} ${logDir}
-    chown -R dave:staff ${dataDir}
+    chown -R ${username}:staff ${dataDir}
     chmod -R 755 ${dataDir}
   '';
 

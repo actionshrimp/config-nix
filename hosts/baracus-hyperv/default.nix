@@ -2,6 +2,7 @@ config-nix-private: {
   system = "x86_64-linux";
   hostName = "baracus-wsl-nixos";
   homeConfig = {
+    username = "dave";
     homeDirectory = "/home/dave";
     stateVersion = "22.05";
     sshKeys = [ "id_ed25519" ] ++ config-nix-private.sshKeys.personal;

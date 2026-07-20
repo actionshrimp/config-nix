@@ -4,6 +4,7 @@
   nixpkgs,
   config,
   lib,
+  username,
   ...
 }:
 {
@@ -22,7 +23,7 @@
       experimental-features = nix-command flakes
       builders-use-substitutes = true
     '';
-    settings.trusted-users = [ "dave" ];
+    settings.trusted-users = [ username ];
     distributedBuilds = true;
 
     settings.substituters = [

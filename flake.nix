@@ -79,7 +79,7 @@
         in
         { ... }@moduleArgs:
         {
-          home.username = "dave";
+          home.username = homeConfig.username;
           home.homeDirectory = homeConfig.homeDirectory;
           home.stateVersion = homeConfig.stateVersion;
           imports = [ common ] ++ homeConfig.homeModules;
@@ -101,15 +101,16 @@
         hostConfig:
         let
           system = "aarch64-darwin";
+          username = hostConfig.homeConfig.username;
         in
         darwin.lib.darwinSystem {
           inherit system;
           modules = hostConfig.darwinModules ++ [
             home-manager.darwinModules.home-manager
-            { home-manager.users.dave = homeManagerModule hostConfig; }
+            { home-manager.users.${username} = homeManagerModule hostConfig; }
           ];
           specialArgs = {
-            inherit nixpkgs;
+            inherit nixpkgs username;
           };
         };
 
@@ -122,9 +123,13 @@
         homeManagerConfiguration:
         let
           system = "x86_64-linux";
+          username = hostConfig.homeConfig.username;
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            inherit username;
+          };
           modules =
             [ (import ./system/common.nix) ]
             ++ (if hostConfig ? hardwareConfiguration then [ hostConfig.hardwareConfiguration ] else [ ])
@@ -136,7 +141,7 @@
               home-manager.nixosModules.home-manager
               {
                 home-manager.useUserPackages = true;
-                home-manager.users.dave = homeManagerConfiguration;
+                home-manager.users.${username} = homeManagerConfiguration;
               }
             ];
         };

@@ -1,5 +1,7 @@
 {
   hostName,
+  username,
+  homeDirectory,
   nixbldGid ? 350,
   ...
 }:
@@ -16,8 +18,8 @@
   system.stateVersion = 5;
 
   users = {
-    users.dave = {
-      home = "/Users/dave";
+    users.${username} = {
+      home = homeDirectory;
     };
   };
 
@@ -46,7 +48,7 @@
   # Using determinate nix instead
   nix.enable = false;
 
-  system.primaryUser = "dave";
+  system.primaryUser = username;
   system.defaults = {
     NSGlobalDomain.InitialKeyRepeat = 20;
     NSGlobalDomain.KeyRepeat = 1;
@@ -62,7 +64,7 @@
   # Disable Spotlight indexing
   system.activationScripts.postActivation.text = ''
     mdutil -i off / /System/Volumes/Preboot || true
-    sudo -u dave mdimport /Applications /Users/dave/Applications || true
+    sudo -u ${username} mdimport /Applications ${homeDirectory}/Applications || true
   '';
 
   homebrew = {

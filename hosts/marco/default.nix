@@ -1,17 +1,19 @@
 config-nix-private:
 let
+  username = "dave";
+  homeDirectory = "/Users/dave";
   darwinOpts = {
     hostName = "marco";
+    inherit username homeDirectory;
     nixbldGid = 30000;
   };
 in
 {
 
   homeConfig = {
-    homeDirectory = "/Users/dave";
+    inherit username homeDirectory;
     stateVersion = "22.05";
     system = "aarch64-darwin";
-    defaultGithubUser = "actionshrimp";
     homeModules = [
       ../../home/darwin
       (
