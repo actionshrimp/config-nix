@@ -18,3 +18,9 @@ Finally, go to about:config and set toolkit.legacyUserProfileCustomizations.styl
 #sidebar-header {
     visibility: collapse !important;
 }
+
+/* hides tabs along the top */
+#TabsToolbar
+{
+    visibility: collapse;
+}
