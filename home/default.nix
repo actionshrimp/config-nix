@@ -137,83 +137,18 @@
         # A value of 0 will give some reasonable default, if unset it defaults to 1.
         parallel = 0;
       };
-      safe = {
-        directory = "/Users/dave/dev/gn/goodnotes-5";
-      };
       rebase.autoStash = true;
+      user = {
+        name = "Dave Aitken";
+        email = "dave.aitken@gmail.com";
+        # SSH commit signing with the single actionshrimp key
+        signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+      };
+      gpg.format = "ssh";
+      commit.gpgSign = true;
+      github.user = "actionshrimp";
     };
-    includes = (
-      if homeConfig.defaultGithubUser == "gn-dave-a" then
-        [
-          {
-            path = "${config.home.homeDirectory}/.config/git/config.gn-dave-a";
-          }
-          {
-            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-            condition = "gitdir:~/dev/nvim/";
-          }
-          {
-            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-            condition = "gitdir:~/dev/actionshrimp/";
-          }
-          {
-            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-            condition = "gitdir:~/config-nix/";
-          }
-          {
-            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-            condition = "gitdir:~/config-nix-private/";
-          }
-        ]
-      else
-        [
-          {
-            path = "${config.home.homeDirectory}/.config/git/config.actionshrimp";
-          }
-        ]
-    );
   };
-
-  home.file.".config/git/config.gn-dave-a" = {
-    text = ''
-      [commit]
-          gpgSign = true
-      [core]
-          sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/gn-dave-a.id_ed25519 -o IdentityAgent=none
-      [github]
-          user = gn-dave-a
-      [gpg]
-          program = gpg
-          format = openpgp
-      [user]
-          name = Dave Aitken
-          email = dave.a@goodnotes.com
-          signingkey = 3F92E3893C4349DD
-    '';
-  };
-
-  home.file.".config/git/config.actionshrimp" =
-    let
-      signingKey =
-        if homeConfig.defaultGithubUser == "gn-dave-a" then "0x4C030895BE1EEBE1" else "0xFE09FD0729375918";
-    in
-    {
-      text = ''
-        [commit]
-            gpgSign = true
-        [core]
-            sshCommand = ssh -i ${config.home.homeDirectory}/.ssh/actionshrimp.id_ed25519 -o IdentityAgent=none
-        [github]
-            user = actionshrimp
-        [gpg]
-            program = gpg
-            format = openpgp
-        [user]
-            name = Dave Aitken
-            email = dave.aitken@gmail.com
-            signingkey = ${signingKey}
-      '';
-    };
 
   programs.gpg = {
     enable = true;
@@ -357,7 +292,6 @@
       kcc = "kubectl config current-context";
       gbi = "git config --local blame.ignoreRevsFile .git-blame-ignore-revs";
       nrl = "direnv reload && nix-direnv-reload |& nom --json";
-      gn = "cd ~/dev/gn/goodnotes-5";
       k9sc = "k9s -c context";
       pr = "review-pr";
       tt = "zellij action rename-tab";
