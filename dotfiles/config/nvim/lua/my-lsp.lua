@@ -17,7 +17,7 @@ M.plugins = function()
       },
     },
     { "neovim/nvim-lspconfig" },
-    { "jose-elias-alvarez/null-ls.nvim" },
+    { "none-ls.nvim", dev = true },
     {
       "utilyre/barbecue.nvim",
       name = "barbecue",
