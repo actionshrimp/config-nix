@@ -32,7 +32,8 @@
       url = "github:numtide/flake-utils";
     };
 
-    config-nix-private.url = "git+file:///Users/dave/config-nix-private";
+    # relative to this flake's dir; resolves as long as `nix` is run from inside config-nix
+    config-nix-private.url = "git+file:../config-nix-private";
     # or "git+ssh://git@github.com/actionshrimp/config-nix-private";
   };
 

@@ -12,11 +12,11 @@
         "rev": "5a72a9ae559bffb0960475be64c592d63172a110",
         "revCount": 23,
         "type": "git",
-        "url": "file:///Users/dave/config-nix-private"
+        "url": "file:../config-nix-private"
       },
       "original": {
         "type": "git",
-        "url": "file:///Users/dave/config-nix-private"
+        "url": "file:../config-nix-private"
       }
     },
     "darwin": {
