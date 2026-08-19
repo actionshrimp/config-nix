@@ -75,6 +75,7 @@
     brews = [
       "apfel"
       "gemini-cli"
+      "herdr" # terminal agent multiplexer, herdr.dev
       "rbenv"
       "tailwindcss-language-server"
       "terminal-notifier"
