@@ -6,11 +6,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1773052952,
-        "narHash": "sha256-UCdudMeVyYUGROywXJFiP3Q6bT+sbc5DvYhzhQIyd4Y=",
+        "lastModified": 1787134866,
+        "narHash": "sha256-qyYvWb/IGOcDb6yJD4Xn6sqb0/8BI5PHiitJ5pRI/Js=",
         "ref": "refs/heads/main",
-        "rev": "5a72a9ae559bffb0960475be64c592d63172a110",
-        "revCount": 23,
+        "rev": "a997779339a3cb2f44da2e8b2b0d08ef8f705e7e",
+        "revCount": 26,
         "type": "git",
         "url": "file:../config-nix-private"
       },

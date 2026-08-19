@@ -16,6 +16,8 @@ in
     system = "aarch64-darwin";
     homeModules = [
       ../../home/darwin
+      # Work claude skills; kept out of the public repo.
+      (config-nix-private.claudeSkills or { })
       (
         { lib, pkgs, ... }:
         {

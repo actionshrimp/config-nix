@@ -188,23 +188,38 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
   };
 
-  home.file.".claude" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude";
+  # ~/.claude holds a lot of runtime state (projects, sessions, plugins), so
+  # link the config in file by file rather than symlinking the whole directory.
+  # That keeps the state out of this repo and, since ~/.claude stays a real
+  # directory, lets home-manager manage individual entries inside it — which is
+  # how config-nix-private contributes the work skills.
+  home.file.".claude/settings.json" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude/settings.json";
   };
 
-  # Work-specific claude skills live in config-nix-private, since this repo is
-  # public. ~/.claude is itself an out-of-store symlink, so home-manager cannot
-  # manage entries inside it; link them in on activation instead. The public
-  # dotfiles/claude/.gitignore ignores the resulting symlinks.
-  home.activation.privateClaudeSkills = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    privateSkills="${config.home.homeDirectory}/config-nix-private/dotfiles/claude/skills"
-    publicSkills="${config.home.homeDirectory}/config-nix/dotfiles/claude/skills"
-    if [ -d "$privateSkills" ]; then
-      for skill in "$privateSkills"/*/; do
-        run ln -sfn "$skill" "$publicSkills/$(basename "$skill")"
-      done
-    fi
-  '';
+  home.file.".claude/statusline.sh" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude/statusline.sh";
+  };
+
+  # Every skill directory in dotfiles/claude/skills, linked out of the live
+  # checkout so edits apply without a rebuild. Adding one needs no change here.
+  # Generated as its own module so it can merge with the home.file entries
+  # written out longhand above.
+  imports = [
+    (
+      { ... }:
+      {
+        home.file = lib.listToAttrs (
+          map (
+            name:
+            lib.nameValuePair ".claude/skills/${name}" {
+              source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude/skills/${name}";
+            }
+          ) (lib.attrNames (lib.filterAttrs (_: type: type == "directory") (builtins.readDir ../dotfiles/claude/skills)))
+        );
+      }
+    )
+  ];
 
   home.file.".pi" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/pi";
