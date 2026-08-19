@@ -46,7 +46,7 @@
   programs.aerospace = {
     enable = true;
     launchd.enable = true;
-    userSettings = {
+    settings = {
       mode.main.binding = {
         alt-1 = "workspace 1";
         alt-2 = "workspace 2";

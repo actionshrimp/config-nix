@@ -55,7 +55,7 @@
     nix-output-monitor
     nix-prefetch-git
     nixd
-    nixfmt-classic
+    nixfmt
     nixpkgs-fmt
     vscode-json-languageserver
     nodejs_22
@@ -173,6 +173,8 @@
     viAlias = true;
     vimAlias = true;
     withPython3 = true;
+    # New default since 26.05; nothing here uses the Ruby provider.
+    withRuby = false;
   };
 
   # The whole ~/.config/nvim is an out-of-store symlink to dotfiles below, so
@@ -246,11 +248,11 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
-      addKeysToAgent = "yes";
-      extraOptions = {
-        UseKeychain = "yes";
-      };
+    # `matchBlocks` (and its camelCase keys) is deprecated in favour of
+    # `settings`, which takes upstream ssh_config(5) directive names verbatim.
+    settings."*" = {
+      AddKeysToAgent = "yes";
+      UseKeychain = "yes";
     };
   };
 
