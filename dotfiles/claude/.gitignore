@@ -15,3 +15,10 @@
 !agents/**
 !skills/
 !skills/**
+
+# Work skills live in config-nix-private (this repo is public); they are
+# symlinked in here by the privateClaudeSkills activation script.
+skills/html-previews
+skills/langfuse-cli
+skills/linear-cli
+skills/stacked-pr-delivery

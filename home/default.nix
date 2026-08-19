@@ -192,6 +192,20 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude";
   };
 
+  # Work-specific claude skills live in config-nix-private, since this repo is
+  # public. ~/.claude is itself an out-of-store symlink, so home-manager cannot
+  # manage entries inside it; link them in on activation instead. The public
+  # dotfiles/claude/.gitignore ignores the resulting symlinks.
+  home.activation.privateClaudeSkills = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    privateSkills="${config.home.homeDirectory}/config-nix-private/dotfiles/claude/skills"
+    publicSkills="${config.home.homeDirectory}/config-nix/dotfiles/claude/skills"
+    if [ -d "$privateSkills" ]; then
+      for skill in "$privateSkills"/*/; do
+        run ln -sfn "$skill" "$publicSkills/$(basename "$skill")"
+      done
+    fi
+  '';
+
   home.file.".pi" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/pi";
   };
