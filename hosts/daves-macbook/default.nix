@@ -49,7 +49,9 @@ in
           "schpet/tap/linear"
           "schpet/tap/envset"
           "llama.cpp"
-          "dopplerhq/cli/doppler"
+          # The dopplerhq/cli tap turned doppler into a cask; homebrew-core
+          # still ships it as a formula, which is what's installed anyway.
+          "doppler"
           "common-fate/granted/granted"
           "nvm"
           "libmagic"
