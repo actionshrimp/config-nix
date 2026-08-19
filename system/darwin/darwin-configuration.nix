@@ -91,6 +91,7 @@
       "scroll-reverser"
       # "claude-code"  -- switched to native install
       "stats" # macOS system monitor in the menu bar
+      "notion-cli" # official Notion CLI, provides `ntn`
     ];
   };
 }
