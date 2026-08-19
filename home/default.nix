@@ -75,6 +75,7 @@
     terraform-lsp
     tflint
     tree
+    tree-sitter # required by nvim-treesitter (main branch) to build parsers
     typos
     typescript-language-server
     vscode-js-debug

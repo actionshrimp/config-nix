@@ -1,92 +1,149 @@
 local M = {}
+
+-- Parsers we want available. The `main` branch has no `ensure_installed`
+-- option; `install()` is asynchronous and a no-op for parsers already present.
+local ensure_installed = {
+  "eex",
+  "elixir",
+  "gleam",
+  "go",
+  "gotmpl",
+  "hcl", -- terraform
+  "heex",
+  "helm",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "markdown_inline", -- fenced code blocks, used by render-markdown.nvim
+  "ocaml",
+  "regex",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+}
+
+-- Filetypes to leave alone: orgmode manages its own parser, highlighting and
+-- indentation.
+local ignore_filetypes = { org = true }
+
+local function on_filetype(ev)
+  if ignore_filetypes[vim.bo[ev.buf].filetype] then
+    return
+  end
+
+  -- Fails when no parser is installed for this filetype, which is fine.
+  if not pcall(vim.treesitter.start, ev.buf) then
+    return
+  end
+
+  vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+end
+
+-- Incremental selection, which the `main` branch no longer provides.
+-- `selections[bufnr]` is the stack of nodes we have grown through, so that
+-- decrementing can walk back down it.
+local selections = {}
+
+local function select_node(node)
+  local srow, scol, erow, ecol = node:range()
+  if ecol == 0 then
+    erow = erow - 1
+    ecol = #vim.api.nvim_buf_get_lines(0, erow, erow + 1, true)[1]
+  end
+
+  vim.cmd("normal! \27")
+  vim.api.nvim_win_set_cursor(0, { srow + 1, scol })
+  vim.cmd("normal! v")
+  vim.api.nvim_win_set_cursor(0, { erow + 1, math.max(ecol - 1, 0) })
+end
+
+local function init_selection()
+  -- get_node() only looks at trees that have already been parsed.
+  local ok, parser = pcall(vim.treesitter.get_parser)
+  if not ok or not parser then
+    return
+  end
+  parser:parse(true)
+
+  local node = vim.treesitter.get_node()
+  if not node then
+    return
+  end
+  selections[vim.api.nvim_get_current_buf()] = { node }
+  select_node(node)
+end
+
+local function node_incremental()
+  local buf = vim.api.nvim_get_current_buf()
+  local stack = selections[buf]
+  if not stack or #stack == 0 then
+    return init_selection()
+  end
+
+  local node = stack[#stack]
+  -- Skip ancestors that cover exactly the same range, so each press visibly
+  -- grows the selection.
+  local parent = node:parent()
+  while parent and vim.deep_equal({ parent:range() }, { node:range() }) do
+    parent = parent:parent()
+  end
+  if not parent then
+    return select_node(node)
+  end
+
+  table.insert(stack, parent)
+  select_node(parent)
+end
+
+local function node_decremental()
+  local buf = vim.api.nvim_get_current_buf()
+  local stack = selections[buf]
+  if not stack or #stack < 2 then
+    return
+  end
+
+  table.remove(stack)
+  select_node(stack[#stack])
+end
+
 M.plugins = function()
   return {
     {
       "nvim-treesitter/nvim-treesitter",
+      branch = "main",
+      -- The `main` branch does not support lazy-loading.
+      lazy = false,
       build = ":TSUpdate",
+      config = function()
+        require("nvim-treesitter").install(ensure_installed)
+
+        -- Highlighting and indentation are opt-in per buffer on `main`.
+        vim.api.nvim_create_autocmd("FileType", {
+          group = vim.api.nvim_create_augroup("my-treesitter", { clear = true }),
+          callback = on_filetype,
+        })
+
+        vim.keymap.set("n", "<cr>", init_selection, { desc = "Treesitter: init selection" })
+        vim.keymap.set("x", "L", node_incremental, { desc = "Treesitter: grow selection" })
+        vim.keymap.set("x", "H", node_decremental, { desc = "Treesitter: shrink selection" })
+      end,
     },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      branch = "main",
       dependencies = { "nvim-treesitter/nvim-treesitter" },
-      config = function()
-        require("nvim-treesitter.configs").setup({
-          modules = {},
-          sync_install = false,
-          ignore_install = { "org" },
-          auto_install = false,
-          ensure_installed = {
-            "eex",
-            "elixir",
-            "gleam",
-            "go",
-            "gotmpl",
-            "hcl", -- terraform
-            "heex",
-            "helm",
-            "javascript",
-            "json",
-            "lua",
-            "markdown",
-            "ocaml",
-            "regex",
-            "tsx",
-            "typescript",
-            "vim",
-            "vimdoc",
-          },
-          highlight = { enable = true },
-          indent = { enable = true },
-          incremental_selection = {
-            enable = true,
-            keymaps = {
-              init_selection = "<cr>",
-              node_incremental = "L",
-              scope_incremental = "J",
-              node_decremental = "H",
-            },
-          },
-          textobjects = {
-            select = {
-              enable = true,
-              --   keymaps = {
-              --     -- You can use the capture groups defined in textobjects.scm
-              --     ["af"] = "@function.outer",
-              --     ["if"] = "@function.inner",
-              --     ["aa"] = "@parameter.outer",
-              --     ["ia"] = "@parameter.inner",
-              --     ["ac"] = "@class.outer",
-              --     -- You can optionally set descriptions to the mappings (used in the desc parameter of
-              --     -- nvim_buf_set_keymap) which plugins like which-key display
-              --     ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-              --     -- You can also use captures from other query groups like `locals.scm`
-              --     ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-              --   },
-              --   -- You can choose the select mode (default is charwise 'v')
-              --   --
-              --   -- Can also be a function which gets passed a table with the keys
-              --   -- * query_string: eg '@function.inner'
-              --   -- * method: eg 'v' or 'o'
-              --   -- and should return the mode ('v', 'V', or '<c-v>') or a table
-              --   -- mapping query_strings to modes.
-              --   selection_modes = {
-              --     ["@parameter.outer"] = "v", -- charwise
-              --     ["@function.outer"] = "V", -- linewise
-              --     ["@class.outer"] = "<c-v>", -- blockwise
-              --   },
-              --   -- If you set this to `true` (default is `false`) then any textobject is
-              --   -- extended to include preceding or succeeding whitespace. Succeeding
-              --   -- whitespace has priority in order to act similarly to eg the built-in
-              --   -- `ap`.
-              --   --
-              --   -- Can also be a function which gets passed a table with the keys
-              --   -- * query_string: eg '@function.inner'
-              --   -- * selection_mode: eg 'v'
-              --   -- and should return true or false
-              --   include_surrounding_whitespace = true,
-            },
-          },
-        })
-      end,
+      opts = {
+        select = {
+          -- Jump forward to the textobject, similar to targets.vim.
+          lookahead = true,
+        },
+      },
+      -- Keymaps use e.g.
+      --   require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+      --   require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+      --   require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
     },
     {
       "Wansmer/treesj",
