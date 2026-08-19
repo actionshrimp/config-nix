@@ -28,7 +28,7 @@ in
             with pkgs;
             [
               binaryen
-              corepack
+              # corepack: nodejs_22 now ships bin/corepack, which collides here
             ]
           );
 

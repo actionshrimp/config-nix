@@ -57,7 +57,7 @@
     nixd
     nixfmt-classic
     nixpkgs-fmt
-    nodePackages.vscode-json-languageserver
+    vscode-json-languageserver
     nodejs_22
     nurl
     (lib.hiPrio parallel)
@@ -173,6 +173,12 @@
     vimAlias = true;
     withPython3 = true;
   };
+
+  # The whole ~/.config/nvim is an out-of-store symlink to dotfiles below, so
+  # home-manager's generated init.lua never took effect anyway. Since 26.05 the
+  # file installer resolves it through the symlink and refuses it as being
+  # outside $HOME, so turn it off explicitly.
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
 
   home.file.".config/nvim" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/nvim";

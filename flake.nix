@@ -5,20 +5,20 @@
   inputs = {
 
     # update from latest version on https://status.nixos.org/
-    # nixpkgs-25.05-darwin
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    # nixpkgs-26.05-darwin
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
     # unstable, used to pull individual packages not yet on the release branch
     # (e.g. worktrunk) via the home overlay below.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -68,7 +68,8 @@
         [
           (self: super: {
             nix-direnv = nix-direnv.packages.${system}.default;
-            # worktrunk isn't on the 25.11 release branch yet; pull from unstable.
+            # 26.05 has worktrunk 0.50.0; unstable tracks it much more closely
+            # (0.74.0), so keep pulling it from there.
             worktrunk = nixpkgs-unstable.legacyPackages.${system}.worktrunk;
           })
         ];

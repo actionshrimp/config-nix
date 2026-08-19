@@ -6,7 +6,8 @@
     pkgs.coreutils
     pkgs.pinentry_mac
     pkgs.iterm2
-    pkgs.stats
+    # pkgs.stats: uncached on 26.05 (pulls the whole Swift toolchain from
+    # source); installed as a homebrew cask instead.
 
     # Alias sed to gsed to appease macos programs that expect gsed as gsed (nvim-spectre) -_-
     (pkgs.buildEnv {
