@@ -72,7 +72,12 @@ local lazy_spec = {
     opts = {
       async = true,
       on_direnv_finished = function()
-        vim.cmd("LspStart")
+        -- nvim 0.12 dropped nvim-lspconfig's :LspStart (lspconfig bails out when
+        -- core's :lsp exists). vim.lsp.enable() already auto-starts clients, so
+        -- all that's needed here is a restart to pick up the new direnv env.
+        if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
+          vim.cmd("lsp restart")
+        end
       end,
     },
   },
