@@ -6,7 +6,6 @@
     "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   },
   "includeCoAuthoredBy": false,
-  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -25,10 +24,10 @@
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": false,
-    "lua-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": false,
     "dev-browser@dev-browser-marketplace": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": false,
+    "gopls-lsp@claude-plugins-official": false
   },
   "effortLevel": "medium",
   "skipDangerousModePermissionPrompt": true,
