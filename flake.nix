@@ -8,6 +8,10 @@
     # nixpkgs-25.05-darwin
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
 
+    # unstable, used to pull individual packages not yet on the release branch
+    # (e.g. worktrunk) via the home overlay below.
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,6 +46,7 @@
       darwin,
       home-manager,
       nixpkgs,
+      nixpkgs-unstable,
       nixos-wsl,
       nix-direnv,
       flake-utils,
@@ -63,6 +68,8 @@
         [
           (self: super: {
             nix-direnv = nix-direnv.packages.${system}.default;
+            # worktrunk isn't on the 25.11 release branch yet; pull from unstable.
+            worktrunk = nixpkgs-unstable.legacyPackages.${system}.worktrunk;
           })
         ];
 

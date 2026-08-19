@@ -77,9 +77,10 @@
       "gemini-cli"
       "rbenv"
       "tailwindcss-language-server"
-      "worktrunk"
       "terminal-notifier"
       "tailscale"
+      "withgraphite/tap/graphite"
+      "pi-coding-agent"
     ];
     casks = [
       "maccy"
@@ -87,7 +88,9 @@
       "nuage" # soundcloud native app
       "wezterm@nightly"
       "ghostty@tip"
-      "claude-code"
+      "scroll-reverser"
+      # "claude-code"  -- switched to native install
+      "stats" # macOS system monitor in the menu bar
     ];
   };
 }

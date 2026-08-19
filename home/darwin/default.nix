@@ -87,21 +87,33 @@
         alt-equal = "resize smart +50";
       };
       workspace-to-monitor-force-assignment = {
-        "1" = "built-in";
-        "2" = "built-in";
-        "3" = "built-in";
+        "1" = [
+          "built-in"
+          "Built-in Retina Display"
+        ];
+        "2" = [
+          "built-in"
+          "Built-in Retina Display"
+        ];
+        "3" = [
+          "built-in"
+          "Built-in Retina Display"
+        ];
         "4" = [
           "lg hdr 4k"
           "DELL U2725QE \\(1\\)"
+          "Dell S2725QC"
         ];
         "5" = [
           "lg hdr 4k"
           "DELL U2725QE \\(1\\)"
+          "Dell S2725QC"
           "dell"
         ];
         "6" = [
           "lg hdr 4k"
           "DELL U2725QE \\(1\\)"
+          "Dell S2725QC"
           "dell"
         ];
         "7" = [

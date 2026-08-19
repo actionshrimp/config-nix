@@ -80,6 +80,7 @@
     vscode-js-debug
     watch
     watchexec
+    worktrunk
     # wezterm - moved to brew
     wget
     xclip
@@ -98,6 +99,7 @@
   home.sessionPath = [
     "/usr/local/bin"
     "${config.home.homeDirectory}/config-nix/dotfiles/bin"
+    "${config.home.homeDirectory}/.local/bin"
   ];
 
   programs.carapace = {
@@ -122,6 +124,9 @@
     ignores = [
       ".DS_Store"
       ".ignore"
+      # Per-worktree agent-instruction symlinks created by worktrunk hooks
+      "CLAUDE.local.md"
+      "AGENTS.local.md"
     ];
     lfs.enable = true;
     settings = {
@@ -283,6 +288,15 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    # Always use the cached dump (-C) and skip the security audit. The audit
+    # stats the entire nix-store fpath on every shell start, adding ~1.8s to
+    # startup. Trade-off: newly-added completions won't appear until the dump is
+    # rebuilt manually (run `compinit` or `rm ~/.zcompdump`). The activation
+    # script below reminds you of this after a switch.
+    completionInit = ''
+      autoload -Uz compinit
+      compinit -C
+    '';
     defaultKeymap = "viins";
     shellAliases = {
       nu = "vim ~/config-nix/hosts/home-common.nix";
@@ -294,6 +308,10 @@
       nrl = "direnv reload && nix-direnv-reload |& nom --json";
       k9sc = "k9s -c context";
       pr = "review-pr";
+      # granted's `assume` must be sourced so it can export AWS creds into the
+      # current shell; it normally appends this alias to ~/.zshrc, but that's
+      # nix-managed/read-only, so we declare it here instead.
+      assume = "source assume";
       tt = "zellij action rename-tab";
       clc = "if [ -n \"$ZELLIJ\" ]; then zelcld --dangerously-skip-permissions; else claude --dangerously-skip-permissions; fi";
     };
@@ -377,12 +395,36 @@
         find .. \( -path '../Crossplatform/*' -or -path '../CommonSwift/*' \) -and -name '*.swift' -and -not -path '*.build*' | entr -rcs 'echo Reloading; echo; ./scripts/updateWasmModule.sh debug'
       }
 
+      # worktrunk (wt) shell integration: wraps `wt` so it can cd/exec in the
+      # current shell (see `wt config shell`). Generated at build time from the
+      # packaged binary so it stays in sync with the installed version without
+      # spawning `wt` on every shell startup.
+      source ${
+        pkgs.runCommand "wt-shell-init.zsh" { } ''
+          ${pkgs.worktrunk}/bin/wt config shell init zsh > $out
+        ''
+      }
+
+      # nvm is installed via Homebrew, so nvm.sh lives under the brew prefix
+      # rather than $NVM_DIR/nvm.sh. NVM_DIR still points at ~/.nvm where nvm
+      # installs the node versions it manages.
       export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+      [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+      [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
     '';
   };
+
+  # zsh startup uses `compinit -C` (see programs.zsh.completionInit) which loads
+  # the cached completion dump without rescanning fpath. If a switch adds new
+  # completions they won't show up until the dump is rebuilt, so remind us.
+  home.activation.compinitReminder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    echo ""
+    echo "NOTE: zsh uses a cached completion dump (compinit -C) for fast startup."
+    echo "      If completions were added, run 'compinit' or 'rm ~/.zcompdump' in a"
+    echo "      new shell to pick them up."
+    echo ""
+  '';
 
   nixpkgs.overlays = homeOverlays;
   nixpkgs.config.allowUnfree = true;
