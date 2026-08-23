@@ -191,6 +191,16 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/wezterm.lua";
   };
 
+  # ~/.config/herdr is herdr's own state directory (sockets, logs, session.json,
+  # plugins.json), so link the config file in on its own rather than symlinking
+  # the directory. The ctrl+h/j/k/l bindings in there point at the herdr plugin
+  # shipped with smart-splits.nvim, which needs a one-time registration:
+  #   herdr plugin link ~/.local/share/nvim/lazy/smart-splits.nvim
+  # That writes to plugins.json, which stays out of this repo as runtime state.
+  home.file.".config/herdr/config.toml" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/herdr/config.toml";
+  };
+
   # ~/.claude holds a lot of runtime state (projects, sessions, plugins), so
   # link the config in file by file rather than symlinking the whole directory.
   # That keeps the state out of this repo and, since ~/.claude stays a real

@@ -1,0 +1,39 @@
+# herdr configuration
+# See `herdr --default-config` for all available options.
+
+# Seamless ctrl+h/j/k/l navigation across herdr panes and Neovim splits,
+# via the plugin shipped with smart-splits.nvim.
+#
+# Linked with:
+#   herdr plugin link ~/.local/share/nvim/lazy/smart-splits.nvim
+#
+# The plugin checks `herdr pane process-info` for the focused pane:
+#  - Vim/Neovim  -> forwards the key so smart-splits handles its own splits,
+#                   calling back into herdr at a split edge
+#  - anything else -> moves herdr focus directly
+#  - no neighbour in that direction -> forwards the key to the running app,
+#                   so shell ctrl+l (clear) / ctrl+h (backspace) still work
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "smart-splits.nvim.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "smart-splits.nvim.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "smart-splits.nvim.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "smart-splits.nvim.right"
+description = "navigate right (vim/herdr)"
