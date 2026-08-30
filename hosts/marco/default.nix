@@ -23,6 +23,7 @@ in
           services.syncthing.enable = true;
           programs.ssh.matchBlocks = config-nix-private.sshConfig.personal;
           programs.keychain.keys = lib.mkAfter [
+            "id_ed25519"
             "0x3F92E3893C4349DD"
           ];
           home.sessionVariables = config-nix-private.additionalSessionVariables.personal;
