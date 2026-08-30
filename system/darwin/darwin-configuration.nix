@@ -76,6 +76,7 @@
       "apfel"
       "gemini-cli"
       "herdr" # terminal agent multiplexer, herdr.dev
+      "tuicr"
       "rbenv"
       "tailwindcss-language-server"
       "terminal-notifier"
