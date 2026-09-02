@@ -15,3 +15,9 @@
 !agents/**
 !skills/
 !skills/**
+
+# Home Manager-generated links to external skills; source lives elsewhere.
+skills/html-previews
+skills/langfuse-cli
+skills/linear-cli
+skills/stacked-pr-delivery

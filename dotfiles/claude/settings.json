@@ -6,6 +6,7 @@
     "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   },
   "includeCoAuthoredBy": false,
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "Notification": [
       {
@@ -13,6 +14,18 @@
           {
             "type": "command",
             "command": "~/.claude/claude-code-notifier.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/dave.aitken/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
           }
         ]
       }
