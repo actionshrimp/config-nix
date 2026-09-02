@@ -1,6 +1,29 @@
 {
   "lastChangelogVersion": "0.84.2",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
-  "theme": "dark"
+  "defaultModel": "gpt-5.6-terra",
+  "theme": "dark",
+  "packages": [
+    "npm:@plannotator/pi-extension",
+    "npm:pi-subagents",
+    "npm:pi-powerline-footer",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-web-tools",
+    "npm:@juicesharp/rpiv-advisor",
+    "npm:@llblab/pi-codex-usage",
+    "npm:pi-effort",
+    "npm:@josephyoung/pi-file-reference"
+  ],
+  "defaultThinkingLevel": "medium",
+  "powerline": {
+    "customItems": [
+      {
+        "id": "codex-usage",
+        "statusKey": "aa-codex-usage",
+        "position": "right",
+        "selfColorize": true
+      }
+    ]
+  }
 }
