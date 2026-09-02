@@ -17,6 +17,7 @@ local ensure_installed = {
   "markdown",
   "markdown_inline", -- fenced code blocks, used by render-markdown.nvim
   "ocaml",
+  "prisma",
   "regex",
   "tsx",
   "typescript",

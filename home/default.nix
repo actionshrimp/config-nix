@@ -128,6 +128,7 @@
       # Per-worktree agent-instruction symlinks created by worktrunk hooks
       "CLAUDE.local.md"
       "AGENTS.local.md"
+      "AGENTS.override.md"
     ];
     lfs.enable = true;
     settings = {
