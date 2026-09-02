@@ -200,6 +200,7 @@
   # That writes to plugins.json, which stays out of this repo as runtime state.
   home.file.".config/herdr/config.toml" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/herdr/config.toml";
+    force = true;
   };
 
   # ~/.claude holds a lot of runtime state (projects, sessions, plugins), so
