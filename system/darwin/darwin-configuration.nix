@@ -85,15 +85,13 @@
       "pi-coding-agent"
     ];
     casks = [
-      "maccy"
       "font-jetbrains-mono-nerd-font"
       "nuage" # soundcloud native app
       "wezterm@nightly"
       "ghostty@tip"
-      "scroll-reverser"
       # "claude-code"  -- switched to native install
-      "stats" # macOS system monitor in the menu bar
       "notion-cli" # official Notion CLI, provides `ntn`
+      "vorssaint"
     ];
   };
 }
