@@ -50,11 +50,12 @@ M.plugins = function()
         keymap = { preset = "default" },
         completion = {
           menu = {
-            -- auto_show = function(ctx)
-            --   return ctx.mode ~= "cmdline"
-            -- end,
+            auto_show = function(ctx)
+              return ctx.mode ~= "cmdline"
+            end,
           },
         },
+        cmdline = { enabled = false },
 
         appearance = {
           -- Sets the fallback highlight groups to nvim-cmp's highlight groups
