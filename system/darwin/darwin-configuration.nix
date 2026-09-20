@@ -71,9 +71,11 @@
     enable = true;
     onActivation.cleanup = "zap";
     taps = [
+      "plannotator/tap"
     ];
     brews = [
       "apfel"
+      "plannotator/tap/plannotator-tui"
       "gemini-cli"
       "herdr" # terminal agent multiplexer, herdr.dev
       "tuicr"
