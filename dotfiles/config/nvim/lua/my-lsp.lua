@@ -17,7 +17,10 @@ M.plugins = function()
       },
     },
     { "neovim/nvim-lspconfig" },
-    { "none-ls.nvim", dev = true },
+    {
+      "nvimtools/none-ls.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+    },
     {
       "utilyre/barbecue.nvim",
       name = "barbecue",
