@@ -5,7 +5,11 @@
     "ENABLE_LSP_TOOL": "true",
     "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   },
-  "includeCoAuthoredBy": false,
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "model": "claude-fable-5-1[1m]",
   "hooks": {
     "Notification": [
