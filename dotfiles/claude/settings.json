@@ -47,6 +47,8 @@
     "gopls-lsp@claude-plugins-official": false
   },
   "effortLevel": "medium",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
   "autoCompactEnabled": false
 }
