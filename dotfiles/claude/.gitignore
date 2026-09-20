@@ -16,8 +16,19 @@
 !skills/
 !skills/**
 
-# Home Manager-generated links to external skills; source lives elsewhere.
+# Work-specific skills do NOT belong in this repo. They reference internal
+# URLs, Doppler projects, Langfuse prompt names, ticket prefixes and
+# colleagues' names, so they live in config-nix-private, whose
+# home/claude-skills.nix links them into ~/.claude/skills. Because
+# ~/.claude/skills resolves back into this working tree, Home Manager writes
+# those links here, so each one needs an entry below to stay untracked.
+#
+# To add a work skill: drop it in config-nix-private/dotfiles/claude/skills/,
+# commit there, `nix flake update config-nix-private`, add a line below.
+skills/ava-local-review
+skills/bos-team-review
 skills/html-previews
 skills/langfuse-cli
 skills/linear-cli
+skills/notion-cli
 skills/stacked-pr-delivery
