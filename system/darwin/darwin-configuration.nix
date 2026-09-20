@@ -80,7 +80,6 @@
       "tailwindcss-language-server"
       "terminal-notifier"
       "tailscale"
-      "withgraphite/tap/graphite"
       "pi-coding-agent"
     ];
     casks = [

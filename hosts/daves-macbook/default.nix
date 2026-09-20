@@ -45,6 +45,7 @@ in
       { lib, ... }:
       {
         homebrew.brews = lib.mkAfter [
+          "withgraphite/tap/graphite"
           "schpet/tap/linear"
           "schpet/tap/envset"
           "llama.cpp"
