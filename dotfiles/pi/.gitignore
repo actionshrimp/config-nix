@@ -5,3 +5,4 @@ agent/missions/
 agent/run-history.jsonl
 agent/trust.json
 agent/*.lock
+agent/powerline-footer/
