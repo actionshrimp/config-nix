@@ -4,7 +4,6 @@
   "defaultModel": "gpt-5.6-sol",
   "theme": "dark",
   "packages": [
-    "npm:@plannotator/pi-extension",
     "npm:pi-subagents",
     "npm:pi-powerline-footer",
     "npm:@juicesharp/rpiv-todo",
