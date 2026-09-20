@@ -152,6 +152,10 @@
         signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
       };
       gpg.format = "ssh";
+      # Lets `git log --show-signature` verify our own commits locally. The
+      # file is generated at activation from whichever key `signingkey` points
+      # at, so it stays correct on hosts using a different key.
+      gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
       commit.gpgSign = true;
       github.user = "actionshrimp";
     };
@@ -464,6 +468,17 @@
 
     '';
   };
+
+  # `gpg.ssh.allowedSignersFile` above needs a real file on disk mapping our
+  # committer email to the signing key. Built here rather than declared as
+  # `home.file` so it picks up the host's actual key.
+  home.activation.gitAllowedSigners = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -f "$HOME/.ssh/id_ed25519.pub" ] && [ -z "''${DRY_RUN:-}" ]; then
+      printf '%s %s\n' "dave.aitken@gmail.com" "$(cat "$HOME/.ssh/id_ed25519.pub")" \
+        > "$HOME/.ssh/allowed_signers"
+      chmod 600 "$HOME/.ssh/allowed_signers"
+    fi
+  '';
 
   # zsh startup uses `compinit -C` (see programs.zsh.completionInit) which loads
   # the cached completion dump without rescanning fpath. If a switch adds new
