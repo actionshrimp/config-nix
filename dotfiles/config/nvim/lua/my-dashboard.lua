@@ -15,28 +15,6 @@ local M = {
         })
       end,
     },
-    {
-      icon = " ",
-      desc = "GN (web)",
-      padding = 1,
-      key = "w",
-      action = function()
-        require("snacks").picker.files({
-          dirs = { "~/dev/gn/goodnotes-5/CrossplatformWeb" },
-        })
-      end,
-    },
-    {
-      icon = " ",
-      desc = "GN (root)",
-      padding = 1,
-      key = "r",
-      action = function()
-        require("snacks").picker.files({
-          dirs = { "~/dev/gn/goodnotes-5" },
-        })
-      end,
-    },
     { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
     { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
     { section = "startup" },
