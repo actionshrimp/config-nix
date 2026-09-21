@@ -6,17 +6,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1787134866,
-        "narHash": "sha256-qyYvWb/IGOcDb6yJD4Xn6sqb0/8BI5PHiitJ5pRI/Js=",
+        "lastModified": 1789917175,
+        "narHash": "sha256-d0UwvQ1BwbitD1LXz118BgdJj4GpLIux2ZvVUlFQibE=",
         "ref": "refs/heads/main",
-        "rev": "a997779339a3cb2f44da2e8b2b0d08ef8f705e7e",
-        "revCount": 26,
+        "rev": "fc8cfdfb2cbe43aad5b9ae7ac09f131e4e8dd269",
+        "revCount": 28,
         "type": "git",
-        "url": "file:../config-nix-private"
+        "url": "ssh://git@github.com/actionshrimp/config-nix-private"
       },
       "original": {
         "type": "git",
-        "url": "file:../config-nix-private"
+        "url": "ssh://git@github.com/actionshrimp/config-nix-private"
       }
     },
     "darwin": {

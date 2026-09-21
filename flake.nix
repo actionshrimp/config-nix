@@ -36,9 +36,13 @@
       url = "github:numtide/flake-utils";
     };
 
-    # relative to this flake's dir; resolves as long as `nix` is run from inside config-nix
-    config-nix-private.url = "git+file:../config-nix-private";
-    # or "git+ssh://git@github.com/actionshrimp/config-nix-private";
+    # Fetched over ssh rather than from a sibling checkout: a relative
+    # git+file: path is resolved against the process working directory, so nix
+    # treats it as an unlocked input and refuses to write flake.lock at all,
+    # silently pinning this input to whatever rev the lock already held.
+    # Commits here must be pushed before they reach a rebuild; edits to files
+    # already linked out of the checkout still apply without one.
+    config-nix-private.url = "git+ssh://git@github.com/actionshrimp/config-nix-private";
   };
 
   outputs =
