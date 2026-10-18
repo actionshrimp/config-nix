@@ -34,3 +34,7 @@ skills/langfuse-cli
 skills/linear-cli
 skills/notion-cli
 skills/stacked-pr-delivery
+
+# Synced from the claude.ai account by Claude Code; runtime state, not config.
+skills/synced/
+skills/.trash/
