@@ -7,6 +7,8 @@
 
 # Track custom scripts
 !statusline.sh
+!hooks/
+!hooks/herdr-agent-state.sh
 
 # Track custom commands, agents, skills
 !commands/

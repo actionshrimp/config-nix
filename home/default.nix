@@ -220,6 +220,13 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude/statusline.sh";
   };
 
+  # Installed by `herdr integration install claude`, which writes an absolute
+  # path into settings.json. Tracked here and referenced via ~ instead, so the
+  # same settings work under both /Users/dave and /Users/dave.aitken.
+  home.file.".claude/hooks/herdr-agent-state.sh" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/claude/hooks/herdr-agent-state.sh";
+  };
+
   # Every skill directory in dotfiles/claude/skills, linked out of the live
   # checkout so edits apply without a rebuild. Adding one needs no change here.
   # Generated as its own module so it can merge with the home.file entries
