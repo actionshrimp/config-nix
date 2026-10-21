@@ -202,6 +202,9 @@
   # shipped with smart-splits.nvim, which needs a one-time registration:
   #   herdr plugin link ~/.local/share/nvim/lazy/smart-splits.nvim
   # That writes to plugins.json, which stays out of this repo as runtime state.
+  # Ovis, the browser/phone client (github.com/devswha/herdr-web-ui), is the
+  # same kind of registration but is installed by the herdrPlugins activation
+  # step below. It serves on http://127.0.0.1:7317 whenever herdr is running.
   home.file.".config/herdr/config.toml" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/config-nix/dotfiles/config/herdr/config.toml";
     force = true;
@@ -484,6 +487,41 @@
       printf '%s %s\n' "dave.aitken@gmail.com" "$(cat "$HOME/.ssh/id_ed25519.pub")" \
         > "$HOME/.ssh/allowed_signers"
       chmod 600 "$HOME/.ssh/allowed_signers"
+    fi
+  '';
+
+  # Herdr plugins fetched from GitHub register themselves in
+  # ~/.config/herdr/plugins.json, which is runtime state rather than something
+  # home.file can declare, so install any that are missing here. Runs after
+  # installPackages so the plugin's build steps see this generation's bun and
+  # node. Skipped where herdr isn't installed (it's a darwin-only brew).
+  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "installPackages" ] ''
+    export PATH="$HOME/.nix-profile/bin:/opt/homebrew/bin:$PATH"
+    if [ -z "''${DRY_RUN:-}" ] && command -v herdr >/dev/null 2>&1; then
+      for plugin in devswha/herdr-web-ui; do
+        id="$(echo "$plugin" | tr '/' '.')"
+        if ! herdr plugin list --json 2>/dev/null | grep -q "\"$id\""; then
+          echo "Installing herdr plugin $plugin"
+          herdr plugin install "$plugin" --yes \
+            || echo "WARNING: herdr plugin install $plugin failed; rerun it by hand"
+        fi
+      done
+    fi
+  '';
+
+  # Publish the herdr web UI on the tailnet as https://<host>.<tailnet>.ts.net/.
+  # `tailscale serve` keeps its config in tailscaled's state, so this is
+  # one-shot per machine; skip when tailscale is missing, not logged in, or
+  # already proxying the port. Only tailnet devices can reach it, and the
+  # plugin lets this machine's own Tailscale login in without pairing.
+  home.activation.herdrWebUiServe = lib.hm.dag.entryAfter [ "herdrPlugins" ] ''
+    export PATH="/opt/homebrew/bin:$PATH"
+    if [ -z "''${DRY_RUN:-}" ] && command -v tailscale >/dev/null 2>&1 \
+      && [ "$(tailscale status --json 2>/dev/null | ${pkgs.jq}/bin/jq -r .BackendState)" = Running ] \
+      && ! tailscale serve status 2>/dev/null | grep -q '127.0.0.1:7317'; then
+      echo "Publishing herdr web UI on the tailnet via tailscale serve"
+      tailscale serve --bg --https=443 http://127.0.0.1:7317 \
+        || echo "WARNING: tailscale serve failed; run it by hand"
     fi
   '';
 

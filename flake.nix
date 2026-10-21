@@ -75,6 +75,8 @@
             # 26.05 has worktrunk 0.50.0; unstable tracks it much more closely
             # (0.74.0), so keep pulling it from there.
             worktrunk = nixpkgs-unstable.legacyPackages.${system}.worktrunk;
+            # Ovis (the herdr-web-ui plugin) needs Bun 1.4+; 26.05 stops at 1.3.
+            bun = nixpkgs-unstable.legacyPackages.${system}.bun;
           })
         ];
 
